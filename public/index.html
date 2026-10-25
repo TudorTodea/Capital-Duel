@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Capital Duel</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📍</text></svg>">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="app">
+  <header id="hud" hidden>
+    <div class="pcard" id="p0"><span class="pname"></span><span class="ptime">60.0</span><span class="pscore"></span></div>
+    <div class="vs">VS</div>
+    <div class="pcard" id="p1"><span class="pname"></span><span class="ptime">60.0</span><span class="pscore"></span></div>
+  </header>
+
+  <main id="stage">
+    <svg id="map"></svg>
+    <div id="toast"></div>
+    <div id="banner"></div>
+  </main>
+
+  <footer id="controls" hidden>
+    <form id="guessForm" autocomplete="off">
+      <div class="guesswrap"><ul id="suggest" hidden></ul><input id="guess" type="text" placeholder="Capital city…" autocapitalize="words" spellcheck="false" enterkeyhint="send"></div>
+      <button type="submit" class="primary">Guess</button>
+      <button type="button" id="skip">Skip</button>
+    </form>
+  </footer>
+
+  <section id="overlay">
+    <div class="card" id="joinCard" hidden>
+      <h1>📍 Capital Duel</h1>
+      <p class="sub">Two players. 60 seconds each. Name the capital.</p>
+      <form id="joinForm">
+        <input id="nameInput" maxlength="20" placeholder="Your name" required autofocus>
+        <button class="primary" type="submit" id="joinBtn">Create room</button>
+      </form>
+      <p class="hint" id="joinHint"></p>
+    </div>
+
+    <div class="card" id="lobbyCard" hidden>
+      <h2>Waiting for opponent…</h2>
+      <p class="sub">Send this link to your friend:</p>
+      <div class="linkrow"><input id="shareLink" readonly><button id="copyBtn" class="primary">Copy</button></div>
+      <div class="dots"><i></i><i></i><i></i></div>
+    </div>
+
+    <div class="card" id="overCard" hidden>
+      <h2 id="overTitle"></h2>
+      <p class="sub" id="overSub"></p>
+      <div class="final" id="finalScore"></div>
+      <button id="rematch" class="primary">Rematch</button>
+      <p class="hint" id="rematchHint"></p>
+    </div>
+
+    <div class="card small" id="msgCard" hidden><h2 id="msgTitle"></h2><p class="sub" id="msgSub"></p></div>
+  </section>
+</div>
+<script src="/vendor/d3.min.js"></script>
+<script src="/vendor/topojson-client.min.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>
