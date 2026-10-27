@@ -17,6 +17,7 @@
 
   <main id="stage">
     <svg id="map"></svg>
+    <div id="flagWrap" hidden><img id="flagImg" alt=""></div>
     <div id="toast"></div>
     <div id="banner"></div>
   </main>
@@ -32,8 +33,12 @@
   <section id="overlay">
     <div class="card" id="joinCard" hidden>
       <h1>📍 Capital Duel</h1>
-      <p class="sub">Two players. 60 seconds each. Name the capital.</p>
+      <p class="sub" id="joinSub">Two players. 60 seconds each. Name the capital.</p>
       <form id="joinForm">
+        <div class="modepick" id="modepick">
+          <button type="button" class="mode active" data-mode="capitals">🌍 Capitals</button>
+          <button type="button" class="mode" data-mode="flags">🚩 Flags</button>
+        </div>
         <input id="nameInput" maxlength="20" placeholder="Your name" required autofocus>
         <button class="primary" type="submit" id="joinBtn">Create room</button>
       </form>

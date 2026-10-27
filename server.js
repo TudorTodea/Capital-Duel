@@ -3,7 +3,8 @@ const path = require("path");
 const express = require("express");
 const { WebSocketServer } = require("ws");
 
-const COUNTRIES = require("./data/capitals.json");
+const COUNTRIES = require("./data/countries.json");
+const MODES = ["capitals", "flags"];
 
 const PORT = process.env.PORT || 3737;
 const START_MS = 60_000;
@@ -14,9 +15,12 @@ const GRACE_MS = 30_000;
 
 const app = express();
 app.use(express.static(path.join(__dirname, "public")));
-// Names only (no country mapping) for the guess autocomplete
-app.get("/api/capitals", (_req, res) =>
-  res.json([...new Set(COUNTRIES.flatMap((c) => c.accept))].sort((a, b) => a.localeCompare(b))));
+// Name lists for the guess autocomplete (no country mapping, so they're not an answer key)
+app.get("/api/names", (_req, res) =>
+  res.json({
+    capitals: [...new Set(COUNTRIES.flatMap((c) => c.capitalAccept))].sort((a, b) => a.localeCompare(b)),
+    countries: [...new Set(COUNTRIES.flatMap((c) => c.countryAccept))].sort((a, b) => a.localeCompare(b)),
+  }));
 // Any /room/xyz or /?room=xyz serves the same page
 app.get("*", (_req, res) => res.sendFile(path.join(__dirname, "public", "index.html")));
 
@@ -40,20 +44,41 @@ function lev(a, b) {
   return dp[a.length][b.length];
 }
 
-for (const c of COUNTRIES) {
+function keysFor(names) {
   const set = new Set();
-  for (const a of c.accept) {
+  for (const a of names) {
     set.add(norm(a));
     set.add(norm(a.replace(/\bcity\b/i, ""))); // "Panama" for "Panama City"
   }
   set.delete("");
-  c.keys = [...set];
+  return [...set];
 }
 
-function isCorrect(country, guess) {
+for (const c of COUNTRIES) {
+  c.capKeys = keysFor(c.capitalAccept);
+  c.countryKeys = keysFor(c.countryAccept);
+}
+
+function isCorrect(keys, guess) {
   const g = norm(guess);
   if (!g) return false;
-  return country.keys.some((k) => k === g || (k.length >= 5 && g.length >= 5 && lev(k, g) <= 1));
+  return keys.some((k) => k === g || (k.length >= 5 && g.length >= 5 && lev(k, g) <= 1));
+}
+
+// Weighted random pick for the Flags mode, so well-known flags come up more often.
+// Falls back to a plain shuffled deck for Capitals (every country is seen equally often).
+const TOTAL_WEIGHT = COUNTRIES.reduce((s, c) => s + c.weight, 0);
+function weightedPick(avoidId) {
+  for (let attempt = 0; attempt < 6; attempt++) {
+    let r = Math.random() * TOTAL_WEIGHT;
+    let pick = COUNTRIES[COUNTRIES.length - 1];
+    for (const c of COUNTRIES) {
+      r -= c.weight;
+      if (r <= 0) { pick = c; break; }
+    }
+    if (pick.id !== avoidId || COUNTRIES.length === 1) return pick;
+  }
+  return COUNTRIES[Math.floor(Math.random() * COUNTRIES.length)];
 }
 
 // ---------- rooms ----------
@@ -74,6 +99,7 @@ function getRoom(id) {
     r = {
       id,
       players: [],
+      mode: "capitals", // capitals | flags — set by the room creator, fixed for the game
       phase: "lobby", // lobby | playing | over
       turn: 0,
       deck: [],
@@ -98,6 +124,7 @@ function clearTimer(r, k) {
 }
 
 function nextCountry(r) {
+  if (r.mode === "flags") return weightedPick(r.current?.id);
   if (!r.deck.length) r.deck = shuffle(COUNTRIES);
   return r.deck.pop();
 }
@@ -107,6 +134,7 @@ function publicState(r, idx) {
   return {
     t: "state",
     room: r.id,
+    mode: r.mode,
     you: idx,
     phase: r.phase,
     paused: r.paused,
@@ -116,7 +144,7 @@ function publicState(r, idx) {
     runningSince: r.runningSince,
     lockedUntil: r.lockedUntil,
     reveal: r.reveal,
-    country: c ? { id: c.id, lat: c.lat, lng: c.lng } : null,
+    country: c ? { id: c.id, cca2: c.cca2, lat: c.lat, lng: c.lng } : null,
     players: r.players.map((p) => ({
       name: p.name,
       connected: !!p.ws,
@@ -150,13 +178,16 @@ function startClockAt(r, at) {
   r.timers.expire = setTimeout(() => timeUp(r), Math.max(0, at + p.remaining - Date.now()) + 5);
 }
 
+const answerOf = (r) => (r.mode === "flags" ? r.current.country : r.current.capital);
+const keysOf = (r) => (r.mode === "flags" ? r.current.countryKeys : r.current.capKeys);
+
 function timeUp(r) {
   if (r.phase !== "playing") return;
   stopClock(r);
   r.players[r.turn].remaining = 0;
   r.phase = "over";
   r.winner = 1 - r.turn;
-  r.reveal = { kind: "timeup", text: r.current.capital };
+  r.reveal = { kind: "timeup", text: answerOf(r) };
   r.lockedUntil = 0;
   clearTimer(r, "skip");
   broadcast(r);
@@ -216,7 +247,7 @@ function handleGuess(r, idx, text) {
   if (r.phase !== "playing" || r.paused || idx !== r.turn) return;
   const now = Date.now();
   if (r.runningSince === null || now < r.runningSince || now < r.lockedUntil) return;
-  if (!isCorrect(r.current, text)) {
+  if (!isCorrect(keysOf(r), text)) {
     r.players[idx].ws?.send(JSON.stringify({ t: "wrong" }));
     return;
   }
@@ -224,7 +255,7 @@ function handleGuess(r, idx, text) {
   const me = r.players[idx];
   if (me.remaining <= 0) return timeUp(r);
   me.score++;
-  r.reveal = { kind: "correct", text: r.current.capital, by: idx };
+  r.reveal = { kind: "correct", text: answerOf(r), by: idx };
   r.turn = 1 - r.turn;
   r.current = nextCountry(r);
   startClockAt(r, Date.now() + TRANSITION_MS);
@@ -236,7 +267,7 @@ function handleSkip(r, idx) {
   const now = Date.now();
   if (r.runningSince === null || now < r.runningSince || now < r.lockedUntil) return;
   r.lockedUntil = now + SKIP_MS;
-  r.reveal = { kind: "skip", text: r.current.capital, by: idx };
+  r.reveal = { kind: "skip", text: answerOf(r), by: idx };
   r.timers.skip = setTimeout(() => {
     delete r.timers.skip;
     if (r.phase !== "playing" || r.paused) return;
@@ -279,6 +310,7 @@ wss.on("connection", (ws) => {
       let i = r.players.findIndex((p) => p.token === token);
       if (i === -1) {
         if (r.players.length >= 2) return ws.send(JSON.stringify({ t: "error", msg: "This room is full." }));
+        if (r.players.length === 0 && MODES.includes(m.mode)) r.mode = m.mode;
         r.players.push({ token, name, ws: null, remaining: START_MS, score: 0, rematch: false });
         i = r.players.length - 1;
       } else {

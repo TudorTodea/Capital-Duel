@@ -20,9 +20,21 @@
   }
 
   $("nameInput").value = (() => { try { return localStorage.getItem("cd-name") || ""; } catch { return ""; } })();
+  let pickedMode = "capitals";
   if (roomId) {
     $("joinBtn").textContent = "Join game";
     $("joinHint").textContent = "You were invited to a game.";
+    $("modepick").hidden = true; // the room creator already chose the mode
+  } else {
+    $("modepick").addEventListener("click", (e) => {
+      const btn = e.target.closest(".mode");
+      if (!btn) return;
+      pickedMode = btn.dataset.mode;
+      [...$("modepick").children].forEach((b) => b.classList.toggle("active", b === btn));
+      $("joinSub").textContent = pickedMode === "flags"
+        ? "Two players. 60 seconds each. Name the country shown."
+        : "Two players. 60 seconds each. Name the capital.";
+    });
   }
   showCard("joinCard");
 
@@ -121,6 +133,18 @@
       .on("end", () => { view = target; place(); });
   }
 
+  // ---------- flag ----------
+  const flagWrap = $("flagWrap"), flagImg = $("flagImg");
+  let shownFlag = null;
+  function showFlag(c) {
+    if (!c) return;
+    shownFlag = c.id;
+    flagImg.style.animation = "none";
+    flagImg.src = `/vendor/flags/4x3/${c.cca2.toLowerCase()}.svg`;
+    void flagImg.offsetWidth;
+    flagImg.style.animation = "";
+  }
+
   // ---------- network ----------
   let ws, state = null, offset = 0, joined = false, myName = "";
 
@@ -130,7 +154,7 @@
     $("msgTitle").textContent = "Connecting…";
     $("msgSub").textContent = "";
     ws = new WebSocket(`${location.protocol === "https:" ? "wss" : "ws"}://${location.host}`);
-    ws.onopen = () => ws.send(JSON.stringify({ t: "join", room: roomId, name: myName, token }));
+    ws.onopen = () => ws.send(JSON.stringify({ t: "join", room: roomId, name: myName, token, mode: pickedMode }));
     ws.onmessage = (ev) => {
       const m = JSON.parse(ev.data);
       if (m.t === "state") {
@@ -200,6 +224,7 @@
     const inGame = s.phase !== "lobby";
     $("hud").hidden = !inGame;
     $("controls").hidden = !inGame;
+    $("guess").placeholder = s.mode === "flags" ? "Country name…" : "Capital city…";
     if (inGame) {
       [0, 1].forEach((i) => {
         const el = $("p" + i);
@@ -209,10 +234,13 @@
       });
     }
 
+    const isFlags = s.mode === "flags";
+    flagWrap.hidden = !isFlags;
+    $("map").style.display = isFlags ? "none" : "";
+    const newRound = lastPhase === "lobby" || (lastPhase === "over" && s.phase === "playing");
     if (s.phase === "playing" || s.phase === "over") {
-      if (s.country && (shown !== s.country.id || lastPhase === "lobby" || (lastPhase === "over" && s.phase === "playing"))) {
-        showCountry(s.country, !shown);
-      }
+      if (s.country && isFlags && (shownFlag !== s.country.id || newRound)) showFlag(s.country);
+      if (s.country && !isFlags && (shown !== s.country.id || newRound)) showCountry(s.country, !shown);
     }
     lastPhase = s.phase;
 
@@ -284,19 +312,24 @@
     if (s.phase === "playing" && !s.paused) {
       const who = myTurn ? "Your" : s.players[s.turn].name + "'s";
       if (!live) msg = `${who} turn in ${Math.max(1, Math.ceil((s.runningSince - t) / 1000))}…`;
-      else msg = myTurn ? "What is the capital of this country?" : `${s.players[s.turn].name} is guessing…`;
+      else if (myTurn) msg = s.mode === "flags" ? "Which country is this?" : "What is the capital of this country?";
+      else msg = `${s.players[s.turn].name} is guessing…`;
     }
     $("banner").textContent = msg;
   }
 
   // ---------- autocomplete ----------
   const norm = (s) => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9 ]/g, "");
-  let names = [], sel = -1, matches = [];
-  fetch("/api/capitals").then((r) => r.json()).then((n) => (names = n.map((x) => [x, norm(x)])));
+  let nameLists = { capitals: [], countries: [] }, sel = -1, matches = [];
+  fetch("/api/names").then((r) => r.json()).then((d) => {
+    nameLists.capitals = d.capitals.map((x) => [x, norm(x)]);
+    nameLists.countries = d.countries.map((x) => [x, norm(x)]);
+  });
   const sug = $("suggest");
 
   function suggest() {
     const q = norm($("guess").value).trim();
+    const names = nameLists[state && state.mode === "flags" ? "countries" : "capitals"];
     sel = -1;
     if (!q || $("guess").disabled) matches = [];
     else {

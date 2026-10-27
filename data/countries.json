@@ -1,0 +1,2853 @@
+[
+ {
+  "id": "242",
+  "cca3": "FJI",
+  "cca2": "FJ",
+  "country": "Fiji",
+  "countryAccept": [
+   "Fiji",
+   "Republic of Fiji"
+  ],
+  "capital": "Suva",
+  "capitalAccept": [
+   "Suva"
+  ],
+  "lat": -18.14,
+  "lng": 178.44,
+  "weight": 1
+ },
+ {
+  "id": "834",
+  "cca3": "TZA",
+  "cca2": "TZ",
+  "country": "Tanzania",
+  "countryAccept": [
+   "Tanzania",
+   "United Republic of Tanzania"
+  ],
+  "capital": "Dodoma",
+  "capitalAccept": [
+   "Dodoma"
+  ],
+  "lat": -6.16,
+  "lng": 35.75,
+  "weight": 3
+ },
+ {
+  "id": "124",
+  "cca3": "CAN",
+  "cca2": "CA",
+  "country": "Canada",
+  "countryAccept": [
+   "Canada"
+  ],
+  "capital": "Ottawa",
+  "capitalAccept": [
+   "Ottawa"
+  ],
+  "lat": 45.42,
+  "lng": -75.7,
+  "weight": 6
+ },
+ {
+  "id": "840",
+  "cca3": "USA",
+  "cca2": "US",
+  "country": "United States",
+  "countryAccept": [
+   "United States",
+   "USA",
+   "US",
+   "America",
+   "United States of America"
+  ],
+  "capital": "Washington D.C.",
+  "capitalAccept": [
+   "Washington D.C.",
+   "Washington",
+   "Washington DC",
+   "DC"
+  ],
+  "lat": 38.9,
+  "lng": -77.04,
+  "weight": 6
+ },
+ {
+  "id": "398",
+  "cca3": "KAZ",
+  "cca2": "KZ",
+  "country": "Kazakhstan",
+  "countryAccept": [
+   "Kazakhstan",
+   "Republic of Kazakhstan"
+  ],
+  "capital": "Astana",
+  "capitalAccept": [
+   "Astana",
+   "Nur-Sultan",
+   "Nursultan"
+  ],
+  "lat": 51.13,
+  "lng": 71.43,
+  "weight": 3
+ },
+ {
+  "id": "860",
+  "cca3": "UZB",
+  "cca2": "UZ",
+  "country": "Uzbekistan",
+  "countryAccept": [
+   "Uzbekistan",
+   "Republic of Uzbekistan"
+  ],
+  "capital": "Tashkent",
+  "capitalAccept": [
+   "Tashkent"
+  ],
+  "lat": 41.31,
+  "lng": 69.28,
+  "weight": 3
+ },
+ {
+  "id": "598",
+  "cca3": "PNG",
+  "cca2": "PG",
+  "country": "Papua New Guinea",
+  "countryAccept": [
+   "Papua New Guinea",
+   "Independent State of Papua New Guinea"
+  ],
+  "capital": "Port Moresby",
+  "capitalAccept": [
+   "Port Moresby"
+  ],
+  "lat": -9.44,
+  "lng": 147.18,
+  "weight": 1
+ },
+ {
+  "id": "360",
+  "cca3": "IDN",
+  "cca2": "ID",
+  "country": "Indonesia",
+  "countryAccept": [
+   "Indonesia",
+   "Republic of Indonesia"
+  ],
+  "capital": "Jakarta",
+  "capitalAccept": [
+   "Jakarta"
+  ],
+  "lat": -6.21,
+  "lng": 106.85,
+  "weight": 6
+ },
+ {
+  "id": "032",
+  "cca3": "ARG",
+  "cca2": "AR",
+  "country": "Argentina",
+  "countryAccept": [
+   "Argentina",
+   "Argentine Republic"
+  ],
+  "capital": "Buenos Aires",
+  "capitalAccept": [
+   "Buenos Aires"
+  ],
+  "lat": -34.6,
+  "lng": -58.38,
+  "weight": 6
+ },
+ {
+  "id": "152",
+  "cca3": "CHL",
+  "cca2": "CL",
+  "country": "Chile",
+  "countryAccept": [
+   "Chile",
+   "Republic of Chile"
+  ],
+  "capital": "Santiago",
+  "capitalAccept": [
+   "Santiago"
+  ],
+  "lat": -33.45,
+  "lng": -70.67,
+  "weight": 1
+ },
+ {
+  "id": "180",
+  "cca3": "COD",
+  "cca2": "CD",
+  "country": "DR Congo",
+  "countryAccept": [
+   "DR Congo",
+   "DRC",
+   "Congo-Kinshasa",
+   "Democratic Republic of Congo",
+   "Democratic Republic of the Congo"
+  ],
+  "capital": "Kinshasa",
+  "capitalAccept": [
+   "Kinshasa"
+  ],
+  "lat": -4.32,
+  "lng": 15.31,
+  "weight": 3
+ },
+ {
+  "id": "706",
+  "cca3": "SOM",
+  "cca2": "SO",
+  "country": "Somalia",
+  "countryAccept": [
+   "Somalia",
+   "Federal Republic of Somalia"
+  ],
+  "capital": "Mogadishu",
+  "capitalAccept": [
+   "Mogadishu"
+  ],
+  "lat": 2.05,
+  "lng": 45.32,
+  "weight": 3
+ },
+ {
+  "id": "404",
+  "cca3": "KEN",
+  "cca2": "KE",
+  "country": "Kenya",
+  "countryAccept": [
+   "Kenya",
+   "Republic of Kenya"
+  ],
+  "capital": "Nairobi",
+  "capitalAccept": [
+   "Nairobi"
+  ],
+  "lat": -1.29,
+  "lng": 36.82,
+  "weight": 6
+ },
+ {
+  "id": "729",
+  "cca3": "SDN",
+  "cca2": "SD",
+  "country": "Sudan",
+  "countryAccept": [
+   "Sudan",
+   "Republic of the Sudan"
+  ],
+  "capital": "Khartoum",
+  "capitalAccept": [
+   "Khartoum"
+  ],
+  "lat": 15.5,
+  "lng": 32.56,
+  "weight": 3
+ },
+ {
+  "id": "148",
+  "cca3": "TCD",
+  "cca2": "TD",
+  "country": "Chad",
+  "countryAccept": [
+   "Chad",
+   "Republic of Chad"
+  ],
+  "capital": "N'Djamena",
+  "capitalAccept": [
+   "N'Djamena"
+  ],
+  "lat": 12.13,
+  "lng": 15.06,
+  "weight": 1
+ },
+ {
+  "id": "332",
+  "cca3": "HTI",
+  "cca2": "HT",
+  "country": "Haiti",
+  "countryAccept": [
+   "Haiti",
+   "Republic of Haiti"
+  ],
+  "capital": "Port-au-Prince",
+  "capitalAccept": [
+   "Port-au-Prince"
+  ],
+  "lat": 18.54,
+  "lng": -72.34,
+  "weight": 3
+ },
+ {
+  "id": "214",
+  "cca3": "DOM",
+  "cca2": "DO",
+  "country": "Dominican Republic",
+  "countryAccept": [
+   "Dominican Republic"
+  ],
+  "capital": "Santo Domingo",
+  "capitalAccept": [
+   "Santo Domingo"
+  ],
+  "lat": 18.49,
+  "lng": -69.93,
+  "weight": 3
+ },
+ {
+  "id": "643",
+  "cca3": "RUS",
+  "cca2": "RU",
+  "country": "Russia",
+  "countryAccept": [
+   "Russia",
+   "Russian Federation"
+  ],
+  "capital": "Moscow",
+  "capitalAccept": [
+   "Moscow",
+   "Moskva"
+  ],
+  "lat": 55.76,
+  "lng": 37.62,
+  "weight": 6
+ },
+ {
+  "id": "044",
+  "cca3": "BHS",
+  "cca2": "BS",
+  "country": "Bahamas",
+  "countryAccept": [
+   "Bahamas",
+   "The Bahamas",
+   "Commonwealth of the Bahamas"
+  ],
+  "capital": "Nassau",
+  "capitalAccept": [
+   "Nassau"
+  ],
+  "lat": 25.05,
+  "lng": -77.35,
+  "weight": 1
+ },
+ {
+  "id": "578",
+  "cca3": "NOR",
+  "cca2": "NO",
+  "country": "Norway",
+  "countryAccept": [
+   "Norway",
+   "Kingdom of Norway"
+  ],
+  "capital": "Oslo",
+  "capitalAccept": [
+   "Oslo"
+  ],
+  "lat": 59.91,
+  "lng": 10.75,
+  "weight": 6
+ },
+ {
+  "id": "626",
+  "cca3": "TLS",
+  "cca2": "TL",
+  "country": "Timor-Leste",
+  "countryAccept": [
+   "Timor-Leste",
+   "East Timor",
+   "Democratic Republic of Timor-Leste"
+  ],
+  "capital": "Dili",
+  "capitalAccept": [
+   "Dili"
+  ],
+  "lat": -8.56,
+  "lng": 125.57,
+  "weight": 1
+ },
+ {
+  "id": "710",
+  "cca3": "ZAF",
+  "cca2": "ZA",
+  "country": "South Africa",
+  "countryAccept": [
+   "South Africa",
+   "Republic of South Africa"
+  ],
+  "capital": "Pretoria",
+  "capitalAccept": [
+   "Pretoria",
+   "Bloemfontein",
+   "Cape Town"
+  ],
+  "lat": -25.75,
+  "lng": 28.19,
+  "weight": 6
+ },
+ {
+  "id": "426",
+  "cca3": "LSO",
+  "cca2": "LS",
+  "country": "Lesotho",
+  "countryAccept": [
+   "Lesotho",
+   "Kingdom of Lesotho"
+  ],
+  "capital": "Maseru",
+  "capitalAccept": [
+   "Maseru"
+  ],
+  "lat": -29.31,
+  "lng": 27.48,
+  "weight": 1
+ },
+ {
+  "id": "484",
+  "cca3": "MEX",
+  "cca2": "MX",
+  "country": "Mexico",
+  "countryAccept": [
+   "Mexico",
+   "United Mexican States"
+  ],
+  "capital": "Mexico City",
+  "capitalAccept": [
+   "Mexico City"
+  ],
+  "lat": 19.43,
+  "lng": -99.13,
+  "weight": 6
+ },
+ {
+  "id": "858",
+  "cca3": "URY",
+  "cca2": "UY",
+  "country": "Uruguay",
+  "countryAccept": [
+   "Uruguay",
+   "Oriental Republic of Uruguay"
+  ],
+  "capital": "Montevideo",
+  "capitalAccept": [
+   "Montevideo"
+  ],
+  "lat": -34.9,
+  "lng": -56.16,
+  "weight": 3
+ },
+ {
+  "id": "076",
+  "cca3": "BRA",
+  "cca2": "BR",
+  "country": "Brazil",
+  "countryAccept": [
+   "Brazil",
+   "Federative Republic of Brazil"
+  ],
+  "capital": "Brasília",
+  "capitalAccept": [
+   "Brasília",
+   "Brasilia"
+  ],
+  "lat": -15.79,
+  "lng": -47.88,
+  "weight": 6
+ },
+ {
+  "id": "068",
+  "cca3": "BOL",
+  "cca2": "BO",
+  "country": "Bolivia",
+  "countryAccept": [
+   "Bolivia",
+   "Plurinational State of Bolivia"
+  ],
+  "capital": "Sucre",
+  "capitalAccept": [
+   "Sucre",
+   "La Paz"
+  ],
+  "lat": -19.04,
+  "lng": -65.26,
+  "weight": 3
+ },
+ {
+  "id": "604",
+  "cca3": "PER",
+  "cca2": "PE",
+  "country": "Peru",
+  "countryAccept": [
+   "Peru",
+   "Republic of Peru"
+  ],
+  "capital": "Lima",
+  "capitalAccept": [
+   "Lima"
+  ],
+  "lat": -12.05,
+  "lng": -77.04,
+  "weight": 1
+ },
+ {
+  "id": "170",
+  "cca3": "COL",
+  "cca2": "CO",
+  "country": "Colombia",
+  "countryAccept": [
+   "Colombia",
+   "Republic of Colombia"
+  ],
+  "capital": "Bogotá",
+  "capitalAccept": [
+   "Bogotá"
+  ],
+  "lat": 4.71,
+  "lng": -74.07,
+  "weight": 6
+ },
+ {
+  "id": "591",
+  "cca3": "PAN",
+  "cca2": "PA",
+  "country": "Panama",
+  "countryAccept": [
+   "Panama",
+   "Republic of Panama"
+  ],
+  "capital": "Panama City",
+  "capitalAccept": [
+   "Panama City"
+  ],
+  "lat": 8.98,
+  "lng": -79.52,
+  "weight": 3
+ },
+ {
+  "id": "188",
+  "cca3": "CRI",
+  "cca2": "CR",
+  "country": "Costa Rica",
+  "countryAccept": [
+   "Costa Rica",
+   "Republic of Costa Rica"
+  ],
+  "capital": "San José",
+  "capitalAccept": [
+   "San José"
+  ],
+  "lat": 9.93,
+  "lng": -84.08,
+  "weight": 3
+ },
+ {
+  "id": "558",
+  "cca3": "NIC",
+  "cca2": "NI",
+  "country": "Nicaragua",
+  "countryAccept": [
+   "Nicaragua",
+   "Republic of Nicaragua"
+  ],
+  "capital": "Managua",
+  "capitalAccept": [
+   "Managua"
+  ],
+  "lat": 12.11,
+  "lng": -86.24,
+  "weight": 3
+ },
+ {
+  "id": "340",
+  "cca3": "HND",
+  "cca2": "HN",
+  "country": "Honduras",
+  "countryAccept": [
+   "Honduras",
+   "Republic of Honduras"
+  ],
+  "capital": "Tegucigalpa",
+  "capitalAccept": [
+   "Tegucigalpa"
+  ],
+  "lat": 14.07,
+  "lng": -87.19,
+  "weight": 3
+ },
+ {
+  "id": "222",
+  "cca3": "SLV",
+  "cca2": "SV",
+  "country": "El Salvador",
+  "countryAccept": [
+   "El Salvador",
+   "Republic of El Salvador"
+  ],
+  "capital": "San Salvador",
+  "capitalAccept": [
+   "San Salvador"
+  ],
+  "lat": 13.69,
+  "lng": -89.19,
+  "weight": 3
+ },
+ {
+  "id": "320",
+  "cca3": "GTM",
+  "cca2": "GT",
+  "country": "Guatemala",
+  "countryAccept": [
+   "Guatemala",
+   "Republic of Guatemala"
+  ],
+  "capital": "Guatemala City",
+  "capitalAccept": [
+   "Guatemala City"
+  ],
+  "lat": 14.63,
+  "lng": -90.51,
+  "weight": 3
+ },
+ {
+  "id": "084",
+  "cca3": "BLZ",
+  "cca2": "BZ",
+  "country": "Belize",
+  "countryAccept": [
+   "Belize"
+  ],
+  "capital": "Belmopan",
+  "capitalAccept": [
+   "Belmopan"
+  ],
+  "lat": 17.25,
+  "lng": -88.77,
+  "weight": 1
+ },
+ {
+  "id": "862",
+  "cca3": "VEN",
+  "cca2": "VE",
+  "country": "Venezuela",
+  "countryAccept": [
+   "Venezuela",
+   "Bolivarian Republic of Venezuela"
+  ],
+  "capital": "Caracas",
+  "capitalAccept": [
+   "Caracas"
+  ],
+  "lat": 10.49,
+  "lng": -66.88,
+  "weight": 1
+ },
+ {
+  "id": "328",
+  "cca3": "GUY",
+  "cca2": "GY",
+  "country": "Guyana",
+  "countryAccept": [
+   "Guyana",
+   "Co-operative Republic of Guyana"
+  ],
+  "capital": "Georgetown",
+  "capitalAccept": [
+   "Georgetown"
+  ],
+  "lat": 6.8,
+  "lng": -58.16,
+  "weight": 1
+ },
+ {
+  "id": "740",
+  "cca3": "SUR",
+  "cca2": "SR",
+  "country": "Suriname",
+  "countryAccept": [
+   "Suriname",
+   "Republic of Suriname"
+  ],
+  "capital": "Paramaribo",
+  "capitalAccept": [
+   "Paramaribo"
+  ],
+  "lat": 5.85,
+  "lng": -55.2,
+  "weight": 1
+ },
+ {
+  "id": "250",
+  "cca3": "FRA",
+  "cca2": "FR",
+  "country": "France",
+  "countryAccept": [
+   "France",
+   "French Republic"
+  ],
+  "capital": "Paris",
+  "capitalAccept": [
+   "Paris"
+  ],
+  "lat": 48.86,
+  "lng": 2.35,
+  "weight": 6
+ },
+ {
+  "id": "218",
+  "cca3": "ECU",
+  "cca2": "EC",
+  "country": "Ecuador",
+  "countryAccept": [
+   "Ecuador",
+   "Republic of Ecuador"
+  ],
+  "capital": "Quito",
+  "capitalAccept": [
+   "Quito"
+  ],
+  "lat": -0.18,
+  "lng": -78.47,
+  "weight": 3
+ },
+ {
+  "id": "388",
+  "cca3": "JAM",
+  "cca2": "JM",
+  "country": "Jamaica",
+  "countryAccept": [
+   "Jamaica"
+  ],
+  "capital": "Kingston",
+  "capitalAccept": [
+   "Kingston"
+  ],
+  "lat": 18,
+  "lng": -76.79,
+  "weight": 3
+ },
+ {
+  "id": "192",
+  "cca3": "CUB",
+  "cca2": "CU",
+  "country": "Cuba",
+  "countryAccept": [
+   "Cuba",
+   "Republic of Cuba"
+  ],
+  "capital": "Havana",
+  "capitalAccept": [
+   "Havana"
+  ],
+  "lat": 23.11,
+  "lng": -82.37,
+  "weight": 6
+ },
+ {
+  "id": "716",
+  "cca3": "ZWE",
+  "cca2": "ZW",
+  "country": "Zimbabwe",
+  "countryAccept": [
+   "Zimbabwe",
+   "Republic of Zimbabwe"
+  ],
+  "capital": "Harare",
+  "capitalAccept": [
+   "Harare"
+  ],
+  "lat": -17.83,
+  "lng": 31.05,
+  "weight": 3
+ },
+ {
+  "id": "072",
+  "cca3": "BWA",
+  "cca2": "BW",
+  "country": "Botswana",
+  "countryAccept": [
+   "Botswana",
+   "Republic of Botswana"
+  ],
+  "capital": "Gaborone",
+  "capitalAccept": [
+   "Gaborone"
+  ],
+  "lat": -24.65,
+  "lng": 25.91,
+  "weight": 3
+ },
+ {
+  "id": "516",
+  "cca3": "NAM",
+  "cca2": "NA",
+  "country": "Namibia",
+  "countryAccept": [
+   "Namibia",
+   "Republic of Namibia"
+  ],
+  "capital": "Windhoek",
+  "capitalAccept": [
+   "Windhoek"
+  ],
+  "lat": -22.56,
+  "lng": 17.08,
+  "weight": 3
+ },
+ {
+  "id": "686",
+  "cca3": "SEN",
+  "cca2": "SN",
+  "country": "Senegal",
+  "countryAccept": [
+   "Senegal",
+   "Republic of Senegal"
+  ],
+  "capital": "Dakar",
+  "capitalAccept": [
+   "Dakar"
+  ],
+  "lat": 14.69,
+  "lng": -17.45,
+  "weight": 3
+ },
+ {
+  "id": "466",
+  "cca3": "MLI",
+  "cca2": "ML",
+  "country": "Mali",
+  "countryAccept": [
+   "Mali",
+   "Republic of Mali"
+  ],
+  "capital": "Bamako",
+  "capitalAccept": [
+   "Bamako"
+  ],
+  "lat": 12.64,
+  "lng": -8,
+  "weight": 1
+ },
+ {
+  "id": "478",
+  "cca3": "MRT",
+  "cca2": "MR",
+  "country": "Mauritania",
+  "countryAccept": [
+   "Mauritania",
+   "Islamic Republic of Mauritania"
+  ],
+  "capital": "Nouakchott",
+  "capitalAccept": [
+   "Nouakchott"
+  ],
+  "lat": 18.08,
+  "lng": -15.98,
+  "weight": 1
+ },
+ {
+  "id": "204",
+  "cca3": "BEN",
+  "cca2": "BJ",
+  "country": "Benin",
+  "countryAccept": [
+   "Benin",
+   "Republic of Benin"
+  ],
+  "capital": "Porto-Novo",
+  "capitalAccept": [
+   "Porto-Novo",
+   "Cotonou"
+  ],
+  "lat": 6.5,
+  "lng": 2.63,
+  "weight": 1
+ },
+ {
+  "id": "562",
+  "cca3": "NER",
+  "cca2": "NE",
+  "country": "Niger",
+  "countryAccept": [
+   "Niger",
+   "Republic of Niger"
+  ],
+  "capital": "Niamey",
+  "capitalAccept": [
+   "Niamey"
+  ],
+  "lat": 13.51,
+  "lng": 2.11,
+  "weight": 1
+ },
+ {
+  "id": "566",
+  "cca3": "NGA",
+  "cca2": "NG",
+  "country": "Nigeria",
+  "countryAccept": [
+   "Nigeria",
+   "Federal Republic of Nigeria"
+  ],
+  "capital": "Abuja",
+  "capitalAccept": [
+   "Abuja"
+  ],
+  "lat": 9.06,
+  "lng": 7.49,
+  "weight": 6
+ },
+ {
+  "id": "120",
+  "cca3": "CMR",
+  "cca2": "CM",
+  "country": "Cameroon",
+  "countryAccept": [
+   "Cameroon",
+   "Republic of Cameroon"
+  ],
+  "capital": "Yaoundé",
+  "capitalAccept": [
+   "Yaoundé"
+  ],
+  "lat": 3.87,
+  "lng": 11.52,
+  "weight": 3
+ },
+ {
+  "id": "768",
+  "cca3": "TGO",
+  "cca2": "TG",
+  "country": "Togo",
+  "countryAccept": [
+   "Togo",
+   "Togolese Republic"
+  ],
+  "capital": "Lomé",
+  "capitalAccept": [
+   "Lomé"
+  ],
+  "lat": 6.13,
+  "lng": 1.22,
+  "weight": 1
+ },
+ {
+  "id": "288",
+  "cca3": "GHA",
+  "cca2": "GH",
+  "country": "Ghana",
+  "countryAccept": [
+   "Ghana",
+   "Republic of Ghana"
+  ],
+  "capital": "Accra",
+  "capitalAccept": [
+   "Accra"
+  ],
+  "lat": 5.6,
+  "lng": -0.19,
+  "weight": 3
+ },
+ {
+  "id": "384",
+  "cca3": "CIV",
+  "cca2": "CI",
+  "country": "Ivory Coast",
+  "countryAccept": [
+   "Ivory Coast",
+   "Côte d'Ivoire",
+   "Cote d'Ivoire",
+   "Cote dIvoire",
+   "Republic of Côte d'Ivoire"
+  ],
+  "capital": "Yamoussoukro",
+  "capitalAccept": [
+   "Yamoussoukro",
+   "Abidjan"
+  ],
+  "lat": 6.82,
+  "lng": -5.28,
+  "weight": 3
+ },
+ {
+  "id": "324",
+  "cca3": "GIN",
+  "cca2": "GN",
+  "country": "Guinea",
+  "countryAccept": [
+   "Guinea",
+   "Republic of Guinea"
+  ],
+  "capital": "Conakry",
+  "capitalAccept": [
+   "Conakry"
+  ],
+  "lat": 9.64,
+  "lng": -13.58,
+  "weight": 1
+ },
+ {
+  "id": "624",
+  "cca3": "GNB",
+  "cca2": "GW",
+  "country": "Guinea-Bissau",
+  "countryAccept": [
+   "Guinea-Bissau",
+   "Republic of Guinea-Bissau"
+  ],
+  "capital": "Bissau",
+  "capitalAccept": [
+   "Bissau"
+  ],
+  "lat": 11.86,
+  "lng": -15.6,
+  "weight": 1
+ },
+ {
+  "id": "430",
+  "cca3": "LBR",
+  "cca2": "LR",
+  "country": "Liberia",
+  "countryAccept": [
+   "Liberia",
+   "Republic of Liberia"
+  ],
+  "capital": "Monrovia",
+  "capitalAccept": [
+   "Monrovia"
+  ],
+  "lat": 6.3,
+  "lng": -10.8,
+  "weight": 1
+ },
+ {
+  "id": "694",
+  "cca3": "SLE",
+  "cca2": "SL",
+  "country": "Sierra Leone",
+  "countryAccept": [
+   "Sierra Leone",
+   "Republic of Sierra Leone"
+  ],
+  "capital": "Freetown",
+  "capitalAccept": [
+   "Freetown"
+  ],
+  "lat": 8.48,
+  "lng": -13.23,
+  "weight": 1
+ },
+ {
+  "id": "854",
+  "cca3": "BFA",
+  "cca2": "BF",
+  "country": "Burkina Faso",
+  "countryAccept": [
+   "Burkina Faso"
+  ],
+  "capital": "Ouagadougou",
+  "capitalAccept": [
+   "Ouagadougou"
+  ],
+  "lat": 12.37,
+  "lng": -1.52,
+  "weight": 1
+ },
+ {
+  "id": "140",
+  "cca3": "CAF",
+  "cca2": "CF",
+  "country": "Central African Republic",
+  "countryAccept": [
+   "Central African Republic"
+  ],
+  "capital": "Bangui",
+  "capitalAccept": [
+   "Bangui"
+  ],
+  "lat": 4.36,
+  "lng": 18.56,
+  "weight": 1
+ },
+ {
+  "id": "178",
+  "cca3": "COG",
+  "cca2": "CG",
+  "country": "Congo",
+  "countryAccept": [
+   "Congo",
+   "Congo-Brazzaville",
+   "Republic of the Congo"
+  ],
+  "capital": "Brazzaville",
+  "capitalAccept": [
+   "Brazzaville"
+  ],
+  "lat": -4.27,
+  "lng": 15.28,
+  "weight": 1
+ },
+ {
+  "id": "266",
+  "cca3": "GAB",
+  "cca2": "GA",
+  "country": "Gabon",
+  "countryAccept": [
+   "Gabon",
+   "Gabonese Republic"
+  ],
+  "capital": "Libreville",
+  "capitalAccept": [
+   "Libreville"
+  ],
+  "lat": 0.39,
+  "lng": 9.45,
+  "weight": 1
+ },
+ {
+  "id": "226",
+  "cca3": "GNQ",
+  "cca2": "GQ",
+  "country": "Equatorial Guinea",
+  "countryAccept": [
+   "Equatorial Guinea",
+   "Republic of Equatorial Guinea"
+  ],
+  "capital": "Malabo",
+  "capitalAccept": [
+   "Malabo"
+  ],
+  "lat": 3.75,
+  "lng": 8.78,
+  "weight": 1
+ },
+ {
+  "id": "894",
+  "cca3": "ZMB",
+  "cca2": "ZM",
+  "country": "Zambia",
+  "countryAccept": [
+   "Zambia",
+   "Republic of Zambia"
+  ],
+  "capital": "Lusaka",
+  "capitalAccept": [
+   "Lusaka"
+  ],
+  "lat": -15.39,
+  "lng": 28.32,
+  "weight": 3
+ },
+ {
+  "id": "454",
+  "cca3": "MWI",
+  "cca2": "MW",
+  "country": "Malawi",
+  "countryAccept": [
+   "Malawi",
+   "Republic of Malawi"
+  ],
+  "capital": "Lilongwe",
+  "capitalAccept": [
+   "Lilongwe"
+  ],
+  "lat": -13.96,
+  "lng": 33.77,
+  "weight": 1
+ },
+ {
+  "id": "508",
+  "cca3": "MOZ",
+  "cca2": "MZ",
+  "country": "Mozambique",
+  "countryAccept": [
+   "Mozambique",
+   "Republic of Mozambique"
+  ],
+  "capital": "Maputo",
+  "capitalAccept": [
+   "Maputo"
+  ],
+  "lat": -25.97,
+  "lng": 32.57,
+  "weight": 3
+ },
+ {
+  "id": "748",
+  "cca3": "SWZ",
+  "cca2": "SZ",
+  "country": "Eswatini",
+  "countryAccept": [
+   "Eswatini",
+   "Swaziland",
+   "Kingdom of Eswatini"
+  ],
+  "capital": "Lobamba",
+  "capitalAccept": [
+   "Lobamba",
+   "Mbabane"
+  ],
+  "lat": -26.46,
+  "lng": 31.2,
+  "weight": 1
+ },
+ {
+  "id": "024",
+  "cca3": "AGO",
+  "cca2": "AO",
+  "country": "Angola",
+  "countryAccept": [
+   "Angola",
+   "Republic of Angola"
+  ],
+  "capital": "Luanda",
+  "capitalAccept": [
+   "Luanda"
+  ],
+  "lat": -8.84,
+  "lng": 13.23,
+  "weight": 3
+ },
+ {
+  "id": "108",
+  "cca3": "BDI",
+  "cca2": "BI",
+  "country": "Burundi",
+  "countryAccept": [
+   "Burundi",
+   "Republic of Burundi"
+  ],
+  "capital": "Gitega",
+  "capitalAccept": [
+   "Gitega",
+   "Bujumbura"
+  ],
+  "lat": -3.43,
+  "lng": 29.93,
+  "weight": 1
+ },
+ {
+  "id": "376",
+  "cca3": "ISR",
+  "cca2": "IL",
+  "country": "Israel",
+  "countryAccept": [
+   "Israel",
+   "State of Israel"
+  ],
+  "capital": "Jerusalem",
+  "capitalAccept": [
+   "Jerusalem",
+   "Al-Quds"
+  ],
+  "lat": 31.77,
+  "lng": 35.22,
+  "weight": 6
+ },
+ {
+  "id": "422",
+  "cca3": "LBN",
+  "cca2": "LB",
+  "country": "Lebanon",
+  "countryAccept": [
+   "Lebanon",
+   "Lebanese Republic"
+  ],
+  "capital": "Beirut",
+  "capitalAccept": [
+   "Beirut"
+  ],
+  "lat": 33.89,
+  "lng": 35.5,
+  "weight": 3
+ },
+ {
+  "id": "450",
+  "cca3": "MDG",
+  "cca2": "MG",
+  "country": "Madagascar",
+  "countryAccept": [
+   "Madagascar",
+   "Republic of Madagascar"
+  ],
+  "capital": "Antananarivo",
+  "capitalAccept": [
+   "Antananarivo"
+  ],
+  "lat": -18.88,
+  "lng": 47.51,
+  "weight": 1
+ },
+ {
+  "id": "270",
+  "cca3": "GMB",
+  "cca2": "GM",
+  "country": "Gambia",
+  "countryAccept": [
+   "Gambia",
+   "The Gambia",
+   "Republic of the Gambia"
+  ],
+  "capital": "Banjul",
+  "capitalAccept": [
+   "Banjul"
+  ],
+  "lat": 13.45,
+  "lng": -16.58,
+  "weight": 1
+ },
+ {
+  "id": "788",
+  "cca3": "TUN",
+  "cca2": "TN",
+  "country": "Tunisia",
+  "countryAccept": [
+   "Tunisia",
+   "Tunisian Republic"
+  ],
+  "capital": "Tunis",
+  "capitalAccept": [
+   "Tunis"
+  ],
+  "lat": 36.81,
+  "lng": 10.18,
+  "weight": 3
+ },
+ {
+  "id": "012",
+  "cca3": "DZA",
+  "cca2": "DZ",
+  "country": "Algeria",
+  "countryAccept": [
+   "Algeria",
+   "People's Democratic Republic of Algeria"
+  ],
+  "capital": "Algiers",
+  "capitalAccept": [
+   "Algiers",
+   "Alger"
+  ],
+  "lat": 36.75,
+  "lng": 3.06,
+  "weight": 3
+ },
+ {
+  "id": "400",
+  "cca3": "JOR",
+  "cca2": "JO",
+  "country": "Jordan",
+  "countryAccept": [
+   "Jordan",
+   "Hashemite Kingdom of Jordan"
+  ],
+  "capital": "Amman",
+  "capitalAccept": [
+   "Amman"
+  ],
+  "lat": 31.95,
+  "lng": 35.93,
+  "weight": 3
+ },
+ {
+  "id": "784",
+  "cca3": "ARE",
+  "cca2": "AE",
+  "country": "United Arab Emirates",
+  "countryAccept": [
+   "United Arab Emirates",
+   "UAE"
+  ],
+  "capital": "Abu Dhabi",
+  "capitalAccept": [
+   "Abu Dhabi"
+  ],
+  "lat": 24.45,
+  "lng": 54.38,
+  "weight": 6
+ },
+ {
+  "id": "634",
+  "cca3": "QAT",
+  "cca2": "QA",
+  "country": "Qatar",
+  "countryAccept": [
+   "Qatar",
+   "State of Qatar"
+  ],
+  "capital": "Doha",
+  "capitalAccept": [
+   "Doha"
+  ],
+  "lat": 25.29,
+  "lng": 51.53,
+  "weight": 3
+ },
+ {
+  "id": "414",
+  "cca3": "KWT",
+  "cca2": "KW",
+  "country": "Kuwait",
+  "countryAccept": [
+   "Kuwait",
+   "State of Kuwait"
+  ],
+  "capital": "Kuwait City",
+  "capitalAccept": [
+   "Kuwait City"
+  ],
+  "lat": 29.38,
+  "lng": 47.99,
+  "weight": 3
+ },
+ {
+  "id": "368",
+  "cca3": "IRQ",
+  "cca2": "IQ",
+  "country": "Iraq",
+  "countryAccept": [
+   "Iraq",
+   "Republic of Iraq"
+  ],
+  "capital": "Baghdad",
+  "capitalAccept": [
+   "Baghdad"
+  ],
+  "lat": 33.31,
+  "lng": 44.37,
+  "weight": 3
+ },
+ {
+  "id": "512",
+  "cca3": "OMN",
+  "cca2": "OM",
+  "country": "Oman",
+  "countryAccept": [
+   "Oman",
+   "Sultanate of Oman"
+  ],
+  "capital": "Muscat",
+  "capitalAccept": [
+   "Muscat"
+  ],
+  "lat": 23.59,
+  "lng": 58.41,
+  "weight": 1
+ },
+ {
+  "id": "548",
+  "cca3": "VUT",
+  "cca2": "VU",
+  "country": "Vanuatu",
+  "countryAccept": [
+   "Vanuatu",
+   "Republic of Vanuatu"
+  ],
+  "capital": "Port Vila",
+  "capitalAccept": [
+   "Port Vila"
+  ],
+  "lat": -17.73,
+  "lng": 168.32,
+  "weight": 1
+ },
+ {
+  "id": "116",
+  "cca3": "KHM",
+  "cca2": "KH",
+  "country": "Cambodia",
+  "countryAccept": [
+   "Cambodia",
+   "Kingdom of Cambodia"
+  ],
+  "capital": "Phnom Penh",
+  "capitalAccept": [
+   "Phnom Penh"
+  ],
+  "lat": 11.56,
+  "lng": 104.92,
+  "weight": 1
+ },
+ {
+  "id": "764",
+  "cca3": "THA",
+  "cca2": "TH",
+  "country": "Thailand",
+  "countryAccept": [
+   "Thailand",
+   "Kingdom of Thailand"
+  ],
+  "capital": "Bangkok",
+  "capitalAccept": [
+   "Bangkok"
+  ],
+  "lat": 13.75,
+  "lng": 100.5,
+  "weight": 6
+ },
+ {
+  "id": "418",
+  "cca3": "LAO",
+  "cca2": "LA",
+  "country": "Laos",
+  "countryAccept": [
+   "Laos",
+   "Lao People's Democratic Republic"
+  ],
+  "capital": "Vientiane",
+  "capitalAccept": [
+   "Vientiane"
+  ],
+  "lat": 17.97,
+  "lng": 102.63,
+  "weight": 1
+ },
+ {
+  "id": "104",
+  "cca3": "MMR",
+  "cca2": "MM",
+  "country": "Myanmar",
+  "countryAccept": [
+   "Myanmar",
+   "Burma",
+   "Republic of the Union of Myanmar"
+  ],
+  "capital": "Naypyidaw",
+  "capitalAccept": [
+   "Naypyidaw",
+   "Nay Pyi Taw",
+   "Naypyitaw"
+  ],
+  "lat": 19.76,
+  "lng": 96.08,
+  "weight": 3
+ },
+ {
+  "id": "704",
+  "cca3": "VNM",
+  "cca2": "VN",
+  "country": "Vietnam",
+  "countryAccept": [
+   "Vietnam",
+   "Socialist Republic of Vietnam"
+  ],
+  "capital": "Hanoi",
+  "capitalAccept": [
+   "Hanoi"
+  ],
+  "lat": 21.03,
+  "lng": 105.85,
+  "weight": 6
+ },
+ {
+  "id": "408",
+  "cca3": "PRK",
+  "cca2": "KP",
+  "country": "North Korea",
+  "countryAccept": [
+   "North Korea",
+   "DPRK",
+   "Democratic People's Republic of Korea"
+  ],
+  "capital": "Pyongyang",
+  "capitalAccept": [
+   "Pyongyang"
+  ],
+  "lat": 39.02,
+  "lng": 125.75,
+  "weight": 3
+ },
+ {
+  "id": "410",
+  "cca3": "KOR",
+  "cca2": "KR",
+  "country": "South Korea",
+  "countryAccept": [
+   "South Korea",
+   "Korea",
+   "Republic of Korea"
+  ],
+  "capital": "Seoul",
+  "capitalAccept": [
+   "Seoul"
+  ],
+  "lat": 37.57,
+  "lng": 126.98,
+  "weight": 6
+ },
+ {
+  "id": "496",
+  "cca3": "MNG",
+  "cca2": "MN",
+  "country": "Mongolia",
+  "countryAccept": [
+   "Mongolia"
+  ],
+  "capital": "Ulan Bator",
+  "capitalAccept": [
+   "Ulan Bator",
+   "Ulaanbaatar"
+  ],
+  "lat": 47.92,
+  "lng": 106.92,
+  "weight": 3
+ },
+ {
+  "id": "356",
+  "cca3": "IND",
+  "cca2": "IN",
+  "country": "India",
+  "countryAccept": [
+   "India",
+   "Republic of India"
+  ],
+  "capital": "New Delhi",
+  "capitalAccept": [
+   "New Delhi"
+  ],
+  "lat": 28.61,
+  "lng": 77.21,
+  "weight": 6
+ },
+ {
+  "id": "050",
+  "cca3": "BGD",
+  "cca2": "BD",
+  "country": "Bangladesh",
+  "countryAccept": [
+   "Bangladesh",
+   "People's Republic of Bangladesh"
+  ],
+  "capital": "Dhaka",
+  "capitalAccept": [
+   "Dhaka"
+  ],
+  "lat": 23.81,
+  "lng": 90.41,
+  "weight": 3
+ },
+ {
+  "id": "064",
+  "cca3": "BTN",
+  "cca2": "BT",
+  "country": "Bhutan",
+  "countryAccept": [
+   "Bhutan",
+   "Kingdom of Bhutan"
+  ],
+  "capital": "Thimphu",
+  "capitalAccept": [
+   "Thimphu"
+  ],
+  "lat": 27.47,
+  "lng": 89.64,
+  "weight": 1
+ },
+ {
+  "id": "524",
+  "cca3": "NPL",
+  "cca2": "NP",
+  "country": "Nepal",
+  "countryAccept": [
+   "Nepal",
+   "Federal Democratic Republic of Nepal"
+  ],
+  "capital": "Kathmandu",
+  "capitalAccept": [
+   "Kathmandu"
+  ],
+  "lat": 27.72,
+  "lng": 85.32,
+  "weight": 3
+ },
+ {
+  "id": "586",
+  "cca3": "PAK",
+  "cca2": "PK",
+  "country": "Pakistan",
+  "countryAccept": [
+   "Pakistan",
+   "Islamic Republic of Pakistan"
+  ],
+  "capital": "Islamabad",
+  "capitalAccept": [
+   "Islamabad"
+  ],
+  "lat": 33.68,
+  "lng": 73.05,
+  "weight": 6
+ },
+ {
+  "id": "004",
+  "cca3": "AFG",
+  "cca2": "AF",
+  "country": "Afghanistan",
+  "countryAccept": [
+   "Afghanistan",
+   "Islamic Republic of Afghanistan"
+  ],
+  "capital": "Kabul",
+  "capitalAccept": [
+   "Kabul"
+  ],
+  "lat": 34.53,
+  "lng": 69.17,
+  "weight": 3
+ },
+ {
+  "id": "762",
+  "cca3": "TJK",
+  "cca2": "TJ",
+  "country": "Tajikistan",
+  "countryAccept": [
+   "Tajikistan",
+   "Republic of Tajikistan"
+  ],
+  "capital": "Dushanbe",
+  "capitalAccept": [
+   "Dushanbe"
+  ],
+  "lat": 38.56,
+  "lng": 68.77,
+  "weight": 1
+ },
+ {
+  "id": "417",
+  "cca3": "KGZ",
+  "cca2": "KG",
+  "country": "Kyrgyzstan",
+  "countryAccept": [
+   "Kyrgyzstan",
+   "Kyrgyz Republic"
+  ],
+  "capital": "Bishkek",
+  "capitalAccept": [
+   "Bishkek"
+  ],
+  "lat": 42.87,
+  "lng": 74.59,
+  "weight": 1
+ },
+ {
+  "id": "795",
+  "cca3": "TKM",
+  "cca2": "TM",
+  "country": "Turkmenistan",
+  "countryAccept": [
+   "Turkmenistan"
+  ],
+  "capital": "Ashgabat",
+  "capitalAccept": [
+   "Ashgabat"
+  ],
+  "lat": 37.96,
+  "lng": 58.33,
+  "weight": 1
+ },
+ {
+  "id": "364",
+  "cca3": "IRN",
+  "cca2": "IR",
+  "country": "Iran",
+  "countryAccept": [
+   "Iran",
+   "Islamic Republic of Iran"
+  ],
+  "capital": "Tehran",
+  "capitalAccept": [
+   "Tehran"
+  ],
+  "lat": 35.69,
+  "lng": 51.39,
+  "weight": 3
+ },
+ {
+  "id": "760",
+  "cca3": "SYR",
+  "cca2": "SY",
+  "country": "Syria",
+  "countryAccept": [
+   "Syria",
+   "Syrian Arab Republic"
+  ],
+  "capital": "Damascus",
+  "capitalAccept": [
+   "Damascus"
+  ],
+  "lat": 33.51,
+  "lng": 36.29,
+  "weight": 1
+ },
+ {
+  "id": "051",
+  "cca3": "ARM",
+  "cca2": "AM",
+  "country": "Armenia",
+  "countryAccept": [
+   "Armenia",
+   "Republic of Armenia"
+  ],
+  "capital": "Yerevan",
+  "capitalAccept": [
+   "Yerevan"
+  ],
+  "lat": 40.18,
+  "lng": 44.51,
+  "weight": 3
+ },
+ {
+  "id": "752",
+  "cca3": "SWE",
+  "cca2": "SE",
+  "country": "Sweden",
+  "countryAccept": [
+   "Sweden",
+   "Kingdom of Sweden"
+  ],
+  "capital": "Stockholm",
+  "capitalAccept": [
+   "Stockholm"
+  ],
+  "lat": 59.33,
+  "lng": 18.07,
+  "weight": 6
+ },
+ {
+  "id": "112",
+  "cca3": "BLR",
+  "cca2": "BY",
+  "country": "Belarus",
+  "countryAccept": [
+   "Belarus",
+   "Republic of Belarus"
+  ],
+  "capital": "Minsk",
+  "capitalAccept": [
+   "Minsk"
+  ],
+  "lat": 53.9,
+  "lng": 27.57,
+  "weight": 3
+ },
+ {
+  "id": "804",
+  "cca3": "UKR",
+  "cca2": "UA",
+  "country": "Ukraine",
+  "countryAccept": [
+   "Ukraine"
+  ],
+  "capital": "Kyiv",
+  "capitalAccept": [
+   "Kyiv",
+   "Kiev"
+  ],
+  "lat": 50.45,
+  "lng": 30.52,
+  "weight": 6
+ },
+ {
+  "id": "616",
+  "cca3": "POL",
+  "cca2": "PL",
+  "country": "Poland",
+  "countryAccept": [
+   "Poland",
+   "Republic of Poland"
+  ],
+  "capital": "Warsaw",
+  "capitalAccept": [
+   "Warsaw",
+   "Warszawa"
+  ],
+  "lat": 52.23,
+  "lng": 21.01,
+  "weight": 6
+ },
+ {
+  "id": "040",
+  "cca3": "AUT",
+  "cca2": "AT",
+  "country": "Austria",
+  "countryAccept": [
+   "Austria",
+   "Republic of Austria"
+  ],
+  "capital": "Vienna",
+  "capitalAccept": [
+   "Vienna",
+   "Wien"
+  ],
+  "lat": 48.21,
+  "lng": 16.37,
+  "weight": 6
+ },
+ {
+  "id": "348",
+  "cca3": "HUN",
+  "cca2": "HU",
+  "country": "Hungary",
+  "countryAccept": [
+   "Hungary"
+  ],
+  "capital": "Budapest",
+  "capitalAccept": [
+   "Budapest"
+  ],
+  "lat": 47.5,
+  "lng": 19.04,
+  "weight": 3
+ },
+ {
+  "id": "498",
+  "cca3": "MDA",
+  "cca2": "MD",
+  "country": "Moldova",
+  "countryAccept": [
+   "Moldova",
+   "Republic of Moldova"
+  ],
+  "capital": "Chișinău",
+  "capitalAccept": [
+   "Chișinău",
+   "Chisinau"
+  ],
+  "lat": 47.01,
+  "lng": 28.86,
+  "weight": 3
+ },
+ {
+  "id": "642",
+  "cca3": "ROU",
+  "cca2": "RO",
+  "country": "Romania",
+  "countryAccept": [
+   "Romania"
+  ],
+  "capital": "Bucharest",
+  "capitalAccept": [
+   "Bucharest",
+   "Bucuresti"
+  ],
+  "lat": 44.43,
+  "lng": 26.1,
+  "weight": 3
+ },
+ {
+  "id": "440",
+  "cca3": "LTU",
+  "cca2": "LT",
+  "country": "Lithuania",
+  "countryAccept": [
+   "Lithuania",
+   "Republic of Lithuania"
+  ],
+  "capital": "Vilnius",
+  "capitalAccept": [
+   "Vilnius"
+  ],
+  "lat": 54.69,
+  "lng": 25.28,
+  "weight": 3
+ },
+ {
+  "id": "428",
+  "cca3": "LVA",
+  "cca2": "LV",
+  "country": "Latvia",
+  "countryAccept": [
+   "Latvia",
+   "Republic of Latvia"
+  ],
+  "capital": "Riga",
+  "capitalAccept": [
+   "Riga"
+  ],
+  "lat": 56.95,
+  "lng": 24.11,
+  "weight": 3
+ },
+ {
+  "id": "233",
+  "cca3": "EST",
+  "cca2": "EE",
+  "country": "Estonia",
+  "countryAccept": [
+   "Estonia",
+   "Republic of Estonia"
+  ],
+  "capital": "Tallinn",
+  "capitalAccept": [
+   "Tallinn"
+  ],
+  "lat": 59.44,
+  "lng": 24.75,
+  "weight": 3
+ },
+ {
+  "id": "276",
+  "cca3": "DEU",
+  "cca2": "DE",
+  "country": "Germany",
+  "countryAccept": [
+   "Germany",
+   "Federal Republic of Germany"
+  ],
+  "capital": "Berlin",
+  "capitalAccept": [
+   "Berlin"
+  ],
+  "lat": 52.52,
+  "lng": 13.4,
+  "weight": 6
+ },
+ {
+  "id": "100",
+  "cca3": "BGR",
+  "cca2": "BG",
+  "country": "Bulgaria",
+  "countryAccept": [
+   "Bulgaria",
+   "Republic of Bulgaria"
+  ],
+  "capital": "Sofia",
+  "capitalAccept": [
+   "Sofia"
+  ],
+  "lat": 42.7,
+  "lng": 23.32,
+  "weight": 3
+ },
+ {
+  "id": "300",
+  "cca3": "GRC",
+  "cca2": "GR",
+  "country": "Greece",
+  "countryAccept": [
+   "Greece",
+   "Hellenic Republic"
+  ],
+  "capital": "Athens",
+  "capitalAccept": [
+   "Athens",
+   "Athina"
+  ],
+  "lat": 37.98,
+  "lng": 23.73,
+  "weight": 6
+ },
+ {
+  "id": "792",
+  "cca3": "TUR",
+  "cca2": "TR",
+  "country": "Türkiye",
+  "countryAccept": [
+   "Türkiye",
+   "Republic of Türkiye"
+  ],
+  "capital": "Ankara",
+  "capitalAccept": [
+   "Ankara"
+  ],
+  "lat": 39.93,
+  "lng": 32.86,
+  "weight": 6
+ },
+ {
+  "id": "008",
+  "cca3": "ALB",
+  "cca2": "AL",
+  "country": "Albania",
+  "countryAccept": [
+   "Albania",
+   "Republic of Albania"
+  ],
+  "capital": "Tirana",
+  "capitalAccept": [
+   "Tirana"
+  ],
+  "lat": 41.33,
+  "lng": 19.82,
+  "weight": 3
+ },
+ {
+  "id": "191",
+  "cca3": "HRV",
+  "cca2": "HR",
+  "country": "Croatia",
+  "countryAccept": [
+   "Croatia",
+   "Republic of Croatia"
+  ],
+  "capital": "Zagreb",
+  "capitalAccept": [
+   "Zagreb"
+  ],
+  "lat": 45.81,
+  "lng": 15.98,
+  "weight": 3
+ },
+ {
+  "id": "756",
+  "cca3": "CHE",
+  "cca2": "CH",
+  "country": "Switzerland",
+  "countryAccept": [
+   "Switzerland",
+   "Swiss Confederation"
+  ],
+  "capital": "Bern",
+  "capitalAccept": [
+   "Bern",
+   "Berne"
+  ],
+  "lat": 46.95,
+  "lng": 7.45,
+  "weight": 6
+ },
+ {
+  "id": "442",
+  "cca3": "LUX",
+  "cca2": "LU",
+  "country": "Luxembourg",
+  "countryAccept": [
+   "Luxembourg",
+   "Grand Duchy of Luxembourg"
+  ],
+  "capital": "Luxembourg",
+  "capitalAccept": [
+   "Luxembourg",
+   "Luxembourg City"
+  ],
+  "lat": 49.61,
+  "lng": 6.13,
+  "weight": 1
+ },
+ {
+  "id": "056",
+  "cca3": "BEL",
+  "cca2": "BE",
+  "country": "Belgium",
+  "countryAccept": [
+   "Belgium",
+   "Kingdom of Belgium"
+  ],
+  "capital": "Brussels",
+  "capitalAccept": [
+   "Brussels",
+   "Bruxelles",
+   "Brussel"
+  ],
+  "lat": 50.85,
+  "lng": 4.35,
+  "weight": 6
+ },
+ {
+  "id": "528",
+  "cca3": "NLD",
+  "cca2": "NL",
+  "country": "Netherlands",
+  "countryAccept": [
+   "Netherlands",
+   "Kingdom of the Netherlands"
+  ],
+  "capital": "Amsterdam",
+  "capitalAccept": [
+   "Amsterdam"
+  ],
+  "lat": 52.37,
+  "lng": 4.9,
+  "weight": 6
+ },
+ {
+  "id": "620",
+  "cca3": "PRT",
+  "cca2": "PT",
+  "country": "Portugal",
+  "countryAccept": [
+   "Portugal",
+   "Portuguese Republic"
+  ],
+  "capital": "Lisbon",
+  "capitalAccept": [
+   "Lisbon",
+   "Lisboa"
+  ],
+  "lat": 38.72,
+  "lng": -9.14,
+  "weight": 6
+ },
+ {
+  "id": "724",
+  "cca3": "ESP",
+  "cca2": "ES",
+  "country": "Spain",
+  "countryAccept": [
+   "Spain",
+   "Kingdom of Spain"
+  ],
+  "capital": "Madrid",
+  "capitalAccept": [
+   "Madrid"
+  ],
+  "lat": 40.42,
+  "lng": -3.7,
+  "weight": 6
+ },
+ {
+  "id": "372",
+  "cca3": "IRL",
+  "cca2": "IE",
+  "country": "Ireland",
+  "countryAccept": [
+   "Ireland",
+   "Republic of Ireland"
+  ],
+  "capital": "Dublin",
+  "capitalAccept": [
+   "Dublin",
+   "Baile Atha Cliath"
+  ],
+  "lat": 53.35,
+  "lng": -6.26,
+  "weight": 6
+ },
+ {
+  "id": "090",
+  "cca3": "SLB",
+  "cca2": "SB",
+  "country": "Solomon Islands",
+  "countryAccept": [
+   "Solomon Islands"
+  ],
+  "capital": "Honiara",
+  "capitalAccept": [
+   "Honiara"
+  ],
+  "lat": -9.43,
+  "lng": 159.95,
+  "weight": 1
+ },
+ {
+  "id": "554",
+  "cca3": "NZL",
+  "cca2": "NZ",
+  "country": "New Zealand",
+  "countryAccept": [
+   "New Zealand"
+  ],
+  "capital": "Wellington",
+  "capitalAccept": [
+   "Wellington"
+  ],
+  "lat": -41.29,
+  "lng": 174.78,
+  "weight": 6
+ },
+ {
+  "id": "036",
+  "cca3": "AUS",
+  "cca2": "AU",
+  "country": "Australia",
+  "countryAccept": [
+   "Australia",
+   "Commonwealth of Australia"
+  ],
+  "capital": "Canberra",
+  "capitalAccept": [
+   "Canberra"
+  ],
+  "lat": -35.28,
+  "lng": 149.13,
+  "weight": 6
+ },
+ {
+  "id": "144",
+  "cca3": "LKA",
+  "cca2": "LK",
+  "country": "Sri Lanka",
+  "countryAccept": [
+   "Sri Lanka",
+   "Democratic Socialist Republic of Sri Lanka"
+  ],
+  "capital": "Colombo",
+  "capitalAccept": [
+   "Colombo",
+   "Sri Jayawardenepura Kotte",
+   "Kotte"
+  ],
+  "lat": 6.93,
+  "lng": 79.86,
+  "weight": 3
+ },
+ {
+  "id": "156",
+  "cca3": "CHN",
+  "cca2": "CN",
+  "country": "China",
+  "countryAccept": [
+   "China",
+   "People's Republic of China"
+  ],
+  "capital": "Beijing",
+  "capitalAccept": [
+   "Beijing",
+   "Peking"
+  ],
+  "lat": 39.9,
+  "lng": 116.41,
+  "weight": 6
+ },
+ {
+  "id": "380",
+  "cca3": "ITA",
+  "cca2": "IT",
+  "country": "Italy",
+  "countryAccept": [
+   "Italy",
+   "Italian Republic"
+  ],
+  "capital": "Rome",
+  "capitalAccept": [
+   "Rome",
+   "Roma"
+  ],
+  "lat": 41.9,
+  "lng": 12.5,
+  "weight": 6
+ },
+ {
+  "id": "208",
+  "cca3": "DNK",
+  "cca2": "DK",
+  "country": "Denmark",
+  "countryAccept": [
+   "Denmark",
+   "Kingdom of Denmark"
+  ],
+  "capital": "Copenhagen",
+  "capitalAccept": [
+   "Copenhagen",
+   "Kobenhavn"
+  ],
+  "lat": 55.68,
+  "lng": 12.57,
+  "weight": 3
+ },
+ {
+  "id": "826",
+  "cca3": "GBR",
+  "cca2": "GB",
+  "country": "United Kingdom",
+  "countryAccept": [
+   "United Kingdom",
+   "UK",
+   "Great Britain",
+   "Britain",
+   "United Kingdom of Great Britain and Northern Ireland"
+  ],
+  "capital": "London",
+  "capitalAccept": [
+   "London"
+  ],
+  "lat": 51.51,
+  "lng": -0.13,
+  "weight": 6
+ },
+ {
+  "id": "352",
+  "cca3": "ISL",
+  "cca2": "IS",
+  "country": "Iceland",
+  "countryAccept": [
+   "Iceland"
+  ],
+  "capital": "Reykjavik",
+  "capitalAccept": [
+   "Reykjavik"
+  ],
+  "lat": 64.15,
+  "lng": -21.94,
+  "weight": 3
+ },
+ {
+  "id": "031",
+  "cca3": "AZE",
+  "cca2": "AZ",
+  "country": "Azerbaijan",
+  "countryAccept": [
+   "Azerbaijan",
+   "Republic of Azerbaijan"
+  ],
+  "capital": "Baku",
+  "capitalAccept": [
+   "Baku"
+  ],
+  "lat": 40.41,
+  "lng": 49.87,
+  "weight": 3
+ },
+ {
+  "id": "268",
+  "cca3": "GEO",
+  "cca2": "GE",
+  "country": "Georgia",
+  "countryAccept": [
+   "Georgia"
+  ],
+  "capital": "Tbilisi",
+  "capitalAccept": [
+   "Tbilisi"
+  ],
+  "lat": 41.72,
+  "lng": 44.79,
+  "weight": 3
+ },
+ {
+  "id": "608",
+  "cca3": "PHL",
+  "cca2": "PH",
+  "country": "Philippines",
+  "countryAccept": [
+   "Philippines",
+   "Republic of the Philippines"
+  ],
+  "capital": "Manila",
+  "capitalAccept": [
+   "Manila"
+  ],
+  "lat": 14.6,
+  "lng": 120.98,
+  "weight": 6
+ },
+ {
+  "id": "458",
+  "cca3": "MYS",
+  "cca2": "MY",
+  "country": "Malaysia",
+  "countryAccept": [
+   "Malaysia"
+  ],
+  "capital": "Kuala Lumpur",
+  "capitalAccept": [
+   "Kuala Lumpur",
+   "Putrajaya"
+  ],
+  "lat": 3.14,
+  "lng": 101.69,
+  "weight": 3
+ },
+ {
+  "id": "096",
+  "cca3": "BRN",
+  "cca2": "BN",
+  "country": "Brunei",
+  "countryAccept": [
+   "Brunei",
+   "Nation of Brunei, Abode of Peace"
+  ],
+  "capital": "Bandar Seri Begawan",
+  "capitalAccept": [
+   "Bandar Seri Begawan"
+  ],
+  "lat": 4.89,
+  "lng": 114.94,
+  "weight": 1
+ },
+ {
+  "id": "705",
+  "cca3": "SVN",
+  "cca2": "SI",
+  "country": "Slovenia",
+  "countryAccept": [
+   "Slovenia",
+   "Republic of Slovenia"
+  ],
+  "capital": "Ljubljana",
+  "capitalAccept": [
+   "Ljubljana"
+  ],
+  "lat": 46.06,
+  "lng": 14.51,
+  "weight": 3
+ },
+ {
+  "id": "246",
+  "cca3": "FIN",
+  "cca2": "FI",
+  "country": "Finland",
+  "countryAccept": [
+   "Finland",
+   "Republic of Finland"
+  ],
+  "capital": "Helsinki",
+  "capitalAccept": [
+   "Helsinki"
+  ],
+  "lat": 60.17,
+  "lng": 24.94,
+  "weight": 3
+ },
+ {
+  "id": "703",
+  "cca3": "SVK",
+  "cca2": "SK",
+  "country": "Slovakia",
+  "countryAccept": [
+   "Slovakia",
+   "Slovak Republic"
+  ],
+  "capital": "Bratislava",
+  "capitalAccept": [
+   "Bratislava"
+  ],
+  "lat": 48.15,
+  "lng": 17.11,
+  "weight": 3
+ },
+ {
+  "id": "203",
+  "cca3": "CZE",
+  "cca2": "CZ",
+  "country": "Czechia",
+  "countryAccept": [
+   "Czechia",
+   "Czech Republic"
+  ],
+  "capital": "Prague",
+  "capitalAccept": [
+   "Prague",
+   "Praha"
+  ],
+  "lat": 50.08,
+  "lng": 14.44,
+  "weight": 3
+ },
+ {
+  "id": "232",
+  "cca3": "ERI",
+  "cca2": "ER",
+  "country": "Eritrea",
+  "countryAccept": [
+   "Eritrea",
+   "State of Eritrea"
+  ],
+  "capital": "Asmara",
+  "capitalAccept": [
+   "Asmara"
+  ],
+  "lat": 15.34,
+  "lng": 38.93,
+  "weight": 1
+ },
+ {
+  "id": "392",
+  "cca3": "JPN",
+  "cca2": "JP",
+  "country": "Japan",
+  "countryAccept": [
+   "Japan"
+  ],
+  "capital": "Tokyo",
+  "capitalAccept": [
+   "Tokyo"
+  ],
+  "lat": 35.68,
+  "lng": 139.69,
+  "weight": 6
+ },
+ {
+  "id": "600",
+  "cca3": "PRY",
+  "cca2": "PY",
+  "country": "Paraguay",
+  "countryAccept": [
+   "Paraguay",
+   "Republic of Paraguay"
+  ],
+  "capital": "Asunción",
+  "capitalAccept": [
+   "Asunción"
+  ],
+  "lat": -25.26,
+  "lng": -57.58,
+  "weight": 3
+ },
+ {
+  "id": "887",
+  "cca3": "YEM",
+  "cca2": "YE",
+  "country": "Yemen",
+  "countryAccept": [
+   "Yemen",
+   "Republic of Yemen"
+  ],
+  "capital": "Sana'a",
+  "capitalAccept": [
+   "Sana'a",
+   "Sanaa"
+  ],
+  "lat": 15.37,
+  "lng": 44.19,
+  "weight": 1
+ },
+ {
+  "id": "682",
+  "cca3": "SAU",
+  "cca2": "SA",
+  "country": "Saudi Arabia",
+  "countryAccept": [
+   "Saudi Arabia",
+   "Kingdom of Saudi Arabia"
+  ],
+  "capital": "Riyadh",
+  "capitalAccept": [
+   "Riyadh"
+  ],
+  "lat": 24.71,
+  "lng": 46.68,
+  "weight": 6
+ },
+ {
+  "id": "196",
+  "cca3": "CYP",
+  "cca2": "CY",
+  "country": "Cyprus",
+  "countryAccept": [
+   "Cyprus",
+   "Republic of Cyprus"
+  ],
+  "capital": "Nicosia",
+  "capitalAccept": [
+   "Nicosia"
+  ],
+  "lat": 35.17,
+  "lng": 33.36,
+  "weight": 1
+ },
+ {
+  "id": "504",
+  "cca3": "MAR",
+  "cca2": "MA",
+  "country": "Morocco",
+  "countryAccept": [
+   "Morocco",
+   "Kingdom of Morocco"
+  ],
+  "capital": "Rabat",
+  "capitalAccept": [
+   "Rabat"
+  ],
+  "lat": 34.02,
+  "lng": -6.84,
+  "weight": 3
+ },
+ {
+  "id": "818",
+  "cca3": "EGY",
+  "cca2": "EG",
+  "country": "Egypt",
+  "countryAccept": [
+   "Egypt",
+   "Arab Republic of Egypt"
+  ],
+  "capital": "Cairo",
+  "capitalAccept": [
+   "Cairo"
+  ],
+  "lat": 30.04,
+  "lng": 31.24,
+  "weight": 6
+ },
+ {
+  "id": "434",
+  "cca3": "LBY",
+  "cca2": "LY",
+  "country": "Libya",
+  "countryAccept": [
+   "Libya",
+   "State of Libya"
+  ],
+  "capital": "Tripoli",
+  "capitalAccept": [
+   "Tripoli"
+  ],
+  "lat": 32.89,
+  "lng": 13.19,
+  "weight": 3
+ },
+ {
+  "id": "231",
+  "cca3": "ETH",
+  "cca2": "ET",
+  "country": "Ethiopia",
+  "countryAccept": [
+   "Ethiopia",
+   "Federal Democratic Republic of Ethiopia"
+  ],
+  "capital": "Addis Ababa",
+  "capitalAccept": [
+   "Addis Ababa"
+  ],
+  "lat": 9.03,
+  "lng": 38.74,
+  "weight": 3
+ },
+ {
+  "id": "262",
+  "cca3": "DJI",
+  "cca2": "DJ",
+  "country": "Djibouti",
+  "countryAccept": [
+   "Djibouti",
+   "Republic of Djibouti"
+  ],
+  "capital": "Djibouti",
+  "capitalAccept": [
+   "Djibouti"
+  ],
+  "lat": 11.59,
+  "lng": 43.15,
+  "weight": 1
+ },
+ {
+  "id": "800",
+  "cca3": "UGA",
+  "cca2": "UG",
+  "country": "Uganda",
+  "countryAccept": [
+   "Uganda",
+   "Republic of Uganda"
+  ],
+  "capital": "Kampala",
+  "capitalAccept": [
+   "Kampala"
+  ],
+  "lat": 0.35,
+  "lng": 32.58,
+  "weight": 3
+ },
+ {
+  "id": "646",
+  "cca3": "RWA",
+  "cca2": "RW",
+  "country": "Rwanda",
+  "countryAccept": [
+   "Rwanda",
+   "Republic of Rwanda"
+  ],
+  "capital": "Kigali",
+  "capitalAccept": [
+   "Kigali"
+  ],
+  "lat": -1.95,
+  "lng": 30.06,
+  "weight": 1
+ },
+ {
+  "id": "070",
+  "cca3": "BIH",
+  "cca2": "BA",
+  "country": "Bosnia and Herzegovina",
+  "countryAccept": [
+   "Bosnia and Herzegovina",
+   "Bosnia",
+   "Bosnia-Herzegovina"
+  ],
+  "capital": "Sarajevo",
+  "capitalAccept": [
+   "Sarajevo"
+  ],
+  "lat": 43.86,
+  "lng": 18.41,
+  "weight": 3
+ },
+ {
+  "id": "807",
+  "cca3": "MKD",
+  "cca2": "MK",
+  "country": "North Macedonia",
+  "countryAccept": [
+   "North Macedonia",
+   "Macedonia",
+   "Republic of North Macedonia"
+  ],
+  "capital": "Skopje",
+  "capitalAccept": [
+   "Skopje"
+  ],
+  "lat": 42,
+  "lng": 21.43,
+  "weight": 1
+ },
+ {
+  "id": "688",
+  "cca3": "SRB",
+  "cca2": "RS",
+  "country": "Serbia",
+  "countryAccept": [
+   "Serbia",
+   "Republic of Serbia"
+  ],
+  "capital": "Belgrade",
+  "capitalAccept": [
+   "Belgrade",
+   "Beograd"
+  ],
+  "lat": 44.79,
+  "lng": 20.45,
+  "weight": 3
+ },
+ {
+  "id": "499",
+  "cca3": "MNE",
+  "cca2": "ME",
+  "country": "Montenegro",
+  "countryAccept": [
+   "Montenegro"
+  ],
+  "capital": "Podgorica",
+  "capitalAccept": [
+   "Podgorica"
+  ],
+  "lat": 42.44,
+  "lng": 19.26,
+  "weight": 1
+ },
+ {
+  "id": "780",
+  "cca3": "TTO",
+  "cca2": "TT",
+  "country": "Trinidad and Tobago",
+  "countryAccept": [
+   "Trinidad and Tobago",
+   "Trinidad",
+   "Tobago",
+   "Republic of Trinidad and Tobago"
+  ],
+  "capital": "Port of Spain",
+  "capitalAccept": [
+   "Port of Spain"
+  ],
+  "lat": 10.66,
+  "lng": -61.51,
+  "weight": 1
+ },
+ {
+  "id": "728",
+  "cca3": "SSD",
+  "cca2": "SS",
+  "country": "South Sudan",
+  "countryAccept": [
+   "South Sudan",
+   "Republic of South Sudan"
+  ],
+  "capital": "Juba",
+  "capitalAccept": [
+   "Juba"
+  ],
+  "lat": 4.85,
+  "lng": 31.58,
+  "weight": 1
+ }
+]

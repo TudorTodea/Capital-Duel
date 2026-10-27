@@ -33,6 +33,13 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--text);font:16px/
 @keyframes drop{from{transform:translateY(-60px) scale(.6);opacity:0}to{transform:none;opacity:1}}
 @keyframes ring{from{transform:scale(.3);opacity:.9}to{transform:scale(2.6);opacity:0}}
 
+#flagWrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:40px}
+#flagWrap[hidden]{display:none}
+#flagImg{max-width:min(78%,560px);max-height:70%;width:auto;height:auto;border-radius:6px;
+  box-shadow:0 18px 50px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.08);background:#0e1a2c;
+  opacity:0;transform:scale(.92);animation:flagIn .45s cubic-bezier(.3,1.4,.4,1) forwards}
+@keyframes flagIn{to{opacity:1;transform:none}}
+
 #toast{position:absolute;left:50%;top:14px;transform:translate(-50%,-20px);padding:8px 18px;border-radius:999px;font-weight:700;
   background:var(--card);border:2px solid var(--muted);opacity:0;transition:.25s;pointer-events:none;white-space:nowrap}
 #toast.show{opacity:1;transform:translate(-50%,0)}
@@ -68,6 +75,10 @@ button:disabled{opacity:.4;cursor:not-allowed}
 .sub{color:var(--muted);margin:0 0 18px}
 .hint{color:var(--muted);font-size:13px;margin:12px 0 0;min-height:1em}
 #joinForm{display:flex;flex-direction:column;gap:10px}
+.modepick{display:flex;gap:8px;margin-bottom:4px}
+.modepick[hidden]{display:none}
+.modepick .mode{flex:1;background:#0e1a2c;border-color:#2a3b55;font-weight:600}
+.modepick .mode.active{background:var(--accent);border-color:var(--accent);color:#04202b}
 .linkrow{display:flex;gap:8px}.linkrow input{flex:1;min-width:0;font-size:14px}
 .dots{display:flex;gap:6px;justify-content:center;margin-top:22px}
 .dots i{width:10px;height:10px;border-radius:50%;background:var(--accent);animation:pulse 1s infinite}
