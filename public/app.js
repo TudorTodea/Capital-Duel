@@ -33,7 +33,7 @@
       [...$("modepick").children].forEach((b) => b.classList.toggle("active", b === btn));
       $("joinSub").textContent =
         pickedMode === "flags" ? "Two players. 60 seconds each. Name the country shown." :
-        pickedMode === "millionaire" ? "Team up, chat it out, and see how far you can climb together 💕" :
+        pickedMode === "millionaire" ? "Jucați în echipă, discutați în chat și vedeți cât de departe puteți ajunge împreună 💕" :
         "Two players. 60 seconds each. Name the capital.";
     });
   }
@@ -222,14 +222,19 @@
     // overlays
     if (s.phase === "lobby") {
       $("shareLink").value = `${location.origin}/?room=${s.room}`;
-      $("lobbyTitle").textContent = isM ? "Waiting for your partner 💕" : "Waiting for opponent…";
+      $("lobbyTitle").textContent = isM ? "Așteptăm jumătatea ta 💕" : "Waiting for opponent…";
       showCard("lobbyCard");
     } else if (s.phase === "over") {
       isM ? renderMillionaireOver() : renderOver();
     } else if (s.paused) {
       showCard("msgCard", false);
-      $("msgTitle").textContent = isM ? "Your partner stepped away" : "Opponent disconnected";
-      $("msgSub").textContent = `Game paused — waiting up to 30s for ${isM ? "them to come back" : "them to return"}…`;
+      if (isM) {
+        $("msgTitle").textContent = "Jumătatea ta a plecat puțin 💭";
+        $("msgSub").textContent = "Jocul e în pauză — așteptăm până la 30 de secunde să revină…";
+      } else {
+        $("msgTitle").textContent = "Opponent disconnected";
+        $("msgSub").textContent = "Game paused — waiting up to 30s for them to return…";
+      }
     } else {
       showCard(null);
     }
@@ -295,17 +300,39 @@
   // ---------- millionaire ----------
   const LADDER = [100, 200, 300, 500, 1000, 2000, 4000, 8000, 16000, 32000, 64000, 125000, 250000, 500000, 1000000];
   const MILESTONES = [4, 9];
-  const money = (n) => "$" + n.toLocaleString("en-US");
+  const money = (n) => n.toLocaleString("ro-RO") + " lei";
   const optBtns = [...document.querySelectorAll("#mOptions .opt")];
 
   $("mLadder").innerHTML = LADDER.map((amt, i) => `<div class="rung${MILESTONES.includes(i) ? " milestone" : ""}" data-i="${i}">${i + 1}. ${money(amt)}</div>`).join("");
   const rungs = [...$("mLadder").children];
 
-  let mRenderedQIndex = null, mScrolledQIndex = null, lastMRevealKey = null;
+  // a little floating-emoji burst, used for correct/wrong reactions and the win confetti
+  function burst(anchorEl, emojis, count = 8) {
+    const r = anchorEl.getBoundingClientRect();
+    const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+    for (let i = 0; i < count; i++) {
+      const el = document.createElement("span");
+      el.className = "particle";
+      el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      el.style.left = `${cx}px`;
+      el.style.top = `${cy}px`;
+      el.style.setProperty("--dx", `${Math.random() * 100 - 50}px`);
+      el.style.setProperty("--rot", `${Math.random() * 70 - 35}deg`);
+      el.style.animationDelay = `${Math.random() * 150}ms`;
+      document.body.appendChild(el);
+      el.addEventListener("animationend", () => el.remove());
+    }
+  }
+
+  let mRenderedQIndex = null, mScrolledQIndex = null, lastMRevealKey = null, mOverCelebrated = false;
 
   function renderMillionaire(s, newRound) {
     const m = s.millionaire;
     if (newRound) mRenderedQIndex = mScrolledQIndex = lastMRevealKey = null;
+    if (newRound) mOverCelebrated = false;
+
+    $("mAv0").textContent = (s.players[0]?.name || "?").trim().charAt(0).toUpperCase() || "?";
+    $("mAv1").textContent = (s.players[1]?.name || "?").trim().charAt(0).toUpperCase() || "?";
 
     rungs.forEach((el, i) => {
       el.classList.toggle("done", i < m.qIndex);
@@ -318,7 +345,7 @@
 
     if (s.phase !== "playing") return; // frozen on the last question's colors, under the dim over-card
 
-    $("mAmountLabel").textContent = `Question ${m.qIndex + 1} of ${LADDER.length}`;
+    $("mAmountLabel").textContent = `Întrebarea ${m.qIndex + 1} din ${LADDER.length}`;
     $("mAmount").textContent = money(LADDER[m.qIndex]);
 
     if (m.question && mRenderedQIndex !== m.qIndex) {
@@ -333,7 +360,13 @@
     const mKey = JSON.stringify(m.reveal);
     if (mKey !== lastMRevealKey) {
       lastMRevealKey = mKey;
-      if (m.reveal) mToast(m.reveal.correct ? `✅ Correct! +${money(m.reveal.amount)}` : "❌ Not this time…", m.reveal.correct ? "good" : "bad", 2000);
+      if (m.reveal) {
+        mToast(m.reveal.correct ? `✅ Corect! +${money(m.reveal.amount)}` : "❌ Nu de data asta…", m.reveal.correct ? "good" : "bad", 2000);
+        $("mCouple").classList.remove("yay", "aww");
+        void $("mCouple").offsetWidth;
+        $("mCouple").classList.add(m.reveal.correct ? "yay" : "aww");
+        burst($("mCouple"), m.reveal.correct ? ["💖", "✨", "🎉", "💕"] : ["💔", "😢"], m.reveal.correct ? 8 : 5);
+      }
     }
     if (m.reveal) {
       optBtns[m.reveal.option]?.classList.add("chosen", m.reveal.correct ? "correct" : "wrong");
@@ -348,21 +381,25 @@
 
   function renderMillionaireOver() {
     const s = state, me = s.you, P = s.players, m = s.millionaire;
-    const titles = { won: "🏆 You're Love Millionaires!", lost: "💔 So close!", walked: "💝 Nicely banked!", left: "👋 Round ended" };
+    const titles = { won: "🏆 Sunteți Milionari în Dragoste!", lost: "💔 Așa aproape!", walked: "💝 Bine strâns!", left: "👋 Rundă încheiată" };
     const subs = {
-      won: "You answered every question together.",
-      lost: "Don't worry — you can always try again.",
-      walked: "You two decided to walk away together.",
-      left: "Your partner left before the round finished.",
+      won: "Ați răspuns corect la toate întrebările, împreună.",
+      lost: "Nicio grijă — puteți încerca din nou oricând.",
+      walked: "Ați decis să vă opriți aici, împreună.",
+      left: "Jumătatea ta a plecat înainte de final.",
     };
-    $("mOverTitle").textContent = titles[m.outcome] || "Game over";
+    $("mOverTitle").textContent = titles[m.outcome] || "Joc încheiat";
     $("mOverSub").textContent = subs[m.outcome] || "";
     $("mWonAmt").textContent = money(m.wonAmount);
     $("mRematch").disabled = P[me].rematch || P.some((p) => !p.connected);
-    $("mRematch").textContent = P[me].rematch ? "Waiting…" : "Play again";
-    $("mRematchHint").textContent = P.some((p) => !p.connected) ? "Your partner has left." : P[1 - me].rematch ? "Your partner wants to play again!" : "";
+    $("mRematch").textContent = P[me].rematch ? "Așteptăm…" : "Joacă din nou";
+    $("mRematchHint").textContent = P.some((p) => !p.connected) ? "Jumătatea ta a plecat." : P[1 - me].rematch ? "Jumătatea ta vrea să joace din nou!" : "";
     showCard("mOverCard", false);
     $("overlay").classList.add("dim");
+    if (m.outcome === "won" && !mOverCelebrated) {
+      mOverCelebrated = true;
+      burst($("mOverCard"), ["🎉", "💖", "👑", "✨", "💍"], 18);
+    }
   }
 
   // ---------- millionaire: chat ----------

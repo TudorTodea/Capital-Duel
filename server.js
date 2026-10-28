@@ -24,6 +24,8 @@ function bandFor(qIndex) {
   return qIndex < 5 ? "easy" : qIndex < 10 ? "medium" : "hard";
 }
 
+const money = (n) => n.toLocaleString("ro-RO") + " lei";
+
 function pickQuestion(r, qIndex) {
   const band = bandFor(qIndex);
   const bank = QUESTION_BANK[band];
@@ -57,7 +59,7 @@ function startMillionaire(r) {
   r.outcome = null;
   r.wonAmount = 0;
   r.question = pickQuestion(r, 0);
-  sysChat(r, "💍 New game! Talk it over, then either of you can tap an answer. Good luck, team!");
+  sysChat(r, "💍 Joc nou! Discutați, apoi oricare dintre voi poate răspunde. Baftă, echipă!");
 }
 
 function millionaireSafeAmount(qIndexFailedAt) {
@@ -74,21 +76,21 @@ function handleAnswer(r, idx, optIndex) {
   const correct = optIndex === q.answer;
   r.pending = true;
   r.mReveal = { by: idx, option: optIndex, answer: q.answer, correct, amount: LADDER[r.qIndex] };
-  sysChat(r, `🎯 ${r.players[idx].name} chose: ${q.options[optIndex]}`);
+  sysChat(r, `🎯 ${r.players[idx].name} a ales: ${q.options[optIndex]}`);
   broadcast(r);
   r.timers.mReveal = setTimeout(() => {
     delete r.timers.mReveal;
     r.pending = false;
     r.mReveal = null;
     if (correct) {
-      sysChat(r, `✅ Correct! +$${LADDER[r.qIndex].toLocaleString("en-US")}`);
+      sysChat(r, `✅ Corect! +${money(LADDER[r.qIndex])}`);
       r.qIndex++;
       if (r.qIndex >= LADDER.length) {
         r.phase = "over";
         r.outcome = "won";
         r.wonAmount = LADDER[LADDER.length - 1];
         r.question = null;
-        sysChat(r, "🏆 You answered everything right — you're Love Millionaires!");
+        sysChat(r, "🏆 Ați răspuns corect la tot — sunteți Milionari în Dragoste!");
       } else {
         r.eliminated = [];
         r.question = pickQuestion(r, r.qIndex);
@@ -98,7 +100,7 @@ function handleAnswer(r, idx, optIndex) {
       r.outcome = "lost";
       r.wonAmount = millionaireSafeAmount(r.qIndex);
       r.question = null;
-      sysChat(r, `❌ Not quite — it was "${q.options[q.answer]}". You bank $${r.wonAmount.toLocaleString("en-US")}.`);
+      sysChat(r, `❌ Nu chiar — răspunsul corect era „${q.options[q.answer]}”. Plecați cu ${money(r.wonAmount)}.`);
     }
     broadcast(r);
   }, correct ? M_CORRECT_DELAY : M_WRONG_DELAY);
@@ -111,7 +113,7 @@ function handleWalk(r, idx) {
   r.outcome = "walked";
   r.wonAmount = LADDER[r.qIndex - 1];
   r.question = null;
-  sysChat(r, `💝 ${r.players[idx].name} chose to walk away with $${r.wonAmount.toLocaleString("en-US")}.`);
+  sysChat(r, `💝 ${r.players[idx].name} a ales să vă opriți aici, cu ${money(r.wonAmount)}.`);
   broadcast(r);
 }
 
@@ -121,7 +123,7 @@ function handleLifeline(r, idx, which) {
   r.lifeline.fifty = false;
   const wrong = shuffle([0, 1, 2, 3].filter((i) => i !== r.question.answer)).slice(0, 2);
   r.eliminated = wrong.sort((a, b) => a - b);
-  sysChat(r, `✨ ${r.players[idx].name} used 50:50 — two wrong answers removed.`);
+  sysChat(r, `✨ ${r.players[idx].name} a folosit 50:50 — două răspunsuri greșite au fost eliminate.`);
   broadcast(r);
 }
 

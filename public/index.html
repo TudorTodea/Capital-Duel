@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Capital Duel</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📍</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap">
 <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -32,33 +35,38 @@
 
   <main id="mStage" hidden>
     <div id="mTop">
-      <div id="mAmountWrap"><span id="mAmountLabel">Question 1 of 15</span><span id="mAmount">$100</span></div>
-      <button type="button" id="mChatBtn" aria-label="Open chat">💬<span id="mChatBadge" hidden>0</span></button>
+      <div id="mAmountWrap"><span id="mAmountLabel">Întrebarea 1 din 15</span><span id="mAmount">100 lei</span></div>
+      <button type="button" id="mChatBtn" aria-label="Deschide chatul">💬<span id="mChatBadge" hidden>0</span></button>
+    </div>
+    <div id="mCouple">
+      <div class="mAvatar" id="mAv0">?</div>
+      <div class="mHeart3d"><span>💖</span></div>
+      <div class="mAvatar" id="mAv1">?</div>
     </div>
     <div id="mLadder"></div>
     <div id="mCard">
-      <p id="mQText">Loading your first question…</p>
+      <p id="mQText">Se încarcă prima întrebare…</p>
+      <div id="mToast" class="toastbubble"></div>
       <div id="mOptions">
         <button type="button" class="opt" data-i="0"><span class="optLabel">A</span><span class="optText"></span></button>
         <button type="button" class="opt" data-i="1"><span class="optLabel">B</span><span class="optText"></span></button>
         <button type="button" class="opt" data-i="2"><span class="optLabel">C</span><span class="optText"></span></button>
         <button type="button" class="opt" data-i="3"><span class="optLabel">D</span><span class="optText"></span></button>
       </div>
-      <div id="mToast" class="toastbubble"></div>
     </div>
     <div id="mActions">
       <button type="button" id="mFifty" class="ghost">✂️ 50:50</button>
-      <button type="button" id="mWalk" class="ghost" disabled>💝 Walk away</button>
+      <button type="button" id="mWalk" class="ghost" disabled>💝 Ne oprim aici</button>
     </div>
   </main>
 
   <div id="mChatScrim" hidden></div>
   <aside id="mChatDrawer" hidden>
-    <div id="mChatHead"><span>💬 Chat with your partner</span><button type="button" id="mChatClose" aria-label="Close chat">✕</button></div>
+    <div id="mChatHead"><span>💬 Chat cu jumătatea ta</span><button type="button" id="mChatClose" aria-label="Închide chatul">✕</button></div>
     <div id="mChatLog"></div>
     <form id="mChatForm" autocomplete="off">
-      <input id="mChatInput" maxlength="200" placeholder="Say something…" enterkeyhint="send">
-      <button type="submit" class="primary">Send</button>
+      <input id="mChatInput" maxlength="200" placeholder="Spune ceva…" enterkeyhint="send">
+      <button type="submit" class="primary">Trimite</button>
     </form>
   </aside>
 
@@ -70,7 +78,7 @@
         <div class="modepick" id="modepick">
           <button type="button" class="mode active" data-mode="capitals">🌍 Capitals</button>
           <button type="button" class="mode" data-mode="flags">🚩 Flags</button>
-          <button type="button" class="mode" data-mode="millionaire">💍 Millionaire</button>
+          <button type="button" class="mode" data-mode="millionaire">💍 Milionari</button>
         </div>
         <input id="nameInput" maxlength="20" placeholder="Your name" required autofocus>
         <button class="primary" type="submit" id="joinBtn">Create room</button>
@@ -96,7 +104,7 @@
     <div class="card" id="mOverCard" hidden>
       <h2 id="mOverTitle"></h2>
       <p class="sub" id="mOverSub"></p>
-      <div class="wonAmount"><span>you won</span><b id="mWonAmt">$0</b></div>
+      <div class="wonAmount"><span>ați câștigat</span><b id="mWonAmt">0 lei</b></div>
       <button id="mRematch" class="primary">Play again</button>
       <p class="hint" id="mRematchHint"></p>
     </div>

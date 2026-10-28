@@ -6,11 +6,13 @@ Two players, three modes picked by whoever creates the room:
   60s each; correct → your clock stops and the other player's starts; first clock to hit 0 loses.
 - **Flags** — same duel format, but a flag is shown and you name the country. Well-known flags (USA, France, Germany…)
   come up several times more often than obscure ones (small Pacific/African states), via a weighted random pick.
-- **Millionaire 💍** — co-op, not competitive: built for two people playing together (e.g. a couple). You climb a
-  15-question money ladder from $100 to $1,000,000 as a team — talk it over in the built-in chat, and either player
-  can tap an answer to lock it in. A wrong answer drops you to the last milestone you passed ($1,000 at Q5,
-  $32,000 at Q10); you can also walk away any time with whatever you've already banked. One shared 50:50 lifeline
-  per game. Fully mobile-friendly (bottom-sheet chat, single-column question card, horizontally scrolling ladder).
+- **Milionari 💍** (Romanian UI, "Who Wants to Be a Millionaire"-style) — co-op, not competitive: built for two people
+  playing together (e.g. a couple). You climb a 15-question money ladder from 100 to 1.000.000 lei as a team — talk it
+  over in the built-in chat, and either player can tap an answer to lock it in. A wrong answer drops you to the last
+  milestone you passed (1.000 lei at Q5, 32.000 lei at Q10); you can also stop any time ("Ne oprim aici 💝") with
+  whatever you've already banked. One shared 50:50 lifeline per game. A cute couple mascot (two avatar initials +
+  a little spinning heart) reacts to every answer with a burst of emoji, and confetti on a full win. Mobile-friendly
+  (bottom-sheet chat, single-column question card, horizontally scrolling ladder), Quicksand font for a softer feel.
 
     npm install
     npm start          # http://localhost:3737  (set PORT to change)
