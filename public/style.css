@@ -115,10 +115,12 @@ button:disabled{opacity:.4;cursor:not-allowed}
 #mCouple.aww{animation:coupleAww .45s ease}
 @keyframes coupleYay{0%,100%{transform:scale(1)}50%{transform:scale(1.14) rotate(-2deg)}}
 @keyframes coupleAww{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
-.mAvatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;
-  font:700 15px 'Quicksand',system-ui;color:#2a1500;background:linear-gradient(135deg,var(--m-gold),var(--m-pink));
-  box-shadow:0 4px 14px rgba(255,111,165,.35)}
-#mAv1{background:linear-gradient(135deg,var(--m-pink),var(--accent))}
+.mAvatar{width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.14),rgba(255,255,255,0) 70%),rgba(255,255,255,.04);
+  box-shadow:0 6px 16px rgba(0,0,0,.25);animation:bob 2.6s ease-in-out infinite}
+.mAvatar svg{width:48px;height:48px;display:block}
+#mAv1{animation-delay:.35s}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 .mHeart3d{perspective:260px}
 .mHeart3d span{display:inline-block;font-size:24px;transform-style:preserve-3d;
   animation:heart3d 3.4s ease-in-out infinite;filter:drop-shadow(0 6px 8px rgba(255,111,165,.45))}

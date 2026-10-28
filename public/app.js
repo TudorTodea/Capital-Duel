@@ -303,6 +303,32 @@
   const money = (n) => n.toLocaleString("ro-RO") + " lei";
   const optBtns = [...document.querySelectorAll("#mOptions .opt")];
 
+  // the couple mascot: a capybara (player 1) and a little kitty with a bow (player 2) — drawn once, not photos of
+  // any real character, just two cute original chibi faces to stand in for the two of you.
+  $("mAv0").innerHTML = `<svg viewBox="0 0 64 64" aria-hidden="true">
+    <ellipse cx="32" cy="32" rx="28" ry="17" fill="#b98a5e"/>
+    <circle cx="9" cy="25" r="5.5" fill="#9c7049"/><circle cx="55" cy="25" r="5.5" fill="#9c7049"/>
+    <circle cx="9" cy="25" r="2.6" fill="#d9ad7f"/><circle cx="55" cy="25" r="2.6" fill="#d9ad7f"/>
+    <ellipse cx="32" cy="43" rx="21" ry="15" fill="#e7c89e"/>
+    <circle cx="19" cy="27" r="2.8" fill="#2a1a10"/><circle cx="45" cy="27" r="2.8" fill="#2a1a10"/>
+    <ellipse cx="24" cy="47" rx="2.6" ry="1.9" fill="#6b4328"/><ellipse cx="40" cy="47" rx="2.6" ry="1.9" fill="#6b4328"/>
+    <circle cx="32" cy="12" r="6.5" fill="#ff9d3d"/>
+    <path d="M32 6.5q2-3 5-2" stroke="#5cb65c" stroke-width="2" fill="none" stroke-linecap="round"/>
+  </svg>`;
+  $("mAv1").innerHTML = `<svg viewBox="0 0 64 64" aria-hidden="true">
+    <path d="M13 21 21 6 28 21Z" fill="#fff"/><path d="M51 21 43 6 36 21Z" fill="#fff"/>
+    <path d="M15.5 20 21 11 25.5 20Z" fill="#ffd3e2"/><path d="M48.5 20 43 11 38.5 20Z" fill="#ffd3e2"/>
+    <circle cx="32" cy="37" r="24" fill="#fff" stroke="#f2dde4" stroke-width="1.5"/>
+    <circle cx="22" cy="35" r="2.4" fill="#2a1a10"/><circle cx="42" cy="35" r="2.4" fill="#2a1a10"/>
+    <ellipse cx="32" cy="43" rx="2.4" ry="1.8" fill="#ffb3c6"/>
+    <path d="M7 37h8M7 41h8M7 45h7" stroke="#e4cfcf" stroke-width="1.3" stroke-linecap="round"/>
+    <path d="M57 37h-8M57 41h-8M57 45h-7" stroke="#e4cfcf" stroke-width="1.3" stroke-linecap="round"/>
+    <g transform="translate(45,15)">
+      <path d="M0 0-8-6V6Z" fill="#ff4d7e"/><path d="M0 0 8-6V6Z" fill="#ff6f95"/>
+      <circle r="3" fill="#ff2f63"/>
+    </g>
+  </svg>`;
+
   $("mLadder").innerHTML = LADDER.map((amt, i) => `<div class="rung${MILESTONES.includes(i) ? " milestone" : ""}" data-i="${i}">${i + 1}. ${money(amt)}</div>`).join("");
   const rungs = [...$("mLadder").children];
 
@@ -330,9 +356,6 @@
     const m = s.millionaire;
     if (newRound) mRenderedQIndex = mScrolledQIndex = lastMRevealKey = null;
     if (newRound) mOverCelebrated = false;
-
-    $("mAv0").textContent = (s.players[0]?.name || "?").trim().charAt(0).toUpperCase() || "?";
-    $("mAv1").textContent = (s.players[1]?.name || "?").trim().charAt(0).toUpperCase() || "?";
 
     rungs.forEach((el, i) => {
       el.classList.toggle("done", i < m.qIndex);
