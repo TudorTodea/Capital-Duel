@@ -306,26 +306,51 @@
   // the couple mascot: a capybara (player 1) and a little kitty with a bow (player 2) — drawn once, not photos of
   // any real character, just two cute original chibi faces to stand in for the two of you.
   $("mAv0").innerHTML = `<svg viewBox="0 0 64 64" aria-hidden="true">
-    <ellipse cx="32" cy="32" rx="28" ry="17" fill="#b98a5e"/>
-    <circle cx="9" cy="25" r="5.5" fill="#9c7049"/><circle cx="55" cy="25" r="5.5" fill="#9c7049"/>
-    <circle cx="9" cy="25" r="2.6" fill="#d9ad7f"/><circle cx="55" cy="25" r="2.6" fill="#d9ad7f"/>
-    <ellipse cx="32" cy="43" rx="21" ry="15" fill="#e7c89e"/>
-    <circle cx="19" cy="27" r="2.8" fill="#2a1a10"/><circle cx="45" cy="27" r="2.8" fill="#2a1a10"/>
-    <ellipse cx="24" cy="47" rx="2.6" ry="1.9" fill="#6b4328"/><ellipse cx="40" cy="47" rx="2.6" ry="1.9" fill="#6b4328"/>
-    <circle cx="32" cy="12" r="6.5" fill="#ff9d3d"/>
+    <defs>
+      <radialGradient id="capyBody" cx="38%" cy="30%" r="75%">
+        <stop offset="0%" stop-color="#cc9c6c"/><stop offset="100%" stop-color="#a97c50"/>
+      </radialGradient>
+      <radialGradient id="capySnout" cx="40%" cy="25%" r="75%">
+        <stop offset="0%" stop-color="#f3dab2"/><stop offset="100%" stop-color="#e2c093"/>
+      </radialGradient>
+    </defs>
+    <ellipse cx="32" cy="32" rx="28" ry="17" fill="url(#capyBody)"/>
+    <path d="M9 25a5.5 5.5 0 1 1 0 .1Z" fill="#8a6440"/><path d="M55 25a5.5 5.5 0 1 1 0 .1Z" fill="#8a6440"/>
+    <circle cx="9" cy="25.5" r="2.8" fill="#e2bd8e"/><circle cx="55" cy="25.5" r="2.8" fill="#e2bd8e"/>
+    <ellipse cx="32" cy="43" rx="21" ry="15" fill="url(#capySnout)"/>
+    <ellipse cx="15" cy="44" rx="4" ry="6" fill="#dcb286" opacity=".5"/><ellipse cx="49" cy="44" rx="4" ry="6" fill="#dcb286" opacity=".5"/>
+    <ellipse cx="16" cy="40" rx="4.5" ry="3" fill="#f0a98f" opacity=".55"/><ellipse cx="48" cy="40" rx="4.5" ry="3" fill="#f0a98f" opacity=".55"/>
+    <circle cx="19.5" cy="26.5" r="3" fill="#2a1a10"/><circle cx="44.5" cy="26.5" r="3" fill="#2a1a10"/>
+    <circle cx="20.6" cy="25.3" r=".9" fill="#fff"/><circle cx="45.6" cy="25.3" r=".9" fill="#fff"/>
+    <ellipse cx="24" cy="47" rx="2.8" ry="2" fill="#5a3a22"/><ellipse cx="40" cy="47" rx="2.8" ry="2" fill="#5a3a22"/>
+    <path d="M28 52q4 2.5 8 0" stroke="#6b4328" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+    <circle cx="32" cy="12" r="6.5" fill="#ff9d3d"/><circle cx="29.5" cy="10" r="1.6" fill="#ffc27a" opacity=".8"/>
     <path d="M32 6.5q2-3 5-2" stroke="#5cb65c" stroke-width="2" fill="none" stroke-linecap="round"/>
   </svg>`;
   $("mAv1").innerHTML = `<svg viewBox="0 0 64 64" aria-hidden="true">
+    <defs>
+      <radialGradient id="kittyHead" cx="35%" cy="28%" r="75%">
+        <stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#f7eef1"/>
+      </radialGradient>
+      <linearGradient id="bowLeft" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#ff7a9c"/><stop offset="100%" stop-color="#ff4d7e"/>
+      </linearGradient>
+      <linearGradient id="bowRight" x1="1" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#ff93ae"/><stop offset="100%" stop-color="#ff6f95"/>
+      </linearGradient>
+    </defs>
     <path d="M13 21 21 6 28 21Z" fill="#fff"/><path d="M51 21 43 6 36 21Z" fill="#fff"/>
     <path d="M15.5 20 21 11 25.5 20Z" fill="#ffd3e2"/><path d="M48.5 20 43 11 38.5 20Z" fill="#ffd3e2"/>
-    <circle cx="32" cy="37" r="24" fill="#fff" stroke="#f2dde4" stroke-width="1.5"/>
-    <circle cx="22" cy="35" r="2.4" fill="#2a1a10"/><circle cx="42" cy="35" r="2.4" fill="#2a1a10"/>
-    <ellipse cx="32" cy="43" rx="2.4" ry="1.8" fill="#ffb3c6"/>
-    <path d="M7 37h8M7 41h8M7 45h7" stroke="#e4cfcf" stroke-width="1.3" stroke-linecap="round"/>
-    <path d="M57 37h-8M57 41h-8M57 45h-7" stroke="#e4cfcf" stroke-width="1.3" stroke-linecap="round"/>
+    <circle cx="32" cy="37" r="24" fill="url(#kittyHead)" stroke="#f0d7de" stroke-width="1.5"/>
+    <ellipse cx="17" cy="42" rx="5" ry="3.2" fill="#ffc3d4" opacity=".65"/><ellipse cx="47" cy="42" rx="5" ry="3.2" fill="#ffc3d4" opacity=".65"/>
+    <circle cx="22" cy="35" r="2.6" fill="#2a1a10"/><circle cx="42" cy="35" r="2.6" fill="#2a1a10"/>
+    <circle cx="23" cy="33.8" r=".9" fill="#fff"/><circle cx="43" cy="33.8" r=".9" fill="#fff"/>
+    <ellipse cx="32" cy="43" rx="2.6" ry="2" fill="#ffb3c6"/>
+    <path d="M7 37h8M7 41h8M7 45h7" stroke="#ddc6cb" stroke-width="1.3" stroke-linecap="round"/>
+    <path d="M57 37h-8M57 41h-8M57 45h-7" stroke="#ddc6cb" stroke-width="1.3" stroke-linecap="round"/>
     <g transform="translate(45,15)">
-      <path d="M0 0-8-6V6Z" fill="#ff4d7e"/><path d="M0 0 8-6V6Z" fill="#ff6f95"/>
-      <circle r="3" fill="#ff2f63"/>
+      <path d="M0 0-9-6-8 6Z" fill="url(#bowLeft)"/><path d="M0 0 9-6 8 6Z" fill="url(#bowRight)"/>
+      <path d="M-2-2 2-2 2 2-2 2Z" fill="#ff2f63"/><circle r="2.1" fill="#ffe2ea"/>
     </g>
   </svg>`;
 
