@@ -1,23 +1,28 @@
 # Capital Duel
 
-Two players, 60 seconds each, two modes picked by whoever creates the room:
+Two players, three modes picked by whoever creates the room:
 
 - **Capitals** — a country is highlighted on the world map, a pin marks its capital, the active player types the capital.
-- **Flags** — a flag is shown, the active player names the country. Well-known flags (USA, France, Germany…) come up
-  several times more often than obscure ones (small Pacific/African states), via a weighted random pick.
-
-Correct → your clock stops and the other player's starts. First clock to hit 0 loses.
+  60s each; correct → your clock stops and the other player's starts; first clock to hit 0 loses.
+- **Flags** — same duel format, but a flag is shown and you name the country. Well-known flags (USA, France, Germany…)
+  come up several times more often than obscure ones (small Pacific/African states), via a weighted random pick.
+- **Millionaire 💍** — co-op, not competitive: built for two people playing together (e.g. a couple). You climb a
+  15-question money ladder from $100 to $1,000,000 as a team — talk it over in the built-in chat, and either player
+  can tap an answer to lock it in. A wrong answer drops you to the last milestone you passed ($1,000 at Q5,
+  $32,000 at Q10); you can also walk away any time with whatever you've already banked. One shared 50:50 lifeline
+  per game. Fully mobile-friendly (bottom-sheet chat, single-column question card, horizontally scrolling ladder).
 
     npm install
     npm start          # http://localhost:3737  (set PORT to change)
 
-Open the site, enter your name, pick a mode → you get a room link (`/?room=xxxxxx`) to send to your opponent (they
-join whichever mode you picked).
+Open the site, enter your name, pick a mode → you get a room link (`/?room=xxxxxx`) to send to your opponent/partner
+(they join whichever mode you picked).
 
-- **Skip** (or `Esc`): reveals the answer for 1 second (your clock keeps running), then a new country appears.
+- **Skip** (Capitals/Flags, or `Esc`): reveals the answer for 1 second (your clock keeps running), then a new country appears.
 - Wrong guesses are free but your clock keeps ticking. Accent/spacing/case-insensitive, 1 typo tolerated on long names;
   a type-ahead list of capitals/country names appears as you type (never reveals which one matches the current round).
-- If a player disconnects the game pauses for 30s; reconnecting (same tab) resumes it.
+- If a player disconnects the game pauses for 30s; reconnecting (same tab) resumes it. In Millionaire, if the grace
+  period runs out the round ends and you bank whatever was already secured.
 - Deploy anywhere that runs Node with WebSockets (Render, Railway, Fly.io…); the start command is `npm start`.
 
 ## Deploy on Render (free)

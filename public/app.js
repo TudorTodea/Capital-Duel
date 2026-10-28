@@ -13,7 +13,7 @@
   if (!token) { token = Math.random().toString(36).slice(2) + Date.now().toString(36); store.setS("cd-token", token); }
 
   // ---------- screens ----------
-  const cards = ["joinCard", "lobbyCard", "overCard", "msgCard"];
+  const cards = ["joinCard", "lobbyCard", "overCard", "mOverCard", "msgCard"];
   function showCard(name, dim = true) {
     cards.forEach((c) => ($(c).hidden = c !== name));
     $("overlay").classList.toggle("dim", !!name && dim);
@@ -31,9 +31,10 @@
       if (!btn) return;
       pickedMode = btn.dataset.mode;
       [...$("modepick").children].forEach((b) => b.classList.toggle("active", b === btn));
-      $("joinSub").textContent = pickedMode === "flags"
-        ? "Two players. 60 seconds each. Name the country shown."
-        : "Two players. 60 seconds each. Name the capital.";
+      $("joinSub").textContent =
+        pickedMode === "flags" ? "Two players. 60 seconds each. Name the country shown." :
+        pickedMode === "millionaire" ? "Team up, chat it out, and see how far you can climb together 💕" :
+        "Two players. 60 seconds each. Name the capital.";
     });
   }
   showCard("joinCard");
@@ -163,6 +164,11 @@
         render();
       } else if (m.t === "wrong") {
         wrong();
+      } else if (m.t === "chat") {
+        addChatBubble(m.msg);
+      } else if (m.t === "chatHistory") {
+        $("mChatLog").innerHTML = "";
+        m.chat.forEach((c) => addChatBubble(c, true));
       } else if (m.t === "error") {
         joined = false;
         ws.onclose = null;
@@ -183,15 +189,20 @@
   const now = () => Date.now() + offset;
 
   // ---------- render ----------
-  let lastRevealKey = null, lastPhase = null, toastTimer;
+  let lastRevealKey = null, lastPhase = null;
 
-  function toast(text, kind, ms) {
-    const t = $("toast");
-    clearTimeout(toastTimer);
-    t.textContent = text;
-    t.className = `show ${kind}`;
-    if (ms) toastTimer = setTimeout(() => (t.className = ""), ms);
+  function makeToaster(id) {
+    const el = $(id);
+    let timer;
+    return (text, kind, ms) => {
+      clearTimeout(timer);
+      el.textContent = text;
+      el.className = `toastbubble show ${kind}`;
+      if (ms) timer = setTimeout(() => (el.className = "toastbubble"), ms);
+    };
   }
+  const toast = makeToaster("toast");
+  const mToast = makeToaster("mToast");
 
   function wrong() {
     const g = $("guess");
@@ -204,26 +215,34 @@
 
   function render() {
     const s = state;
-    const me = s.you, other = 1 - me;
-    const P = s.players;
+    const isM = s.mode === "millionaire";
+    const newRound = lastPhase === "lobby" || (lastPhase === "over" && s.phase === "playing");
+    lastPhase = s.phase;
 
     // overlays
     if (s.phase === "lobby") {
       $("shareLink").value = `${location.origin}/?room=${s.room}`;
+      $("lobbyTitle").textContent = isM ? "Waiting for your partner 💕" : "Waiting for opponent…";
       showCard("lobbyCard");
     } else if (s.phase === "over") {
-      renderOver();
+      isM ? renderMillionaireOver() : renderOver();
     } else if (s.paused) {
       showCard("msgCard", false);
-      $("msgTitle").textContent = "Opponent disconnected";
-      $("msgSub").textContent = "Game paused — waiting up to 30s for them to return…";
+      $("msgTitle").textContent = isM ? "Your partner stepped away" : "Opponent disconnected";
+      $("msgSub").textContent = `Game paused — waiting up to 30s for ${isM ? "them to come back" : "them to return"}…`;
     } else {
       showCard(null);
     }
 
     const inGame = s.phase !== "lobby";
-    $("hud").hidden = !inGame;
-    $("controls").hidden = !inGame;
+    $("stage").hidden = isM;
+    $("hud").hidden = !inGame || isM;
+    $("controls").hidden = !inGame || isM;
+    $("mStage").hidden = !inGame || !isM;
+    if (isM) { renderMillionaire(s, newRound); return; }
+
+    const me = s.you;
+    const P = s.players;
     $("guess").placeholder = s.mode === "flags" ? "Country name…" : "Capital city…";
     if (inGame) {
       [0, 1].forEach((i) => {
@@ -237,12 +256,10 @@
     const isFlags = s.mode === "flags";
     flagWrap.hidden = !isFlags;
     $("map").style.display = isFlags ? "none" : "";
-    const newRound = lastPhase === "lobby" || (lastPhase === "over" && s.phase === "playing");
     if (s.phase === "playing" || s.phase === "over") {
       if (s.country && isFlags && (shownFlag !== s.country.id || newRound)) showFlag(s.country);
       if (s.country && !isFlags && (shown !== s.country.id || newRound)) showCountry(s.country, !shown);
     }
-    lastPhase = s.phase;
 
     // toasts
     const key = JSON.stringify(s.reveal) + P.map((p) => p.score).join(",");
@@ -252,7 +269,7 @@
       if (r && r.kind === "correct") toast(`✓ ${r.text}`, "good", 1800);
       else if (r && r.kind === "skip") toast(`Skipped — it was ${r.text}`, "skip");
       else if (r && r.kind === "timeup") toast(`Time's up! It was ${r.text}`, "bad");
-      else if ($("toast").className.includes("skip")) $("toast").className = "";
+      else if ($("toast").className.includes("skip")) $("toast").className = "toastbubble";
     }
     paint();
   }
@@ -275,7 +292,128 @@
 
   const esc = (t) => t.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
-  // ---------- clock + controls (runs every frame) ----------
+  // ---------- millionaire ----------
+  const LADDER = [100, 200, 300, 500, 1000, 2000, 4000, 8000, 16000, 32000, 64000, 125000, 250000, 500000, 1000000];
+  const MILESTONES = [4, 9];
+  const money = (n) => "$" + n.toLocaleString("en-US");
+  const optBtns = [...document.querySelectorAll("#mOptions .opt")];
+
+  $("mLadder").innerHTML = LADDER.map((amt, i) => `<div class="rung${MILESTONES.includes(i) ? " milestone" : ""}" data-i="${i}">${i + 1}. ${money(amt)}</div>`).join("");
+  const rungs = [...$("mLadder").children];
+
+  let mRenderedQIndex = null, mScrolledQIndex = null, lastMRevealKey = null;
+
+  function renderMillionaire(s, newRound) {
+    const m = s.millionaire;
+    if (newRound) mRenderedQIndex = mScrolledQIndex = lastMRevealKey = null;
+
+    rungs.forEach((el, i) => {
+      el.classList.toggle("done", i < m.qIndex);
+      el.classList.toggle("current", i === m.qIndex && s.phase === "playing");
+    });
+    if (m.qIndex !== mScrolledQIndex) {
+      mScrolledQIndex = m.qIndex;
+      rungs[Math.min(m.qIndex, rungs.length - 1)]?.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
+    }
+
+    if (s.phase !== "playing") return; // frozen on the last question's colors, under the dim over-card
+
+    $("mAmountLabel").textContent = `Question ${m.qIndex + 1} of ${LADDER.length}`;
+    $("mAmount").textContent = money(LADDER[m.qIndex]);
+
+    if (m.question && mRenderedQIndex !== m.qIndex) {
+      mRenderedQIndex = m.qIndex;
+      $("mQText").textContent = m.question.text;
+      optBtns.forEach((btn, i) => { btn.className = "opt"; btn.querySelector(".optText").textContent = m.question.options[i]; });
+      $("mToast").className = "toastbubble";
+    }
+
+    optBtns.forEach((btn, i) => btn.classList.toggle("eliminated", m.eliminated.includes(i)));
+
+    const mKey = JSON.stringify(m.reveal);
+    if (mKey !== lastMRevealKey) {
+      lastMRevealKey = mKey;
+      if (m.reveal) mToast(m.reveal.correct ? `✅ Correct! +${money(m.reveal.amount)}` : "❌ Not this time…", m.reveal.correct ? "good" : "bad", 2000);
+    }
+    if (m.reveal) {
+      optBtns[m.reveal.option]?.classList.add("chosen", m.reveal.correct ? "correct" : "wrong");
+      if (!m.reveal.correct) optBtns[m.reveal.answer]?.classList.add("correct");
+    }
+
+    const locked = m.pending || s.phase !== "playing" || s.paused;
+    optBtns.forEach((btn, i) => (btn.disabled = locked || m.eliminated.includes(i)));
+    $("mFifty").disabled = locked || !m.lifeline.fifty;
+    $("mWalk").disabled = locked || m.qIndex === 0;
+  }
+
+  function renderMillionaireOver() {
+    const s = state, me = s.you, P = s.players, m = s.millionaire;
+    const titles = { won: "🏆 You're Love Millionaires!", lost: "💔 So close!", walked: "💝 Nicely banked!", left: "👋 Round ended" };
+    const subs = {
+      won: "You answered every question together.",
+      lost: "Don't worry — you can always try again.",
+      walked: "You two decided to walk away together.",
+      left: "Your partner left before the round finished.",
+    };
+    $("mOverTitle").textContent = titles[m.outcome] || "Game over";
+    $("mOverSub").textContent = subs[m.outcome] || "";
+    $("mWonAmt").textContent = money(m.wonAmount);
+    $("mRematch").disabled = P[me].rematch || P.some((p) => !p.connected);
+    $("mRematch").textContent = P[me].rematch ? "Waiting…" : "Play again";
+    $("mRematchHint").textContent = P.some((p) => !p.connected) ? "Your partner has left." : P[1 - me].rematch ? "Your partner wants to play again!" : "";
+    showCard("mOverCard", false);
+    $("overlay").classList.add("dim");
+  }
+
+  // ---------- millionaire: chat ----------
+  let chatOpen = false, unread = 0;
+  function openChat() {
+    chatOpen = true; unread = 0;
+    $("mChatBadge").hidden = true;
+    $("mChatScrim").hidden = false;
+    $("mChatDrawer").hidden = false;
+    $("mChatLog").scrollTop = $("mChatLog").scrollHeight;
+    $("mChatInput").focus();
+  }
+  function closeChat() {
+    chatOpen = false;
+    $("mChatScrim").hidden = true;
+    $("mChatDrawer").hidden = true;
+  }
+  function addChatBubble(msg, silent = false) {
+    const log = $("mChatLog");
+    const div = document.createElement("div");
+    if (msg.sys) {
+      div.className = "cmsg sys";
+      div.textContent = msg.text;
+    } else {
+      div.className = `cmsg ${msg.by === state?.you ? "me" : ""}`;
+      div.innerHTML = `<span class="cname">${esc(msg.name)}</span>${esc(msg.text)}`;
+    }
+    log.appendChild(div);
+    log.scrollTop = log.scrollHeight;
+    if (!chatOpen && !msg.sys && !silent) {
+      unread++;
+      $("mChatBadge").textContent = unread;
+      $("mChatBadge").hidden = false;
+    }
+  }
+  $("mChatBtn").addEventListener("click", openChat);
+  $("mChatClose").addEventListener("click", closeChat);
+  $("mChatScrim").addEventListener("click", closeChat);
+  $("mChatForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const v = $("mChatInput").value.trim();
+    if (!v) return;
+    send({ t: "chat", text: v });
+    $("mChatInput").value = "";
+  });
+  optBtns.forEach((btn) => btn.addEventListener("click", () => !btn.disabled && send({ t: "answer", option: Number(btn.dataset.i) })));
+  $("mFifty").addEventListener("click", () => !$("mFifty").disabled && send({ t: "lifeline", which: "fifty" }));
+  $("mWalk").addEventListener("click", () => !$("mWalk").disabled && send({ t: "walk" }));
+  $("mRematch").addEventListener("click", () => send({ t: "rematch" }));
+
+  // ---------- clock + controls (runs every frame, duel modes only) ----------
   let wasEnabled = false;
   function tick() {
     paint();
@@ -283,7 +421,7 @@
   }
   function paint() {
     const s = state;
-    if (!s || s.phase === "lobby") return;
+    if (!s || s.phase === "lobby" || s.mode === "millionaire") return;
     const t = now();
     const running = s.phase === "playing" && !s.paused && s.runningSince != null;
     [0, 1].forEach((i) => {

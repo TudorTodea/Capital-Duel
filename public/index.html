@@ -18,7 +18,7 @@
   <main id="stage">
     <svg id="map"></svg>
     <div id="flagWrap" hidden><img id="flagImg" alt=""></div>
-    <div id="toast"></div>
+    <div id="toast" class="toastbubble"></div>
     <div id="banner"></div>
   </main>
 
@@ -30,6 +30,38 @@
     </form>
   </footer>
 
+  <main id="mStage" hidden>
+    <div id="mTop">
+      <div id="mAmountWrap"><span id="mAmountLabel">Question 1 of 15</span><span id="mAmount">$100</span></div>
+      <button type="button" id="mChatBtn" aria-label="Open chat">💬<span id="mChatBadge" hidden>0</span></button>
+    </div>
+    <div id="mLadder"></div>
+    <div id="mCard">
+      <p id="mQText">Loading your first question…</p>
+      <div id="mOptions">
+        <button type="button" class="opt" data-i="0"><span class="optLabel">A</span><span class="optText"></span></button>
+        <button type="button" class="opt" data-i="1"><span class="optLabel">B</span><span class="optText"></span></button>
+        <button type="button" class="opt" data-i="2"><span class="optLabel">C</span><span class="optText"></span></button>
+        <button type="button" class="opt" data-i="3"><span class="optLabel">D</span><span class="optText"></span></button>
+      </div>
+      <div id="mToast" class="toastbubble"></div>
+    </div>
+    <div id="mActions">
+      <button type="button" id="mFifty" class="ghost">✂️ 50:50</button>
+      <button type="button" id="mWalk" class="ghost" disabled>💝 Walk away</button>
+    </div>
+  </main>
+
+  <div id="mChatScrim" hidden></div>
+  <aside id="mChatDrawer" hidden>
+    <div id="mChatHead"><span>💬 Chat with your partner</span><button type="button" id="mChatClose" aria-label="Close chat">✕</button></div>
+    <div id="mChatLog"></div>
+    <form id="mChatForm" autocomplete="off">
+      <input id="mChatInput" maxlength="200" placeholder="Say something…" enterkeyhint="send">
+      <button type="submit" class="primary">Send</button>
+    </form>
+  </aside>
+
   <section id="overlay">
     <div class="card" id="joinCard" hidden>
       <h1>📍 Capital Duel</h1>
@@ -38,6 +70,7 @@
         <div class="modepick" id="modepick">
           <button type="button" class="mode active" data-mode="capitals">🌍 Capitals</button>
           <button type="button" class="mode" data-mode="flags">🚩 Flags</button>
+          <button type="button" class="mode" data-mode="millionaire">💍 Millionaire</button>
         </div>
         <input id="nameInput" maxlength="20" placeholder="Your name" required autofocus>
         <button class="primary" type="submit" id="joinBtn">Create room</button>
@@ -46,7 +79,7 @@
     </div>
 
     <div class="card" id="lobbyCard" hidden>
-      <h2>Waiting for opponent…</h2>
+      <h2 id="lobbyTitle">Waiting for opponent…</h2>
       <p class="sub">Send this link to your friend:</p>
       <div class="linkrow"><input id="shareLink" readonly><button id="copyBtn" class="primary">Copy</button></div>
       <div class="dots"><i></i><i></i><i></i></div>
@@ -58,6 +91,14 @@
       <div class="final" id="finalScore"></div>
       <button id="rematch" class="primary">Rematch</button>
       <p class="hint" id="rematchHint"></p>
+    </div>
+
+    <div class="card" id="mOverCard" hidden>
+      <h2 id="mOverTitle"></h2>
+      <p class="sub" id="mOverSub"></p>
+      <div class="wonAmount"><span>you won</span><b id="mWonAmt">$0</b></div>
+      <button id="mRematch" class="primary">Play again</button>
+      <p class="hint" id="mRematchHint"></p>
     </div>
 
     <div class="card small" id="msgCard" hidden><h2 id="msgTitle"></h2><p class="sub" id="msgSub"></p></div>

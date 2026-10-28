@@ -4,7 +4,8 @@ const express = require("express");
 const { WebSocketServer } = require("ws");
 
 const COUNTRIES = require("./data/countries.json");
-const MODES = ["capitals", "flags"];
+const QUESTION_BANK = require("./data/millionaire.json");
+const MODES = ["capitals", "flags", "millionaire"];
 
 const PORT = process.env.PORT || 3737;
 const START_MS = 60_000;
@@ -12,6 +13,126 @@ const COUNTDOWN_MS = 3_000;
 const TRANSITION_MS = 2_000; // pause after a new country appears (map zoom + toast) before the clock runs
 const SKIP_MS = 1_000;
 const GRACE_MS = 30_000;
+
+// ---------- Millionaire (co-op) mode ----------
+const LADDER = [100, 200, 300, 500, 1_000, 2_000, 4_000, 8_000, 16_000, 32_000, 64_000, 125_000, 250_000, 500_000, 1_000_000];
+const MILESTONES = [4, 9]; // ladder indices that are guaranteed minimums once passed ($1,000 and $32,000)
+const M_CORRECT_DELAY = 2_200;
+const M_WRONG_DELAY = 3_200;
+
+function bandFor(qIndex) {
+  return qIndex < 5 ? "easy" : qIndex < 10 ? "medium" : "hard";
+}
+
+function pickQuestion(r, qIndex) {
+  const band = bandFor(qIndex);
+  const bank = QUESTION_BANK[band];
+  let avail = bank.map((_, i) => i).filter((i) => !r.usedQ[band].includes(i));
+  if (!avail.length) { r.usedQ[band] = []; avail = bank.map((_, i) => i); }
+  const pick = avail[Math.floor(Math.random() * avail.length)];
+  r.usedQ[band].push(pick);
+  const item = bank[pick];
+  return { text: item.q, options: item.options, answer: item.a };
+}
+
+function sysChat(r, text) {
+  const msg = { by: -1, name: "", text, ts: Date.now(), sys: true };
+  r.chat.push(msg);
+  if (r.chat.length > 150) r.chat = r.chat.slice(-150);
+  chatBroadcast(r, msg);
+}
+
+function chatBroadcast(r, msg) {
+  r.players.forEach((p) => { if (p.ws && p.ws.readyState === 1) p.ws.send(JSON.stringify({ t: "chat", msg })); });
+}
+
+function startMillionaire(r) {
+  r.qIndex = 0;
+  r.chat = [];
+  r.eliminated = [];
+  r.lifeline = { fifty: true };
+  r.usedQ = { easy: [], medium: [], hard: [] };
+  r.mReveal = null;
+  r.pending = false;
+  r.outcome = null;
+  r.wonAmount = 0;
+  r.question = pickQuestion(r, 0);
+  sysChat(r, "💍 New game! Talk it over, then either of you can tap an answer. Good luck, team!");
+}
+
+function millionaireSafeAmount(qIndexFailedAt) {
+  let safe = 0;
+  for (const m of MILESTONES) if (m < qIndexFailedAt) safe = Math.max(safe, LADDER[m]);
+  return safe;
+}
+
+function handleAnswer(r, idx, optIndex) {
+  if (r.mode !== "millionaire" || r.phase !== "playing" || r.paused || r.pending) return;
+  if (!Number.isInteger(optIndex) || optIndex < 0 || optIndex > 3) return;
+  if (r.eliminated.includes(optIndex)) return;
+  const q = r.question;
+  const correct = optIndex === q.answer;
+  r.pending = true;
+  r.mReveal = { by: idx, option: optIndex, answer: q.answer, correct, amount: LADDER[r.qIndex] };
+  sysChat(r, `🎯 ${r.players[idx].name} chose: ${q.options[optIndex]}`);
+  broadcast(r);
+  r.timers.mReveal = setTimeout(() => {
+    delete r.timers.mReveal;
+    r.pending = false;
+    r.mReveal = null;
+    if (correct) {
+      sysChat(r, `✅ Correct! +$${LADDER[r.qIndex].toLocaleString("en-US")}`);
+      r.qIndex++;
+      if (r.qIndex >= LADDER.length) {
+        r.phase = "over";
+        r.outcome = "won";
+        r.wonAmount = LADDER[LADDER.length - 1];
+        r.question = null;
+        sysChat(r, "🏆 You answered everything right — you're Love Millionaires!");
+      } else {
+        r.eliminated = [];
+        r.question = pickQuestion(r, r.qIndex);
+      }
+    } else {
+      r.phase = "over";
+      r.outcome = "lost";
+      r.wonAmount = millionaireSafeAmount(r.qIndex);
+      r.question = null;
+      sysChat(r, `❌ Not quite — it was "${q.options[q.answer]}". You bank $${r.wonAmount.toLocaleString("en-US")}.`);
+    }
+    broadcast(r);
+  }, correct ? M_CORRECT_DELAY : M_WRONG_DELAY);
+  broadcast(r);
+}
+
+function handleWalk(r, idx) {
+  if (r.mode !== "millionaire" || r.phase !== "playing" || r.paused || r.pending || r.qIndex === 0) return;
+  r.phase = "over";
+  r.outcome = "walked";
+  r.wonAmount = LADDER[r.qIndex - 1];
+  r.question = null;
+  sysChat(r, `💝 ${r.players[idx].name} chose to walk away with $${r.wonAmount.toLocaleString("en-US")}.`);
+  broadcast(r);
+}
+
+function handleLifeline(r, idx, which) {
+  if (r.mode !== "millionaire" || r.phase !== "playing" || r.paused || r.pending) return;
+  if (which !== "fifty" || !r.lifeline.fifty || r.eliminated.length) return;
+  r.lifeline.fifty = false;
+  const wrong = shuffle([0, 1, 2, 3].filter((i) => i !== r.question.answer)).slice(0, 2);
+  r.eliminated = wrong.sort((a, b) => a - b);
+  sysChat(r, `✨ ${r.players[idx].name} used 50:50 — two wrong answers removed.`);
+  broadcast(r);
+}
+
+function handleChat(r, idx, text) {
+  text = String(text || "").trim().slice(0, 200);
+  if (!text) return;
+  const msg = { by: idx, name: r.players[idx].name, text, ts: Date.now(), sys: false };
+  r.chat.push(msg);
+  if (r.chat.length > 150) r.chat = r.chat.slice(-150);
+  chatBroadcast(r, msg);
+}
 
 const app = express();
 app.use(express.static(path.join(__dirname, "public")));
@@ -99,7 +220,7 @@ function getRoom(id) {
     r = {
       id,
       players: [],
-      mode: "capitals", // capitals | flags — set by the room creator, fixed for the game
+      mode: "capitals", // capitals | flags | millionaire — set by the room creator, fixed for the game
       phase: "lobby", // lobby | playing | over
       turn: 0,
       deck: [],
@@ -112,6 +233,17 @@ function getRoom(id) {
       pauseDeadline: null,
       timers: {},
       cleanup: null,
+      // millionaire-only state (harmless/unused in the other modes)
+      qIndex: 0,
+      question: null,
+      eliminated: [],
+      lifeline: { fifty: true },
+      usedQ: { easy: [], medium: [], hard: [] },
+      pending: false,
+      mReveal: null,
+      outcome: null,
+      wonAmount: 0,
+      chat: [],
     };
     rooms.set(id, r);
   }
@@ -152,6 +284,16 @@ function publicState(r, idx) {
       score: p.score,
       rematch: p.rematch,
     })),
+    millionaire: r.mode !== "millionaire" ? undefined : {
+      qIndex: r.qIndex,
+      question: r.question ? { text: r.question.text, options: r.question.options } : null,
+      eliminated: r.eliminated,
+      lifeline: r.lifeline,
+      pending: r.pending,
+      reveal: r.mReveal,
+      outcome: r.outcome,
+      wonAmount: r.wonAmount,
+    },
   };
 }
 
@@ -200,26 +342,37 @@ function startGame(r) {
     p.score = 0;
     p.rematch = false;
   });
-  r.deck = shuffle(COUNTRIES);
-  r.turn = Math.floor(Math.random() * 2);
-  r.current = nextCountry(r);
   r.phase = "playing";
   r.winner = null;
   r.reveal = null;
   r.lockedUntil = 0;
   r.paused = false;
+  if (r.mode === "millionaire") {
+    startMillionaire(r);
+    broadcast(r);
+    return;
+  }
+  r.deck = shuffle(COUNTRIES);
+  r.turn = Math.floor(Math.random() * 2);
+  r.current = nextCountry(r);
   startClockAt(r, Date.now() + COUNTDOWN_MS);
   broadcast(r);
 }
 
 function pause(r) {
   if (r.phase !== "playing" || r.paused) return;
-  stopClock(r);
-  if (r.lockedUntil) {
-    clearTimer(r, "skip");
-    r.lockedUntil = 0;
-    r.reveal = null;
-    r.current = nextCountry(r);
+  if (r.mode === "millionaire") {
+    clearTimer(r, "mReveal");
+    r.pending = false;
+    r.mReveal = null;
+  } else {
+    stopClock(r);
+    if (r.lockedUntil) {
+      clearTimer(r, "skip");
+      r.lockedUntil = 0;
+      r.reveal = null;
+      r.current = nextCountry(r);
+    }
   }
   r.paused = true;
   r.pauseDeadline = Date.now() + GRACE_MS;
@@ -227,8 +380,14 @@ function pause(r) {
     if (r.phase !== "playing" || !r.paused) return;
     const gone = r.players.findIndex((p) => !p.ws);
     r.phase = "over";
-    r.winner = gone === -1 ? null : 1 - gone;
-    r.reveal = { kind: "forfeit", text: "" };
+    if (r.mode === "millionaire") {
+      r.outcome = "left";
+      r.wonAmount = r.qIndex > 0 ? LADDER[r.qIndex - 1] : 0;
+      r.question = null;
+    } else {
+      r.winner = gone === -1 ? null : 1 - gone;
+      r.reveal = { kind: "forfeit", text: "" };
+    }
     broadcast(r);
   }, GRACE_MS);
   broadcast(r);
@@ -239,12 +398,12 @@ function resume(r) {
   clearTimer(r, "grace");
   r.paused = false;
   r.pauseDeadline = null;
-  startClockAt(r, Date.now() + 1500);
+  if (r.mode !== "millionaire") startClockAt(r, Date.now() + 1500);
   broadcast(r);
 }
 
 function handleGuess(r, idx, text) {
-  if (r.phase !== "playing" || r.paused || idx !== r.turn) return;
+  if (r.mode === "millionaire" || r.phase !== "playing" || r.paused || idx !== r.turn) return;
   const now = Date.now();
   if (r.runningSince === null || now < r.runningSince || now < r.lockedUntil) return;
   if (!isCorrect(keysOf(r), text)) {
@@ -263,7 +422,7 @@ function handleGuess(r, idx, text) {
 }
 
 function handleSkip(r, idx) {
-  if (r.phase !== "playing" || r.paused || idx !== r.turn) return;
+  if (r.mode === "millionaire" || r.phase !== "playing" || r.paused || idx !== r.turn) return;
   const now = Date.now();
   if (r.runningSince === null || now < r.runningSince || now < r.lockedUntil) return;
   r.lockedUntil = now + SKIP_MS;
@@ -322,6 +481,7 @@ wss.on("connection", (ws) => {
       room = r;
       idx = i;
       clearTimeout(r.cleanup);
+      if (r.mode === "millionaire") ws.send(JSON.stringify({ t: "chatHistory", chat: r.chat }));
       if (r.phase === "lobby" && r.players.length === 2 && r.players.every((q) => q.ws)) startGame(r);
       else if (r.paused && r.players.every((q) => q.ws)) resume(r);
       else broadcast(r);
@@ -332,6 +492,10 @@ wss.on("connection", (ws) => {
     if (m.t === "guess") handleGuess(room, idx, String(m.text || "").slice(0, 60));
     else if (m.t === "skip") handleSkip(room, idx);
     else if (m.t === "rematch") handleRematch(room, idx);
+    else if (m.t === "answer") handleAnswer(room, idx, m.option);
+    else if (m.t === "walk") handleWalk(room, idx);
+    else if (m.t === "lifeline") handleLifeline(room, idx, m.which);
+    else if (m.t === "chat") handleChat(room, idx, m.text);
   });
 
   ws.on("close", () => {

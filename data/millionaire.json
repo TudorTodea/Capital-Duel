@@ -1,0 +1,53 @@
+{
+  "easy": [
+    { "q": "What color do you get by mixing blue and yellow paint?", "options": ["Purple", "Green", "Orange", "Brown"], "a": 1 },
+    { "q": "How many days are there in a leap year?", "options": ["364", "365", "366", "367"], "a": 2 },
+    { "q": "What is the largest ocean on Earth?", "options": ["Atlantic", "Indian", "Arctic", "Pacific"], "a": 3 },
+    { "q": "Which animal is known as \"man's best friend\"?", "options": ["Cat", "Dog", "Horse", "Parrot"], "a": 1 },
+    { "q": "How many strings does a standard guitar have?", "options": ["4", "5", "6", "7"], "a": 2 },
+    { "q": "What shape has three sides?", "options": ["Square", "Circle", "Triangle", "Hexagon"], "a": 2 },
+    { "q": "Which planet is known as the Red Planet?", "options": ["Venus", "Mars", "Jupiter", "Saturn"], "a": 1 },
+    { "q": "What do bees make?", "options": ["Milk", "Silk", "Honey", "Butter"], "a": 2 },
+    { "q": "Which fruit is traditionally given to a teacher as a classic cliché gift?", "options": ["Banana", "Apple", "Grape", "Mango"], "a": 1 },
+    { "q": "What is the freezing point of water in Celsius?", "options": ["0°C", "10°C", "32°C", "100°C"], "a": 0 },
+    { "q": "Which meal is typically eaten in the morning?", "options": ["Dinner", "Breakfast", "Supper", "Brunch"], "a": 1 },
+    { "q": "What do you call a baby dog?", "options": ["Kitten", "Cub", "Puppy", "Foal"], "a": 2 },
+    { "q": "Which season comes right after winter?", "options": ["Summer", "Autumn", "Spring", "Fall"], "a": 2 },
+    { "q": "How many continents are there on Earth?", "options": ["5", "6", "7", "8"], "a": 2 },
+    { "q": "What's the name of the pizza topping made from cured pork, popular as a classic choice?", "options": ["Pepperoni", "Basil", "Olive", "Arugula"], "a": 0 }
+  ],
+  "medium": [
+    { "q": "Who painted the Mona Lisa?", "options": ["Michelangelo", "Raphael", "Leonardo da Vinci", "Donatello"], "a": 2 },
+    { "q": "What is the capital of Japan?", "options": ["Seoul", "Beijing", "Tokyo", "Bangkok"], "a": 2 },
+    { "q": "Which element has the chemical symbol \"O\"?", "options": ["Gold", "Oxygen", "Osmium", "Silver"], "a": 1 },
+    { "q": "In which year did World War II end?", "options": ["1943", "1944", "1945", "1946"], "a": 2 },
+    { "q": "What is the longest river in the world?", "options": ["Amazon", "Nile", "Yangtze", "Mississippi"], "a": 1 },
+    { "q": "Which Shakespeare play features the characters Romeo and Juliet?", "options": ["Macbeth", "Hamlet", "Romeo and Juliet", "Othello"], "a": 2 },
+    { "q": "What does \"www\" stand for in a website address?", "options": ["World Wide Web", "Web Wide World", "World Web Wide", "Wide World Web"], "a": 0 },
+    { "q": "Which organ in the human body pumps blood?", "options": ["Lungs", "Liver", "Heart", "Kidney"], "a": 2 },
+    { "q": "What is the smallest prime number?", "options": ["0", "1", "2", "3"], "a": 2 },
+    { "q": "Which country gifted the Statue of Liberty to the USA?", "options": ["United Kingdom", "Spain", "France", "Italy"], "a": 2 },
+    { "q": "What is the hardest natural substance on Earth?", "options": ["Gold", "Iron", "Diamond", "Quartz"], "a": 2 },
+    { "q": "Which instrument has 88 keys?", "options": ["Violin", "Piano", "Flute", "Harp"], "a": 1 },
+    { "q": "Who wrote the novel \"Pride and Prejudice\"?", "options": ["Emily Brontë", "Jane Austen", "Virginia Woolf", "Mary Shelley"], "a": 1 },
+    { "q": "What gas do plants absorb from the atmosphere for photosynthesis?", "options": ["Oxygen", "Nitrogen", "Carbon dioxide", "Hydrogen"], "a": 2 },
+    { "q": "Which city hosted the 2016 Summer Olympics?", "options": ["Tokyo", "London", "Rio de Janeiro", "Beijing"], "a": 2 }
+  ],
+  "hard": [
+    { "q": "What is the only mammal capable of true, sustained flight?", "options": ["Flying squirrel", "Bat", "Sugar glider", "Colugo"], "a": 1 },
+    { "q": "Which composer wrote the \"Moonlight Sonata\"?", "options": ["Mozart", "Bach", "Beethoven", "Chopin"], "a": 2 },
+    { "q": "What is the term for a group of crows?", "options": ["A flock", "A murder", "A pack", "A pod"], "a": 1 },
+    { "q": "Which country has the most time zones?", "options": ["Russia", "USA", "China", "France"], "a": 3 },
+    { "q": "What is the rarest blood type in humans?", "options": ["O negative", "AB negative", "B negative", "A negative"], "a": 1 },
+    { "q": "In Greek mythology, who is the god of the underworld?", "options": ["Zeus", "Poseidon", "Hades", "Apollo"], "a": 2 },
+    { "q": "What is the smallest country in the world by area?", "options": ["Monaco", "San Marino", "Vatican City", "Liechtenstein"], "a": 2 },
+    { "q": "Which scientist proposed the three laws of motion?", "options": ["Albert Einstein", "Isaac Newton", "Galileo Galilei", "Niels Bohr"], "a": 1 },
+    { "q": "What is the capital of Australia (not its largest city)?", "options": ["Sydney", "Melbourne", "Canberra", "Perth"], "a": 2 },
+    { "q": "Which vitamin is produced in human skin when exposed to sunlight?", "options": ["Vitamin A", "Vitamin C", "Vitamin D", "Vitamin K"], "a": 2 },
+    { "q": "What is the longest bone in the human body?", "options": ["Tibia", "Femur", "Humerus", "Fibula"], "a": 1 },
+    { "q": "Which artist cut off part of his own ear?", "options": ["Pablo Picasso", "Claude Monet", "Vincent van Gogh", "Salvador Dalí"], "a": 2 },
+    { "q": "What does \"HTTP\" stand for?", "options": ["HyperText Transfer Protocol", "High Transfer Text Protocol", "HyperText Transmission Process", "Home Tool Transfer Protocol"], "a": 0 },
+    { "q": "Which is the only planet in our solar system that rotates clockwise (retrograde)?", "options": ["Mars", "Mercury", "Venus", "Uranus"], "a": 2 },
+    { "q": "What is the study of earthquakes called?", "options": ["Geology", "Seismology", "Meteorology", "Volcanology"], "a": 1 }
+  ]
+}
