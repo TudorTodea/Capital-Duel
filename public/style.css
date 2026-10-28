@@ -118,7 +118,8 @@ button:disabled{opacity:.4;cursor:not-allowed}
 .mAvatar{width:68px;height:68px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;
   background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.14),rgba(255,255,255,0) 70%),rgba(255,255,255,.04);
   box-shadow:0 6px 16px rgba(0,0,0,.25);animation:bob 2.6s ease-in-out infinite}
-.mAvatar svg{width:58px;height:58px;display:block}
+/* CHANGED: added drop-shadow so the shaded avatars pop off the bubble */
+.mAvatar svg{width:58px;height:58px;display:block;filter:drop-shadow(0 4px 6px rgba(0,0,0,.25))}
 #mAv1{animation-delay:.35s}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 .mHeart3d{perspective:260px}

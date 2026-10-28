@@ -303,54 +303,109 @@
   const money = (n) => n.toLocaleString("ro-RO") + " lei";
   const optBtns = [...document.querySelectorAll("#mOptions .opt")];
 
-  // the couple mascot: a capybara (player 1) and a little kitty with a bow (player 2) — drawn once, not photos of
-  // any real character, just two cute original chibi faces to stand in for the two of you.
+  // the couple mascot: a capybara (player 1) and a little white kitty with a pink bow (player 2).
+  // Original 3D-style shaded characters (gradients, gloss, rim light, soft ground shadow).
   $("mAv0").innerHTML = `<svg viewBox="0 0 64 64" aria-hidden="true">
     <defs>
-      <radialGradient id="capyBody" cx="38%" cy="30%" r="75%">
-        <stop offset="0%" stop-color="#cc9c6c"/><stop offset="100%" stop-color="#a97c50"/>
+      <radialGradient id="cpFur" cx="35%" cy="22%" r="85%">
+        <stop offset="0" stop-color="#dcab78"/><stop offset=".55" stop-color="#b98355"/><stop offset="1" stop-color="#85563344"/>
       </radialGradient>
-      <radialGradient id="capySnout" cx="40%" cy="25%" r="75%">
-        <stop offset="0%" stop-color="#f3dab2"/><stop offset="100%" stop-color="#e2c093"/>
+      <radialGradient id="cpSnout" cx="40%" cy="22%" r="85%">
+        <stop offset="0" stop-color="#f8e6c4"/><stop offset="1" stop-color="#d4a974"/>
       </radialGradient>
+      <radialGradient id="cpNose" cx="35%" cy="25%" r="85%">
+        <stop offset="0" stop-color="#94694a"/><stop offset="1" stop-color="#472c1c"/>
+      </radialGradient>
+      <radialGradient id="cpOrange" cx="35%" cy="30%" r="75%">
+        <stop offset="0" stop-color="#ffd884"/><stop offset=".5" stop-color="#ff9d3d"/><stop offset="1" stop-color="#d66d18"/>
+      </radialGradient>
+      <radialGradient id="cpEye" cx="35%" cy="30%" r="80%">
+        <stop offset="0" stop-color="#4a3022"/><stop offset="1" stop-color="#150b06"/>
+      </radialGradient>
+      <filter id="cpBlur" x="-30%" y="-100%" width="160%" height="300%"><feGaussianBlur stdDeviation="1.6"/></filter>
     </defs>
-    <ellipse cx="32" cy="32" rx="28" ry="17" fill="url(#capyBody)"/>
-    <path d="M9 25a5.5 5.5 0 1 1 0 .1Z" fill="#8a6440"/><path d="M55 25a5.5 5.5 0 1 1 0 .1Z" fill="#8a6440"/>
-    <circle cx="9" cy="25.5" r="2.8" fill="#e2bd8e"/><circle cx="55" cy="25.5" r="2.8" fill="#e2bd8e"/>
-    <ellipse cx="32" cy="43" rx="21" ry="15" fill="url(#capySnout)"/>
-    <ellipse cx="15" cy="44" rx="4" ry="6" fill="#dcb286" opacity=".5"/><ellipse cx="49" cy="44" rx="4" ry="6" fill="#dcb286" opacity=".5"/>
-    <ellipse cx="16" cy="40" rx="4.5" ry="3" fill="#f0a98f" opacity=".55"/><ellipse cx="48" cy="40" rx="4.5" ry="3" fill="#f0a98f" opacity=".55"/>
-    <circle cx="19.5" cy="26.5" r="3" fill="#2a1a10"/><circle cx="44.5" cy="26.5" r="3" fill="#2a1a10"/>
-    <circle cx="20.6" cy="25.3" r=".9" fill="#fff"/><circle cx="45.6" cy="25.3" r=".9" fill="#fff"/>
-    <ellipse cx="24" cy="47" rx="2.8" ry="2" fill="#5a3a22"/><ellipse cx="40" cy="47" rx="2.8" ry="2" fill="#5a3a22"/>
-    <path d="M28 52q4 2.5 8 0" stroke="#6b4328" stroke-width="1.4" fill="none" stroke-linecap="round"/>
-    <circle cx="32" cy="12" r="6.5" fill="#ff9d3d"/><circle cx="29.5" cy="10" r="1.6" fill="#ffc27a" opacity=".8"/>
-    <path d="M32 6.5q2-3 5-2" stroke="#5cb65c" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <!-- ground shadow -->
+    <ellipse cx="32" cy="58.5" rx="21" ry="3.2" fill="#000" opacity=".3" filter="url(#cpBlur)"/>
+    <!-- ears -->
+    <circle cx="12.5" cy="21" r="6.2" fill="#8a5c38"/><circle cx="13.2" cy="21.8" r="3.3" fill="#d9a38a"/>
+    <circle cx="51.5" cy="21" r="6.2" fill="#8a5c38"/><circle cx="50.8" cy="21.8" r="3.3" fill="#d9a38a"/>
+    <!-- head -->
+    <path d="M32 11C47.5 11 58.5 21.5 58.5 36 58.5 48.5 48.5 57 32 57 15.5 57 5.5 48.5 5.5 36 5.5 21.5 16.5 11 32 11Z" fill="url(#cpFur)"/>
+    <!-- bottom shade for volume -->
+    <path d="M8 42C11 52 20 57 32 57s21-5 24-15C50 50 42 53 32 53S14 50 8 42Z" fill="#5a3a22" opacity=".25"/>
+    <!-- rim light + top gloss -->
+    <path d="M10 28C12 19 20 13.5 29 12.5" stroke="#fff" stroke-opacity=".45" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+    <ellipse cx="24" cy="18" rx="9" ry="3.4" fill="#fff" opacity=".18" transform="rotate(-18 24 18)"/>
+    <!-- snout -->
+    <rect x="14.5" y="32" width="35" height="23" rx="12" fill="url(#cpSnout)"/>
+    <ellipse cx="32" cy="52" rx="14" ry="2.6" fill="#b98a5a" opacity=".35"/>
+    <!-- nose pad -->
+    <path d="M22.5 36.5c0-4.3 4.2-6.5 9.5-6.5s9.5 2.2 9.5 6.5-4.2 5.5-9.5 5.5-9.5-1.2-9.5-5.5Z" fill="url(#cpNose)"/>
+    <ellipse cx="28" cy="33.4" rx="4" ry="1.5" fill="#fff" opacity=".35"/>
+    <ellipse cx="28" cy="37.6" rx="1.5" ry="1.1" fill="#1d0f08"/><ellipse cx="36" cy="37.6" rx="1.5" ry="1.1" fill="#1d0f08"/>
+    <!-- mouth -->
+    <path d="M32 42v3.2M26.5 46.2q5.5 4 11 0" stroke="#6b4328" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+    <!-- cheeks -->
+    <ellipse cx="14" cy="40" rx="4.5" ry="3" fill="#f0a98f" opacity=".5"/><ellipse cx="50" cy="40" rx="4.5" ry="3" fill="#f0a98f" opacity=".5"/>
+    <!-- eyes -->
+    <ellipse cx="20.5" cy="27.5" rx="3.4" ry="3.7" fill="url(#cpEye)"/><ellipse cx="43.5" cy="27.5" rx="3.4" ry="3.7" fill="url(#cpEye)"/>
+    <circle cx="21.8" cy="26" r="1.2" fill="#fff"/><circle cx="44.8" cy="26" r="1.2" fill="#fff"/>
+    <circle cx="19.4" cy="29.2" r=".6" fill="#fff" opacity=".7"/><circle cx="42.4" cy="29.2" r=".6" fill="#fff" opacity=".7"/>
+    <!-- orange on head -->
+    <ellipse cx="32" cy="12.5" rx="6.8" ry="6.3" fill="url(#cpOrange)"/>
+    <ellipse cx="29.6" cy="10.4" rx="2.2" ry="1.4" fill="#fff" opacity=".55" transform="rotate(-25 29.6 10.4)"/>
+    <path d="M32 6.6q1.4-3.2 5.2-2.6-.8 3.2-5.2 2.6Z" fill="#5cb65c"/><path d="M32 6.6q1.4-3.2 5.2-2.6" stroke="#3e8a3e" stroke-width=".6" fill="none"/>
   </svg>`;
   $("mAv1").innerHTML = `<svg viewBox="0 0 64 64" aria-hidden="true">
     <defs>
-      <radialGradient id="kittyHead" cx="35%" cy="28%" r="75%">
-        <stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#f7eef1"/>
+      <radialGradient id="ktHead" cx="35%" cy="22%" r="85%">
+        <stop offset="0" stop-color="#ffffff"/><stop offset=".6" stop-color="#fbf4f6"/><stop offset="1" stop-color="#e9d9df"/>
       </radialGradient>
-      <linearGradient id="bowLeft" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#ff7a9c"/><stop offset="100%" stop-color="#ff4d7e"/>
+      <linearGradient id="ktBow1" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#ff8fb0"/><stop offset="1" stop-color="#e83a72"/>
       </linearGradient>
-      <linearGradient id="bowRight" x1="1" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#ff93ae"/><stop offset="100%" stop-color="#ff6f95"/>
+      <linearGradient id="ktBow2" x1="1" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#ffa6c0"/><stop offset="1" stop-color="#f05583"/>
       </linearGradient>
+      <radialGradient id="ktNose" cx="35%" cy="30%" r="80%">
+        <stop offset="0" stop-color="#ffe27a"/><stop offset="1" stop-color="#f2a900"/>
+      </radialGradient>
+      <radialGradient id="ktEye" cx="35%" cy="30%" r="80%">
+        <stop offset="0" stop-color="#3a2a30"/><stop offset="1" stop-color="#0d0709"/>
+      </radialGradient>
+      <filter id="ktBlur" x="-30%" y="-100%" width="160%" height="300%"><feGaussianBlur stdDeviation="1.6"/></filter>
     </defs>
-    <path d="M13 21 21 6 28 21Z" fill="#fff"/><path d="M51 21 43 6 36 21Z" fill="#fff"/>
-    <path d="M15.5 20 21 11 25.5 20Z" fill="#ffd3e2"/><path d="M48.5 20 43 11 38.5 20Z" fill="#ffd3e2"/>
-    <circle cx="32" cy="37" r="24" fill="url(#kittyHead)" stroke="#f0d7de" stroke-width="1.5"/>
-    <ellipse cx="17" cy="42" rx="5" ry="3.2" fill="#ffc3d4" opacity=".65"/><ellipse cx="47" cy="42" rx="5" ry="3.2" fill="#ffc3d4" opacity=".65"/>
-    <circle cx="22" cy="35" r="2.6" fill="#2a1a10"/><circle cx="42" cy="35" r="2.6" fill="#2a1a10"/>
-    <circle cx="23" cy="33.8" r=".9" fill="#fff"/><circle cx="43" cy="33.8" r=".9" fill="#fff"/>
-    <ellipse cx="32" cy="43" rx="2.6" ry="2" fill="#ffb3c6"/>
-    <path d="M7 37h8M7 41h8M7 45h7" stroke="#ddc6cb" stroke-width="1.3" stroke-linecap="round"/>
-    <path d="M57 37h-8M57 41h-8M57 45h-7" stroke="#ddc6cb" stroke-width="1.3" stroke-linecap="round"/>
-    <g transform="translate(45,15)">
-      <path d="M0 0-9-6-8 6Z" fill="url(#bowLeft)"/><path d="M0 0 9-6 8 6Z" fill="url(#bowRight)"/>
-      <path d="M-2-2 2-2 2 2-2 2Z" fill="#ff2f63"/><circle r="2.1" fill="#ffe2ea"/>
+    <!-- ground shadow -->
+    <ellipse cx="32" cy="59" rx="20" ry="3" fill="#000" opacity=".28" filter="url(#ktBlur)"/>
+    <!-- ears -->
+    <path d="M10 29 12 9.5Q12.6 6.6 15.2 8.2L30 18.5Z" fill="#f3e6ea"/>
+    <path d="M54 29 52 9.5Q51.4 6.6 48.8 8.2L34 18.5Z" fill="#f3e6ea"/>
+    <path d="M14 24 15 12.5 24 19Z" fill="#ffc9da"/><path d="M50 24 49 12.5 40 19Z" fill="#ffc9da"/>
+    <!-- head -->
+    <ellipse cx="32" cy="38" rx="26.5" ry="21.5" fill="url(#ktHead)"/>
+    <path d="M7 44C10 54 20 59.5 32 59.5S54 54 57 44C51 52 42 55 32 55S13 52 7 44Z" fill="#c9a9b4" opacity=".28"/>
+    <!-- rim light + gloss -->
+    <path d="M8.5 33C10.5 24 19 18 28 17" stroke="#fff" stroke-width="1.6" stroke-opacity=".9" fill="none" stroke-linecap="round"/>
+    <ellipse cx="22" cy="24" rx="8" ry="3" fill="#fff" opacity=".7" transform="rotate(-20 22 24)"/>
+    <!-- cheeks -->
+    <ellipse cx="15.5" cy="43.5" rx="5" ry="3.2" fill="#ffb7cb" opacity=".6"/><ellipse cx="48.5" cy="43.5" rx="5" ry="3.2" fill="#ffb7cb" opacity=".6"/>
+    <!-- whiskers -->
+    <path d="M5 36.5h9M4.5 41h9.5M5.5 45.5h8.5" stroke="#cdb3bb" stroke-width="1.3" stroke-linecap="round"/>
+    <path d="M59 36.5h-9M59.5 41H50M58.5 45.5H50" stroke="#cdb3bb" stroke-width="1.3" stroke-linecap="round"/>
+    <!-- eyes -->
+    <ellipse cx="22" cy="38" rx="2.8" ry="3.4" fill="url(#ktEye)"/><ellipse cx="42" cy="38" rx="2.8" ry="3.4" fill="url(#ktEye)"/>
+    <circle cx="23" cy="36.6" r="1" fill="#fff"/><circle cx="43" cy="36.6" r="1" fill="#fff"/>
+    <!-- nose + mouth -->
+    <ellipse cx="32" cy="43.5" rx="3.2" ry="2.3" fill="url(#ktNose)"/>
+    <ellipse cx="31" cy="42.6" rx="1.2" ry=".6" fill="#fff" opacity=".7"/>
+    <path d="M28.5 48q3.5 2.4 7 0" stroke="#b58f9b" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+    <!-- bow -->
+    <g transform="translate(46,15) rotate(8)">
+      <path d="M0 0-11-7.5Q-14-2 -11 7.5Z" fill="url(#ktBow1)"/>
+      <path d="M0 0 11-7.5Q14-2 11 7.5Z" fill="url(#ktBow2)"/>
+      <path d="M-9-4.5Q-6-2 -9 4" stroke="#fff" stroke-opacity=".45" stroke-width="1" fill="none" stroke-linecap="round"/>
+      <path d="M9-4.5Q6-2 9 4" stroke="#fff" stroke-opacity=".3" stroke-width="1" fill="none" stroke-linecap="round"/>
+      <circle r="3.4" fill="#e83a72"/><circle cx="-.8" cy="-.9" r="1.2" fill="#ffd0de"/>
     </g>
   </svg>`;
 
