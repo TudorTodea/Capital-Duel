@@ -20,17 +20,24 @@
   }
 
   $("nameInput").value = (() => { try { return localStorage.getItem("cd-name") || ""; } catch { return ""; } })();
-  let pickedMode = "capitals";
+  let pickedMode = "capitals", pickedDiff = "mediu";
   if (roomId) {
     $("joinBtn").textContent = "Join game";
     $("joinHint").textContent = "You were invited to a game.";
     $("modepick").hidden = true; // the room creator already chose the mode
   } else {
+    $("diffpick").addEventListener("click", (e) => {
+      const btn = e.target.closest(".diff");
+      if (!btn) return;
+      pickedDiff = btn.dataset.diff;
+      [...$("diffpick").children].forEach((b) => b.classList.toggle("active", b === btn));
+    });
     $("modepick").addEventListener("click", (e) => {
       const btn = e.target.closest(".mode");
       if (!btn) return;
       pickedMode = btn.dataset.mode;
       [...$("modepick").children].forEach((b) => b.classList.toggle("active", b === btn));
+      $("diffpick").hidden = pickedMode !== "millionaire";
       $("joinSub").textContent =
         pickedMode === "flags" ? "Two players. 60 seconds each. Name the country shown." :
         pickedMode === "millionaire" ? "Jucați în echipă, discutați în chat și vedeți cât de departe puteți ajunge împreună 💕" :
@@ -155,7 +162,7 @@
     $("msgTitle").textContent = "Connecting…";
     $("msgSub").textContent = "";
     ws = new WebSocket(`${location.protocol === "https:" ? "wss" : "ws"}://${location.host}`);
-    ws.onopen = () => ws.send(JSON.stringify({ t: "join", room: roomId, name: myName, token, mode: pickedMode }));
+    ws.onopen = () => ws.send(JSON.stringify({ t: "join", room: roomId, name: myName, token, mode: pickedMode, difficulty: pickedDiff }));
     ws.onmessage = (ev) => {
       const m = JSON.parse(ev.data);
       if (m.t === "state") {
@@ -409,6 +416,11 @@
     </g>
   </svg>`;
 
+  // Real 3D version (capybara + Hello Kitty in Millionaire hot-seats); the SVGs above stay as the no-WebGL fallback.
+  if (window.Mascots3D?.init($("m3d"))) $("mCouple").classList.add("has3d");
+  const react3d = (type) => window.Mascots3D?.react(type);
+  const DIFF_LABELS = { usor: "🌸 Ușor", mediu: "🔥 Mediu", greu: "💎 Greu" };
+
   $("mLadder").innerHTML = LADDER.map((amt, i) => `<div class="rung${MILESTONES.includes(i) ? " milestone" : ""}" data-i="${i}">${i + 1}. ${money(amt)}</div>`).join("");
   const rungs = [...$("mLadder").children];
 
@@ -448,7 +460,7 @@
 
     if (s.phase !== "playing") return; // frozen on the last question's colors, under the dim over-card
 
-    $("mAmountLabel").textContent = `Întrebarea ${m.qIndex + 1} din ${LADDER.length}`;
+    $("mAmountLabel").textContent = `Întrebarea ${m.qIndex + 1} din ${LADDER.length} · ${DIFF_LABELS[m.difficulty]}`;
     $("mAmount").textContent = money(LADDER[m.qIndex]);
 
     if (m.question && mRenderedQIndex !== m.qIndex) {
@@ -468,6 +480,7 @@
         $("mCouple").classList.remove("yay", "aww");
         void $("mCouple").offsetWidth;
         $("mCouple").classList.add(m.reveal.correct ? "yay" : "aww");
+        react3d(m.reveal.correct ? "yay" : "aww");
         burst($("mCouple"), m.reveal.correct ? ["💖", "✨", "🎉", "💕"] : ["💔", "😢"], m.reveal.correct ? 8 : 5);
       }
     }
@@ -497,11 +510,13 @@
     $("mRematch").disabled = P[me].rematch || P.some((p) => !p.connected);
     $("mRematch").textContent = P[me].rematch ? "Așteptăm…" : "Joacă din nou";
     $("mRematchHint").textContent = P.some((p) => !p.connected) ? "Jumătatea ta a plecat." : P[1 - me].rematch ? "Jumătatea ta vrea să joace din nou!" : "";
+    [...$("mDiffPick").children].forEach((b) => b.classList.toggle("active", b.dataset.diff === m.difficulty));
     showCard("mOverCard", false);
     $("overlay").classList.add("dim");
     if (m.outcome === "won" && !mOverCelebrated) {
       mOverCelebrated = true;
       burst($("mOverCard"), ["🎉", "💖", "👑", "✨", "💍"], 18);
+      react3d("win");
     }
   }
 
@@ -552,6 +567,10 @@
   $("mFifty").addEventListener("click", () => !$("mFifty").disabled && send({ t: "lifeline", which: "fifty" }));
   $("mWalk").addEventListener("click", () => !$("mWalk").disabled && send({ t: "walk" }));
   $("mRematch").addEventListener("click", () => send({ t: "rematch" }));
+  $("mDiffPick").addEventListener("click", (e) => {
+    const btn = e.target.closest(".diff");
+    if (btn) send({ t: "difficulty", value: btn.dataset.diff });
+  });
 
   // ---------- clock + controls (runs every frame, duel modes only) ----------
   let wasEnabled = false;

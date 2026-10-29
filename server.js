@@ -20,15 +20,23 @@ const MILESTONES = [4, 9]; // ladder indices that are guaranteed minimums once p
 const M_CORRECT_DELAY = 2_200;
 const M_WRONG_DELAY = 3_200;
 
-function bandFor(qIndex) {
-  return qIndex < 5 ? "easy" : qIndex < 10 ? "medium" : "hard";
+// Each difficulty maps the ladder's three thirds (Q1-5, Q6-10, Q11-15) onto question bands.
+const DIFFICULTIES = {
+  usor: { label: "🌸 Ușor", bands: ["easy", "medium", "hard"] },
+  mediu: { label: "🔥 Mediu", bands: ["medium", "hard", "expert"] },
+  greu: { label: "💎 Greu", bands: ["hard", "expert", "master"] },
+};
+
+function bandFor(r, qIndex) {
+  return DIFFICULTIES[r.difficulty].bands[qIndex < 5 ? 0 : qIndex < 10 ? 1 : 2];
 }
 
 const money = (n) => n.toLocaleString("ro-RO") + " lei";
 
 function pickQuestion(r, qIndex) {
-  const band = bandFor(qIndex);
+  const band = bandFor(r, qIndex);
   const bank = QUESTION_BANK[band];
+  r.usedQ[band] ||= [];
   let avail = bank.map((_, i) => i).filter((i) => !r.usedQ[band].includes(i));
   if (!avail.length) { r.usedQ[band] = []; avail = bank.map((_, i) => i); }
   const pick = avail[Math.floor(Math.random() * avail.length)];
@@ -53,13 +61,20 @@ function startMillionaire(r) {
   r.chat = [];
   r.eliminated = [];
   r.lifeline = { fifty: true };
-  r.usedQ = { easy: [], medium: [], hard: [] };
+  r.usedQ = {};
   r.mReveal = null;
   r.pending = false;
   r.outcome = null;
   r.wonAmount = 0;
   r.question = pickQuestion(r, 0);
-  sysChat(r, "💍 Joc nou! Discutați, apoi oricare dintre voi poate răspunde. Baftă, echipă!");
+  sysChat(r, `💍 Joc nou (${DIFFICULTIES[r.difficulty].label})! Discutați, apoi oricare dintre voi poate răspunde. Baftă, echipă!`);
+}
+
+function handleDifficulty(r, idx, value) {
+  if (r.mode !== "millionaire" || r.phase === "playing" || !DIFFICULTIES[value] || r.difficulty === value) return;
+  r.difficulty = value;
+  sysChat(r, `🎚️ ${r.players[idx].name} a schimbat dificultatea: ${DIFFICULTIES[value].label}`);
+  broadcast(r);
 }
 
 function millionaireSafeAmount(qIndexFailedAt) {
@@ -240,7 +255,8 @@ function getRoom(id) {
       question: null,
       eliminated: [],
       lifeline: { fifty: true },
-      usedQ: { easy: [], medium: [], hard: [] },
+      difficulty: "mediu",
+      usedQ: {},
       pending: false,
       mReveal: null,
       outcome: null,
@@ -288,6 +304,7 @@ function publicState(r, idx) {
     })),
     millionaire: r.mode !== "millionaire" ? undefined : {
       qIndex: r.qIndex,
+      difficulty: r.difficulty,
       question: r.question ? { text: r.question.text, options: r.question.options } : null,
       eliminated: r.eliminated,
       lifeline: r.lifeline,
@@ -472,6 +489,7 @@ wss.on("connection", (ws) => {
       if (i === -1) {
         if (r.players.length >= 2) return ws.send(JSON.stringify({ t: "error", msg: "This room is full." }));
         if (r.players.length === 0 && MODES.includes(m.mode)) r.mode = m.mode;
+        if (r.players.length === 0 && DIFFICULTIES[m.difficulty]) r.difficulty = m.difficulty;
         r.players.push({ token, name, ws: null, remaining: START_MS, score: 0, rematch: false });
         i = r.players.length - 1;
       } else {
@@ -498,6 +516,7 @@ wss.on("connection", (ws) => {
     else if (m.t === "walk") handleWalk(room, idx);
     else if (m.t === "lifeline") handleLifeline(room, idx, m.which);
     else if (m.t === "chat") handleChat(room, idx, m.text);
+    else if (m.t === "difficulty") handleDifficulty(room, idx, m.value);
   });
 
   ws.on("close", () => {

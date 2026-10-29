@@ -39,6 +39,7 @@
       <button type="button" id="mChatBtn" aria-label="Deschide chatul">💬<span id="mChatBadge" hidden>0</span></button>
     </div>
     <div id="mCouple">
+      <canvas id="m3d"></canvas>
       <div class="mAvatar" id="mAv0">?</div>
       <div class="mHeart3d"><span>💖</span></div>
       <div class="mAvatar" id="mAv1">?</div>
@@ -80,6 +81,11 @@
           <button type="button" class="mode" data-mode="flags">🚩 Flags</button>
           <button type="button" class="mode" data-mode="millionaire">💍 Milionari</button>
         </div>
+        <div class="diffpick" id="diffpick" hidden>
+          <button type="button" class="diff" data-diff="usor">🌸 Ușor</button>
+          <button type="button" class="diff active" data-diff="mediu">🔥 Mediu</button>
+          <button type="button" class="diff" data-diff="greu">💎 Greu</button>
+        </div>
         <input id="nameInput" maxlength="20" placeholder="Your name" required autofocus>
         <button class="primary" type="submit" id="joinBtn">Create room</button>
       </form>
@@ -105,7 +111,13 @@
       <h2 id="mOverTitle"></h2>
       <p class="sub" id="mOverSub"></p>
       <div class="wonAmount"><span>ați câștigat</span><b id="mWonAmt">0 lei</b></div>
-      <button id="mRematch" class="primary">Play again</button>
+      <p class="hint diffhint">Dificultatea pentru runda următoare:</p>
+      <div class="diffpick" id="mDiffPick">
+        <button type="button" class="diff" data-diff="usor">🌸 Ușor</button>
+        <button type="button" class="diff" data-diff="mediu">🔥 Mediu</button>
+        <button type="button" class="diff" data-diff="greu">💎 Greu</button>
+      </div>
+      <button id="mRematch" class="primary">Joacă din nou</button>
       <p class="hint" id="mRematchHint"></p>
     </div>
 
@@ -114,6 +126,8 @@
 </div>
 <script src="/vendor/d3.min.js"></script>
 <script src="/vendor/topojson-client.min.js"></script>
+<script src="/vendor/three.min.js"></script>
+<script src="/mascots3d.js"></script>
 <script src="/app.js"></script>
 </body>
 </html>
