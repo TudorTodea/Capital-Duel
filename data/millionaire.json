@@ -1,5 +1,5 @@
 {
- "easy": [
+ "usor1": [
   {
    "q": "Ce culoare obții amestecând albastru cu galben?",
    "options": [
@@ -151,7 +151,7 @@
    "a": 0
   }
  ],
- "medium": [
+ "usor2": [
   {
    "q": "Cine a pictat \"Mona Lisa\"?",
    "options": [
@@ -303,7 +303,7 @@
    "a": 2
   }
  ],
- "hard": [
+ "mediu2": [
   {
    "q": "Care este singurul mamifer capabil de zbor adevărat, susținut?",
    "options": [
@@ -455,7 +455,7 @@
    "a": 1
   }
  ],
- "expert": [
+ "mediu3": [
   {
    "q": "În ce an a avut loc Marea Unire de la Alba Iulia?",
    "options": [
@@ -657,7 +657,7 @@
    "a": 1
   }
  ],
- "master": [
+ "greu2": [
   {
    "q": "Care este cel mai înalt vârf din întregul lanț al Munților Carpați?",
    "options": [
@@ -857,6 +857,654 @@
     "Falanga"
    ],
    "a": 0
+  }
+ ],
+ "usor3": [
+  {
+   "q": "Câte zile are luna februarie într-un an obișnuit?",
+   "options": [
+    "28",
+    "29",
+    "30",
+    "31"
+   ],
+   "a": 0
+  },
+  {
+   "q": "Care este cel mai mare animal terestru?",
+   "options": [
+    "Girafa",
+    "Elefantul african",
+    "Hipopotamul",
+    "Rinocerul"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Ce limbă se vorbește în Brazilia?",
+   "options": [
+    "Spaniola",
+    "Portugheza",
+    "Engleza",
+    "Franceza"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Câte culori are curcubeul?",
+   "options": [
+    "5",
+    "6",
+    "7",
+    "8"
+   ],
+   "a": 2
+  },
+  {
+   "q": "Care este capitala Franței?",
+   "options": [
+    "Lyon",
+    "Paris",
+    "Marsilia",
+    "Nisa"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Cine a scris \"Amintiri din copilărie\"?",
+   "options": [
+    "Ion Creangă",
+    "Mihai Eminescu",
+    "Ion Luca Caragiale",
+    "Liviu Rebreanu"
+   ],
+   "a": 0
+  },
+  {
+   "q": "Care este cel mai înalt munte din România?",
+   "options": [
+    "Omu",
+    "Moldoveanu",
+    "Negoiu",
+    "Parâng"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Pe ce fluviu se află Delta pe care o vizitează turiștii în România?",
+   "options": [
+    "Dunărea",
+    "Mureșul",
+    "Oltul",
+    "Prutul"
+   ],
+   "a": 0
+  },
+  {
+   "q": "Câte corzi are, în mod obișnuit, o vioară?",
+   "options": [
+    "3",
+    "4",
+    "5",
+    "6"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Ce sărbătoare creștină se ține pe 25 decembrie?",
+   "options": [
+    "Paștele",
+    "Crăciunul",
+    "Boboteaza",
+    "Sfântul Ion"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Ce animal este considerat un simbol al Australiei?",
+   "options": [
+    "Koala",
+    "Cangurul",
+    "Pinguinul",
+    "Crocodilul"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Din ce material principal se face sticla?",
+   "options": [
+    "Argilă",
+    "Nisip",
+    "Lemn",
+    "Fier"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Care este cel mai rapid animal terestru?",
+   "options": [
+    "Leul",
+    "Ghepardul",
+    "Calul",
+    "Antilopa"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Ce instrument folosește medicul ca să asculte inima?",
+   "options": [
+    "Termometrul",
+    "Stetoscopul",
+    "Microscopul",
+    "Tensiometrul"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Câte litere are alfabetul limbii române?",
+   "options": [
+    "26",
+    "28",
+    "31",
+    "33"
+   ],
+   "a": 2
+  },
+  {
+   "q": "Care este planeta cea mai apropiată de Soare?",
+   "options": [
+    "Venus",
+    "Mercur",
+    "Pământ",
+    "Marte"
+   ],
+   "a": 1
+  }
+ ],
+ "mediu1": [
+  {
+   "q": "Cine a regizat filmul \"Titanic\" din 1997?",
+   "options": [
+    "Steven Spielberg",
+    "James Cameron",
+    "Ridley Scott",
+    "Christopher Nolan"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Ce trupă a cântat \"Bohemian Rhapsody\"?",
+   "options": [
+    "The Beatles",
+    "Queen",
+    "Led Zeppelin",
+    "Pink Floyd"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Câți jucători are pe teren o echipă de fotbal?",
+   "options": [
+    "9",
+    "10",
+    "11",
+    "12"
+   ],
+   "a": 2
+  },
+  {
+   "q": "Din ce țară provine sushi?",
+   "options": [
+    "China",
+    "Japonia",
+    "Coreea de Sud",
+    "Thailanda"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Ce companie a lansat primul iPhone, în 2007?",
+   "options": [
+    "Samsung",
+    "Apple",
+    "Nokia",
+    "Google"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Cum se numește zeul trăsnetului în mitologia nordică?",
+   "options": [
+    "Odin",
+    "Thor",
+    "Loki",
+    "Freyr"
+   ],
+   "a": 1
+  },
+  {
+   "q": "În ce film Disney apare leul Simba?",
+   "options": [
+    "Aladdin",
+    "Regele Leu",
+    "Cartea Junglei",
+    "Tarzan"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Câte turnee de Grand Slam există într-un an de tenis?",
+   "options": [
+    "3",
+    "4",
+    "5",
+    "6"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Din ce lapte se face, în mod tradițional, brânza feta?",
+   "options": [
+    "Vacă",
+    "Oaie",
+    "Bivoliță",
+    "Cămilă"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Cine a scris seria \"Harry Potter\"?",
+   "options": [
+    "J.R.R. Tolkien",
+    "J.K. Rowling",
+    "C.S. Lewis",
+    "Roald Dahl"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Care este cel mai mare oraș din România?",
+   "options": [
+    "Cluj-Napoca",
+    "București",
+    "Timișoara",
+    "Iași"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Ce metal este lichid la temperatura camerei?",
+   "options": [
+    "Plumb",
+    "Mercur",
+    "Aluminiu",
+    "Cositor"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Ce sport practică Novak Djokovic?",
+   "options": [
+    "Fotbal",
+    "Baschet",
+    "Tenis",
+    "Golf"
+   ],
+   "a": 2
+  },
+  {
+   "q": "Cine a pictat \"Strigătul\"?",
+   "options": [
+    "Edvard Munch",
+    "Gustav Klimt",
+    "Paul Gauguin",
+    "Henri Matisse"
+   ],
+   "a": 0
+  },
+  {
+   "q": "Care este simbolul chimic al aurului?",
+   "options": [
+    "Ag",
+    "Au",
+    "Fe",
+    "Gd"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Cine a fost primul om care a pășit pe Lună?",
+   "options": [
+    "Buzz Aldrin",
+    "Neil Armstrong",
+    "Iuri Gagarin",
+    "John Glenn"
+   ],
+   "a": 1
+  }
+ ],
+ "greu1": [
+  {
+   "q": "Ce vitamină previne scorbutul?",
+   "options": [
+    "Vitamina A",
+    "Vitamina B12",
+    "Vitamina C",
+    "Vitamina D"
+   ],
+   "a": 2
+  },
+  {
+   "q": "În ce an a început Primul Război Mondial?",
+   "options": [
+    "1912",
+    "1914",
+    "1916",
+    "1918"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Cine a pictat \"Fata cu cercel de perlă\"?",
+   "options": [
+    "Rembrandt",
+    "Johannes Vermeer",
+    "Frans Hals",
+    "Jan van Eyck"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Care este capitala Turciei?",
+   "options": [
+    "Istanbul",
+    "Ankara",
+    "Izmir",
+    "Antalya"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Ce scriitor a creat personajul Sherlock Holmes?",
+   "options": [
+    "Agatha Christie",
+    "Arthur Conan Doyle",
+    "Edgar Allan Poe",
+    "Charles Dickens"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Câte planete are sistemul nostru solar?",
+   "options": [
+    "7",
+    "8",
+    "9",
+    "10"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Ce organ produce insulina?",
+   "options": [
+    "Ficatul",
+    "Pancreasul",
+    "Rinichiul",
+    "Stomacul"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Cine a ajuns în America în 1492, în numele Spaniei?",
+   "options": [
+    "Vasco da Gama",
+    "Cristofor Columb",
+    "Magellan",
+    "Amerigo Vespucci"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Cine a compus \"Rapsodiile Române\"?",
+   "options": [
+    "George Enescu",
+    "Ciprian Porumbescu",
+    "Dinu Lipatti",
+    "Ion Vidu"
+   ],
+   "a": 0
+  },
+  {
+   "q": "Care este cel mai mare lac din Africa?",
+   "options": [
+    "Tanganyika",
+    "Victoria",
+    "Malawi",
+    "Ciad"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Ce țară a găzduit Campionatul Mondial de Fotbal din 2018?",
+   "options": [
+    "Brazilia",
+    "Rusia",
+    "Qatar",
+    "Germania"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Care este limba oficială a Austriei?",
+   "options": [
+    "Germana",
+    "Maghiara",
+    "Cehă",
+    "Italiana"
+   ],
+   "a": 0
+  },
+  {
+   "q": "Ce este un \"haiku\"?",
+   "options": [
+    "O poezie japoneză scurtă",
+    "Un dans tradițional",
+    "Un fel de mâncare",
+    "Un instrument muzical"
+   ],
+   "a": 0
+  },
+  {
+   "q": "Ce gaz formează cea mai mare parte din atmosfera Pământului?",
+   "options": [
+    "Oxigenul",
+    "Azotul",
+    "Dioxidul de carbon",
+    "Argonul"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Care este cea mai înaltă clădire din lume?",
+   "options": [
+    "Shanghai Tower",
+    "Burj Khalifa",
+    "Abraj Al-Bait",
+    "Taipei 101"
+   ],
+   "a": 1
+  }
+ ],
+ "greu3": [
+  {
+   "q": "Care este cel mai adânc punct din oceanele lumii?",
+   "options": [
+    "Groapa Marianelor",
+    "Groapa Tongei",
+    "Groapa Puerto Rico",
+    "Groapa Java"
+   ],
+   "a": 0
+  },
+  {
+   "q": "În ce an a început Revoluția Franceză?",
+   "options": [
+    "1776",
+    "1789",
+    "1799",
+    "1804"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Care este cel mai mare satelit natural al lui Saturn?",
+   "options": [
+    "Enceladus",
+    "Titan",
+    "Rhea",
+    "Mimas"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Ce element chimic are numărul atomic 79?",
+   "options": [
+    "Argintul",
+    "Aurul",
+    "Platina",
+    "Mercurul"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Cine a scris \"Divina Comedie\"?",
+   "options": [
+    "Petrarca",
+    "Dante Alighieri",
+    "Boccaccio",
+    "Virgiliu"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Câte cromozomi are o celulă umană normală?",
+   "options": [
+    "23",
+    "44",
+    "46",
+    "48"
+   ],
+   "a": 2
+  },
+  {
+   "q": "Care este cea mai înaltă cascadă din lume?",
+   "options": [
+    "Niagara",
+    "Salto Ángel",
+    "Victoria",
+    "Iguazú"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Cine a scris tratatul politic \"Principele\"?",
+   "options": [
+    "Machiavelli",
+    "Thomas More",
+    "Erasmus",
+    "Hobbes"
+   ],
+   "a": 0
+  },
+  {
+   "q": "Ce număr reprezintă \"MCMXCIX\" în cifre romane?",
+   "options": [
+    "1899",
+    "1999",
+    "2009",
+    "1989"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Care este capitala Mongoliei?",
+   "options": [
+    "Astana",
+    "Ulaanbaatar",
+    "Bișkek",
+    "Tașkent"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Care este cea mai mare insulă din Marea Mediterană?",
+   "options": [
+    "Sardinia",
+    "Sicilia",
+    "Cipru",
+    "Creta"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Cine a compus \"Bolero\"?",
+   "options": [
+    "Debussy",
+    "Maurice Ravel",
+    "Satie",
+    "Poulenc"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Care este cel mai mic stat american ca suprafață?",
+   "options": [
+    "Delaware",
+    "Rhode Island",
+    "Connecticut",
+    "Hawaii"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Câte fețe are un dodecaedru regulat?",
+   "options": [
+    "8",
+    "10",
+    "12",
+    "20"
+   ],
+   "a": 2
+  },
+  {
+   "q": "Cine a descoperit radiul și poloniul?",
+   "options": [
+    "Marie Curie",
+    "Rosalind Franklin",
+    "Lise Meitner",
+    "Irène Joliot-Curie"
+   ],
+   "a": 0
+  },
+  {
+   "q": "Cine a fost ultimul rege al României?",
+   "options": [
+    "Carol al II-lea",
+    "Mihai I",
+    "Ferdinand I",
+    "Carol I"
+   ],
+   "a": 1
+  },
+  {
+   "q": "Ce imperiu avea drept capitală Constantinopolul, după căderea Romei de Apus?",
+   "options": [
+    "Imperiul Otoman",
+    "Imperiul Bizantin",
+    "Imperiul Persan",
+    "Imperiul Mongol"
+   ],
+   "a": 1
   }
  ]
 }

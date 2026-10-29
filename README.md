@@ -10,7 +10,7 @@ Two players, three modes picked by whoever creates the room:
   playing together (e.g. a couple). You climb a 15-question money ladder from 100 to 1.000.000 lei as a team — talk it
   over in the built-in chat, and either player can tap an answer to lock it in. A wrong answer drops you to the last
   milestone you passed (1.000 lei at Q5, 32.000 lei at Q10); you can also stop any time ("Ne oprim aici 💝") with
-  whatever you've already banked. One shared 50:50 lifeline per game. A cute couple mascot (two avatar initials +
+  whatever you've already banked. One shared 50:50 lifeline per game. Three difficulty levels (Ușor / Mediu / Greu), each with its own separate pools of questions (149 in total, from general knowledge to Romanian culture, movies, music, sports, science and more); the answer order is shuffled every time. A cute couple mascot (two avatar initials +
   a little spinning heart) reacts to every answer with a burst of emoji, and confetti on a full win. Mobile-friendly
   (bottom-sheet chat, single-column question card, horizontally scrolling ladder), Quicksand font for a softer feel.
 

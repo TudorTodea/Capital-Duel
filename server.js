@@ -20,11 +20,12 @@ const MILESTONES = [4, 9]; // ladder indices that are guaranteed minimums once p
 const M_CORRECT_DELAY = 2_200;
 const M_WRONG_DELAY = 3_200;
 
-// Each difficulty maps the ladder's three thirds (Q1-5, Q6-10, Q11-15) onto question bands.
+// Each difficulty has its own question pools, one per third of the ladder (Q1-5, Q6-10, Q11-15),
+// so no question is shared between levels.
 const DIFFICULTIES = {
-  usor: { label: "🌸 Ușor", bands: ["easy", "medium", "hard"] },
-  mediu: { label: "🔥 Mediu", bands: ["medium", "hard", "expert"] },
-  greu: { label: "💎 Greu", bands: ["hard", "expert", "master"] },
+  usor: { label: "🌸 Ușor", bands: ["usor1", "usor2", "usor3"] },
+  mediu: { label: "🔥 Mediu", bands: ["mediu1", "mediu2", "mediu3"] },
+  greu: { label: "💎 Greu", bands: ["greu1", "greu2", "greu3"] },
 };
 
 function bandFor(r, qIndex) {
@@ -42,7 +43,9 @@ function pickQuestion(r, qIndex) {
   const pick = avail[Math.floor(Math.random() * avail.length)];
   r.usedQ[band].push(pick);
   const item = bank[pick];
-  return { text: item.q, options: item.options, answer: item.a };
+  // shuffle the answer order every time so the right answer isn't always in the same spot
+  const order = shuffle([0, 1, 2, 3]);
+  return { text: item.q, options: order.map((i) => item.options[i]), answer: order.indexOf(item.a) };
 }
 
 function sysChat(r, text) {
