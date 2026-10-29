@@ -417,7 +417,9 @@
   </svg>`;
 
   // Real 3D version (capybara + Hello Kitty in Millionaire hot-seats); the SVGs above stay as the no-WebGL fallback.
-  if (window.Mascots3D?.init($("m3d"))) $("mCouple").classList.add("has3d");
+  // mascots3d.js is an ES module, so it usually finishes loading after this script
+  const init3d = () => { if (window.Mascots3D?.init($("m3d"))) $("mCouple").classList.add("has3d"); };
+  window.Mascots3D ? init3d() : window.addEventListener("mascots3d-ready", init3d, { once: true });
   const react3d = (type) => window.Mascots3D?.react(type);
   const DIFF_LABELS = { usor: "🌸 Ușor", mediu: "🔥 Mediu", greu: "💎 Greu" };
 
