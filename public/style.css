@@ -118,12 +118,12 @@ button:disabled{opacity:.4;cursor:not-allowed}
 /* a tiny couple mascot: two avatar bubbles flanking a gently spinning "3D" heart */
 #mCouple{display:flex;align-items:center;justify-content:center;gap:16px;padding:2px 0}
 #m3d{display:none;width:100%;height:100%}
-#mCouple.has3d{height:170px;padding:0;margin:-4px 0}
+#mCouple.has3d{height:210px;padding:0;margin:-4px 0}
 #mCouple.has3d #m3d{display:block}
 #mCouple.has3d .mAvatar,#mCouple.has3d .mHeart3d{display:none}
 #mCouple.has3d.yay,#mCouple.has3d.aww{animation:none}
-@media (min-width:700px){#mCouple.has3d{height:220px}}
-@media (max-height:700px){#mCouple.has3d{height:130px}}
+@media (min-width:700px){#mCouple.has3d{height:250px}}
+@media (max-height:700px){#mCouple.has3d{height:150px}}
 #mCouple.yay{animation:coupleYay .6s ease}
 #mCouple.aww{animation:coupleAww .45s ease}
 @keyframes coupleYay{0%,100%{transform:scale(1)}50%{transform:scale(1.14) rotate(-2deg)}}
