@@ -1,6 +1,6 @@
 # Capital Duel
 
-Two players, three modes picked by whoever creates the room:
+Two players, four modes picked by whoever creates the room:
 
 - **Capitals** — a country is highlighted on the world map, a pin marks its capital, the active player types the capital.
   60s each; correct → your clock stops and the other player's starts; first clock to hit 0 loses.
@@ -13,6 +13,10 @@ Two players, three modes picked by whoever creates the room:
   whatever you've already banked. One shared 50:50 lifeline per game. Three difficulty levels (Ușor / Mediu / Greu), each with its own separate pools of questions (149 in total, from general knowledge to Romanian culture, movies, music, sports, science and more); the answer order is shuffled every time. A cute couple mascot (two avatar initials +
   a little spinning heart) reacts to every answer with a burst of emoji, and confetti on a full win. Mobile-friendly
   (bottom-sheet chat, single-column question card, horizontally scrolling ladder), Quicksand font for a softer feel.
+- **Desenează ✏️** (Romanian UI, co-op) — one secret word per game. The drawer picks one of 3 random words (or types their own)
+  and draws it for **10 seconds** while the other player watches live. Then the guesser gets **one attempt**; if it's wrong the
+  drawer keeps going on the same picture, adding detail for another 10 seconds, and so on — up to **5 rounds**. Accents/case are
+  ignored, 1 typo tolerated on long words. Roles swap on every rematch. Works with mouse and touch.
 
     npm install
     npm start          # http://localhost:3737  (set PORT to change)

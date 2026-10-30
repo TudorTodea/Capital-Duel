@@ -13,7 +13,7 @@
   if (!token) { token = Math.random().toString(36).slice(2) + Date.now().toString(36); store.setS("cd-token", token); }
 
   // ---------- screens ----------
-  const cards = ["joinCard", "lobbyCard", "overCard", "mOverCard", "msgCard"];
+  const cards = ["joinCard", "lobbyCard", "overCard", "mOverCard", "dOverCard", "msgCard"];
   function showCard(name, dim = true) {
     cards.forEach((c) => ($(c).hidden = c !== name));
     $("overlay").classList.toggle("dim", !!name && dim);
@@ -39,6 +39,7 @@
       [...$("modepick").children].forEach((b) => b.classList.toggle("active", b === btn));
       $("diffpick").hidden = pickedMode !== "millionaire";
       $("joinSub").textContent =
+        pickedMode === "draw" ? "Desenezi 10 secunde, celălalt are o singură încercare să ghicească. 5 runde, pe rând 🎨" :
         pickedMode === "flags" ? "Two players. 60 seconds each. Name the country shown." :
         pickedMode === "millionaire" ? "Jucați în echipă, discutați în chat și vedeți cât de departe puteți ajunge împreună 💕" :
         "Two players. 60 seconds each. Name the capital.";
@@ -169,6 +170,10 @@
         offset = m.serverNow - Date.now();
         state = m;
         render();
+      } else if (m.t === "stroke") {
+        addRemoteStroke(m);
+      } else if (m.t === "clearDraw") {
+        dStrokes = []; redrawAll();
       } else if (m.t === "wrong") {
         wrong();
       } else if (m.t === "chat") {
@@ -223,19 +228,23 @@
   function render() {
     const s = state;
     const isM = s.mode === "millionaire";
+    const isD = s.mode === "draw";
     const newRound = lastPhase === "lobby" || (lastPhase === "over" && s.phase === "playing");
     lastPhase = s.phase;
 
     // overlays
     if (s.phase === "lobby") {
       $("shareLink").value = `${location.origin}/?room=${s.room}`;
-      $("lobbyTitle").textContent = isM ? "Așteptăm jumătatea ta 💕" : "Waiting for opponent…";
+      $("lobbyTitle").textContent = isM ? "Așteptăm jumătatea ta 💕" : isD ? "Așteptăm al doilea jucător ✏️" : "Waiting for opponent…";
       showCard("lobbyCard");
     } else if (s.phase === "over") {
-      isM ? renderMillionaireOver() : renderOver();
+      isM ? renderMillionaireOver() : isD ? renderDrawOver() : renderOver();
     } else if (s.paused) {
       showCard("msgCard", false);
-      if (isM) {
+      if (isD) {
+        $("msgTitle").textContent = "Celălalt jucător a plecat puțin 💭";
+        $("msgSub").textContent = "Jocul e în pauză — așteptăm până la 30 de secunde să revină…";
+      } else if (isM) {
         $("msgTitle").textContent = "Jumătatea ta a plecat puțin 💭";
         $("msgSub").textContent = "Jocul e în pauză — așteptăm până la 30 de secunde să revină…";
       } else {
@@ -247,10 +256,12 @@
     }
 
     const inGame = s.phase !== "lobby";
-    $("stage").hidden = isM;
-    $("hud").hidden = !inGame || isM;
-    $("controls").hidden = !inGame || isM;
+    $("stage").hidden = isM || isD;
+    $("hud").hidden = !inGame || isM || isD;
+    $("controls").hidden = !inGame || isM || isD;
     $("mStage").hidden = !inGame || !isM;
+    $("dStage").hidden = !inGame || !isD;
+    if (isD) { renderDraw(s, newRound); return; }
     if (isM) { renderMillionaire(s, newRound); return; }
 
     const me = s.you;
@@ -574,7 +585,218 @@
     if (btn) send({ t: "difficulty", value: btn.dataset.diff });
   });
 
-  // ---------- clock + controls (runs every frame, duel modes only) ----------
+
+  // ---------- draw mode ----------
+  const cv = $("dCanvas"), cx = cv.getContext("2d");
+  const COLORS = ["#222222", "#e63946", "#ff9f1c", "#f4d35e", "#2a9d4f", "#2a8bf2", "#8e44ad", "#ff6fa5", "#8b5a2b"];
+  let penColor = COLORS[0], penW = 9, dStrokes = [], curStroke = null, dKey = null, dToastKey = null, dOverShown = false;
+  COLORS.forEach((c, i) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "clr" + (i === 0 ? " active" : ""); b.style.background = c; b.dataset.c = c;
+    b.setAttribute("aria-label", "Culoare " + (i + 1));
+    $("dColors").appendChild(b);
+  });
+  $("dColors").addEventListener("click", (e) => {
+    const b = e.target.closest(".clr");
+    if (!b) return;
+    penColor = b.dataset.c;
+    [...$("dColors").children].forEach((x) => x.classList.toggle("active", x === b));
+  });
+  $("dSizes").addEventListener("click", (e) => {
+    const b = e.target.closest(".sz");
+    if (!b) return;
+    penW = Number(b.dataset.w);
+    [...$("dSizes").children].forEach((x) => x.classList.toggle("active", x === b));
+  });
+
+  function drawSeg(st, from) {
+    const pts = st.p;
+    cx.strokeStyle = st.c; cx.fillStyle = st.c; cx.lineWidth = st.w; cx.lineCap = "round"; cx.lineJoin = "round";
+    if (pts.length === 1 || (from === 0 && pts.length === 1)) {
+      cx.beginPath(); cx.arc(pts[0][0] * cv.width, pts[0][1] * cv.height, st.w / 2, 0, Math.PI * 2); cx.fill();
+      return;
+    }
+    cx.beginPath();
+    cx.moveTo(pts[Math.max(0, from - 1)][0] * cv.width, pts[Math.max(0, from - 1)][1] * cv.height);
+    for (let i = Math.max(1, from); i < pts.length; i++) cx.lineTo(pts[i][0] * cv.width, pts[i][1] * cv.height);
+    cx.stroke();
+  }
+  function redrawAll() {
+    cx.fillStyle = "#fffdf7"; cx.fillRect(0, 0, cv.width, cv.height);
+    dStrokes.forEach((st) => drawSeg(st, 0));
+  }
+  redrawAll();
+
+  function addRemoteStroke(m) {
+    let st = dStrokes.find((x) => x.id === m.id);
+    const from = st ? st.p.length : 0;
+    if (!st) dStrokes.push((st = { id: m.id, c: m.c, w: m.w, p: [] }));
+    st.p.push(...m.p);
+    drawSeg(st, from);
+  }
+
+  // drawer input: pointer events, normalized coords, batched to the server
+  const canDraw = () => state && state.mode === "draw" && state.phase === "playing" && !state.paused &&
+    state.draw.stage === "draw" && state.draw.drawer === state.you && now() >= state.draw.drawStart && now() <= state.draw.stageEnd;
+  let sendBuf = [], sendTimer = null;
+  const flushStroke = () => {
+    sendTimer = null;
+    if (curStroke && sendBuf.length) { send({ t: "stroke", id: curStroke.id, c: curStroke.c, w: curStroke.w, p: sendBuf }); sendBuf = []; }
+  };
+  const pt = (e) => {
+    const r = cv.getBoundingClientRect();
+    return [Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)), Math.min(1, Math.max(0, (e.clientY - r.top) / r.height))];
+  };
+  cv.addEventListener("pointerdown", (e) => {
+    if (!canDraw()) return;
+    e.preventDefault();
+    cv.setPointerCapture(e.pointerId);
+    const w = penW * (cv.width / Math.max(300, cv.getBoundingClientRect().width)) * 0.55;
+    curStroke = { id: Math.random().toString(36).slice(2, 10), c: penColor, w: Math.round(w * 10) / 10, p: [pt(e)] };
+    dStrokes.push(curStroke);
+    drawSeg(curStroke, 0);
+    sendBuf = [curStroke.p[0]];
+    flushStroke();
+  });
+  cv.addEventListener("pointermove", (e) => {
+    if (!curStroke) return;
+    if (!canDraw()) { curStroke = null; return; }
+    const p = pt(e), last = curStroke.p[curStroke.p.length - 1];
+    if (Math.hypot(p[0] - last[0], p[1] - last[1]) < 0.002) return;
+    const from = curStroke.p.length;
+    curStroke.p.push(p);
+    drawSeg(curStroke, from);
+    sendBuf.push(p);
+    if (!sendTimer) sendTimer = setTimeout(flushStroke, 40);
+  });
+  const endStroke = () => { if (curStroke) { flushStroke(); curStroke = null; } };
+  cv.addEventListener("pointerup", endStroke);
+  cv.addEventListener("pointercancel", endStroke);
+  $("dClear").addEventListener("click", () => { if (canDraw()) { dStrokes = []; redrawAll(); send({ t: "clear" }); } });
+
+  $("dCustomForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const v = $("dCustom").value.trim();
+    if (v.length >= 2) { send({ t: "pick", text: v }); $("dCustom").value = ""; }
+  });
+  $("dOptions").addEventListener("click", (e) => {
+    const b = e.target.closest("button");
+    if (b) send({ t: "pick", option: Number(b.dataset.i) });
+  });
+  $("dGuessForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const v = $("dGuess").value.trim();
+    if (!v || $("dGuess").disabled) return;
+    $("dGuess").disabled = true;
+    send({ t: "dguess", text: v });
+  });
+  $("dRematch").addEventListener("click", () => send({ t: "rematch" }));
+
+  function renderDraw(s, newRound) {
+    const d = s.draw;
+    if (!d) return;
+    const me = s.you, iDraw = d.drawer === me, other = s.players[1 - me]?.name || "…";
+    if (newRound) { dKey = null; dToastKey = null; dOverShown = false; }
+    $("dRound").textContent = `Runda ${Math.min(d.round + 1, d.rounds)} / ${d.rounds}`;
+    $("dScore").textContent = d.guesses.length ? `❌ ${d.guesses.length}` : "";
+
+    // canvas: full redraw whenever the round/stage changes or the server's stroke set differs from ours
+    const key = `${d.stage === "pick" ? "pick" : "go"}`;
+    const total = (a) => a.reduce((n, x) => n + x.p.length, 0);
+    if (key !== dKey || total(d.strokes) !== total(dStrokes)) {
+      if (key !== dKey || !curStroke) { dStrokes = JSON.parse(JSON.stringify(d.strokes)); redrawAll(); }
+      dKey = key;
+    }
+
+    const pick = d.stage === "pick";
+    $("dPick").hidden = !(pick && iDraw);
+    if (pick && iDraw) {
+      $("dOptions").innerHTML = (d.options || []).map((w, i) => `<button type="button" data-i="${i}">${esc(w)}</button>`).join("");
+    }
+    $("dTools").hidden = !(iDraw && d.stage === "draw");
+    $("dGuessForm").hidden = !(!iDraw && d.stage === "guess");
+    if (!iDraw && d.stage === "guess" && $("dGuess").dataset.round !== String(d.round)) {
+      $("dGuess").dataset.round = String(d.round);
+      $("dGuess").disabled = false; $("dGuess").value = "";
+      setTimeout(() => $("dGuess").focus(), 50);
+    }
+
+    $("dRole").textContent =
+      pick ? (iDraw ? "Tu desenezi — alege un cuvânt" : `${other} alege un cuvânt…`) :
+      d.stage === "draw" ? (iDraw ? `Desenează: ${d.word}${d.round ? " — adaugă detalii!" : ""}` : `${other} desenează — privește! 👀`) :
+      d.stage === "guess" ? (iDraw ? `${other} ghicește…` : `Ce desenează ${other}? (${d.wordLen} litere)`) :
+      `Cuvântul era: ${d.word}`;
+
+    const tk = `${d.round}:${d.stage}:${d.guesses.length}:${JSON.stringify(d.result)}`;
+    if (tk !== dToastKey) {
+      dToastKey = tk;
+      const lastWrong = d.guesses[d.guesses.length - 1];
+      if (d.stage === "reveal" && d.result) {
+        const ok = d.result.correct;
+        dToast(ok ? `✅ Corect! Era „${d.word}”` : `💔 Nu s-a ghicit — era „${d.word}”`, ok ? "good" : "bad", 3200);
+        burst($("dBoard"), ok ? ["💖", "✨", "🎉", "💕"] : ["💔", "😅"], ok ? 10 : 4);
+      } else if (d.stage === "draw" && lastWrong && d.round > 0) {
+        const none = lastWrong === "…";
+        dToast(iDraw
+          ? (none ? `⏰ ${other} n-a răspuns la timp — mai adaugă detalii!` : `❌ ${other} a zis „${lastWrong}” — nu e corect! Mai adaugă detalii.`)
+          : (none ? "⏰ Timpul a expirat — n-ai răspuns! Mai urmează o rundă." : `❌ „${lastWrong}” nu e corect! Mai urmează o rundă — privește desenul.`),
+          "bad", 4500);
+        if (!iDraw) { try { navigator.vibrate && navigator.vibrate([120, 60, 120]); } catch {} }
+      } else if ($("dToast").className.includes("show")) $("dToast").className = "toastbubble";
+    }
+    paintDraw();
+  }
+  const dToast = makeToaster("dToast");
+
+  function paintDraw() {
+    const s = state;
+    if (!s || !s.draw || $("dStage").hidden) return;
+    const d = s.draw, t = now();
+    const bar = $("dTimerBar");
+    let left = 0, total = 1, label = "";
+    if (s.paused || s.phase !== "playing") { bar.hidden = true; }
+    else {
+      bar.hidden = false;
+      if (d.stage === "draw" && t < d.drawStart) {
+        const c = Math.ceil((d.drawStart - t) / 1000);
+        $("dCount").hidden = false; $("dCount").textContent = c;
+        left = 0; total = 1;
+        label = "Pregătiți-vă!";
+      } else {
+        $("dCount").hidden = true;
+        left = Math.max(0, d.stageEnd - t);
+        total = d.stage === "draw" ? 10000 : d.stage === "pick" ? 25000 : d.stage === "guess" ? 20000 : 3500;
+        label = d.stage === "reveal" ? "" : (left / 1000).toFixed(d.stage === "draw" ? 1 : 0) + "s";
+      }
+      bar.firstElementChild.style.width = (d.stage === "draw" && t < d.drawStart ? 100 : (left / total) * 100) + "%";
+      bar.classList.toggle("low", d.stage === "draw" && t >= d.drawStart && left < 3000);
+      $("dTimer").textContent = label;
+    }
+    if (s.phase !== "playing" || s.paused || d.stage !== "draw" || t >= d.drawStart) $("dCount").hidden = true;
+    cv.classList.toggle("live", canDraw());
+    const iDraw = d.drawer === s.you;
+    $("dStatus").textContent = d.stage === "guess" && !iDraw ? "Ai o singură încercare — gândește-te bine! 🤔" : "";
+  }
+
+  function renderDrawOver() {
+    const s = state, me = s.you, P = s.players, d = s.draw;
+    const left = d.stage === "left";
+    const solved = d.result && d.result.correct;
+    $("dOverTitle").textContent = left ? "👋 Rundă încheiată" : solved ? (d.round === 0 ? "🏆 Din prima! Telepați!" : "🥰 Ați ghicit!") : "💔 Nu de data asta…";
+    $("dOverSub").textContent = left ? "Celălalt jucător a plecat înainte de final." :
+      solved ? `„${d.word}” a fost ghicit în runda ${d.round + 1} din ${d.rounds}, desenat de ${P[d.drawer].name} 💖` :
+      `Cuvântul era „${d.word}”. Nu s-a ghicit în ${d.rounds} runde.`;
+    $("dHistory").innerHTML = d.guesses.map((g) => `<div class="no"><span>❌</span><b>${esc(g)}</b></div>`).join("") +
+      (solved ? `<div class="ok"><span>✅</span><b>${esc(d.result.guess)}</b></div>` : "");
+    $("dRematch").disabled = P[me].rematch || P.some((p) => !p.connected);
+    $("dRematch").textContent = P[me].rematch ? "Așteptăm…" : "Joacă din nou (rolurile se schimbă)";
+    $("dRematchHint").textContent = P.some((p) => !p.connected) ? "Celălalt jucător a plecat." : P[1 - me].rematch ? "Celălalt vrea să joace din nou!" : "";
+    showCard("dOverCard", false);
+    $("overlay").classList.add("dim");
+    if (solved && !dOverShown) { dOverShown = true; burst($("dOverCard"), ["🎉", "💖", "✨", "🎨"], 16); }
+  }
+
+  // ---------- clock + controls (runs every frame) ----------
   let wasEnabled = false;
   function tick() {
     paint();
@@ -583,6 +805,7 @@
   function paint() {
     const s = state;
     if (!s || s.phase === "lobby" || s.mode === "millionaire") return;
+    if (s.mode === "draw") return paintDraw();
     const t = now();
     const running = s.phase === "playing" && !s.paused && s.runningSince != null;
     [0, 1].forEach((i) => {

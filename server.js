@@ -5,7 +5,8 @@ const { WebSocketServer } = require("ws");
 
 const COUNTRIES = require("./data/countries.json");
 const QUESTION_BANK = require("./data/millionaire.json");
-const MODES = ["capitals", "flags", "millionaire"];
+const DRAW_WORDS = require("./data/draw-words.json");
+const MODES = ["capitals", "flags", "millionaire", "draw"];
 
 const PORT = process.env.PORT || 3737;
 const START_MS = 60_000;
@@ -222,6 +223,149 @@ function weightedPick(avoidId) {
   return COUNTRIES[Math.floor(Math.random() * COUNTRIES.length)];
 }
 
+// ---------- Draw (co-op, one guess per drawing) mode ----------
+const D_ROUNDS = 5;
+const D_PICK_MS = 25_000; // drawer chooses a word
+const D_COUNT_MS = 2_500; // "get ready" countdown before the 10s start
+const D_DRAW_MS = 10_000;
+const D_GUESS_MS = 20_000; // the guesser's single attempt
+const D_REVEAL_MS = 3_500;
+const D_MAX_POINTS = 3_000;
+
+function startDraw(r) {
+  r.draw = {
+    round: 0,
+    first: r.lastFirst == null ? Math.floor(Math.random() * 2) : 1 - r.lastFirst, // roles swap on every rematch
+    drawer: 0,
+    stage: "pick",
+    stageEnd: 0,
+    drawStart: 0,
+    options: [],
+    word: null,
+    strokes: [],
+    points: 0,
+    result: null,
+    score: 0,
+    guesses: [], // wrong guesses so far, shown to both players
+    used: r.drawUsed || (r.drawUsed = new Set()),
+  };
+  r.lastFirst = r.draw.first;
+  beginDrawRound(r);
+}
+
+function beginDrawRound(r) {
+  const d = r.draw;
+  d.drawer = d.first; // one word per game: the same player keeps drawing, adding detail each round
+  const pool = DRAW_WORDS.filter((w) => !d.used.has(w));
+  d.options = shuffle(pool.length >= 3 ? pool : DRAW_WORDS).slice(0, 3);
+  d.word = null;
+  d.result = null;
+  d.strokes = [];
+  d.points = 0;
+  enterDrawStage(r, "pick");
+}
+
+// (Re)starts a stage with its timer. Also used on resume after a disconnect (the stage simply restarts).
+function enterDrawStage(r, stage) {
+  const d = r.draw;
+  clearTimer(r, "dstage");
+  d.stage = stage;
+  const t = Date.now();
+  let ms, next;
+  if (stage === "pick") {
+    ms = D_PICK_MS;
+    next = () => drawPick(r, d.options[0]);
+  } else if (stage === "draw") {
+    d.drawStart = t + D_COUNT_MS;
+    ms = D_COUNT_MS + D_DRAW_MS;
+    next = () => enterDrawStage(r, "guess");
+  } else if (stage === "guess") {
+    ms = D_GUESS_MS;
+    next = () => endDrawRound(r, false, "");
+  } else {
+    ms = D_REVEAL_MS;
+    next = () => {
+      r.phase = "over";
+      broadcast(r);
+    };
+  }
+  d.stageEnd = t + ms;
+  r.timers.dstage = setTimeout(() => {
+    delete r.timers.dstage;
+    if (r.phase === "playing" && !r.paused) next();
+  }, ms);
+  broadcast(r);
+}
+
+function drawPick(r, word) {
+  const d = r.draw;
+  d.word = word;
+  d.used.add(word);
+  enterDrawStage(r, "draw");
+}
+
+function handleDrawPick(r, idx, option, text) {
+  const d = r.draw;
+  if (r.mode !== "draw" || r.phase !== "playing" || r.paused || d.stage !== "pick" || idx !== d.drawer) return;
+  let word = d.options[option];
+  if (!word) {
+    word = String(text || "").trim().replace(/\s+/g, " ").slice(0, 30);
+    if (norm(word).length < 2) return;
+  }
+  drawPick(r, word);
+}
+
+function handleStroke(r, idx, m) {
+  const d = r.draw;
+  if (r.mode !== "draw" || r.phase !== "playing" || r.paused || d.stage !== "draw" || idx !== d.drawer) return;
+  const now = Date.now();
+  if (now < d.drawStart - 100 || now > d.stageEnd + 300) return;
+  if (!/^[a-z0-9]{1,12}$/.test(String(m.id)) || !Array.isArray(m.p)) return;
+  const color = /^#[0-9a-f]{6}$/i.test(m.c) ? m.c : "#222222";
+  const w = Math.min(40, Math.max(1, Number(m.w) || 6));
+  const p = m.p.slice(0, 200).map((q) => [Math.min(1, Math.max(0, Number(q[0]) || 0)), Math.min(1, Math.max(0, Number(q[1]) || 0))]);
+  if (!p.length || d.points + p.length > D_MAX_POINTS) return;
+  d.points += p.length;
+  const id = String(m.id);
+  let st = d.strokes.find((x) => x.id === id);
+  if (!st) d.strokes.push((st = { id, c: color, w, p: [] }));
+  st.p.push(...p);
+  const other = r.players[1 - idx];
+  if (other?.ws) other.ws.send(JSON.stringify({ t: "stroke", id, c: st.c, w: st.w, p }));
+}
+
+function handleClear(r, idx) {
+  const d = r.draw;
+  if (r.mode !== "draw" || r.phase !== "playing" || r.paused || d.stage !== "draw" || idx !== d.drawer) return;
+  d.strokes = [];
+  d.points = 0;
+  const other = r.players[1 - idx];
+  if (other?.ws) other.ws.send(JSON.stringify({ t: "clearDraw" }));
+}
+
+function endDrawRound(r, correct, guess) {
+  const d = r.draw;
+  clearTimer(r, "dstage");
+  if (!correct) d.guesses.push(guess || "…");
+  if (!correct && d.round + 1 < D_ROUNDS) {
+    d.round++; // wrong (or no) answer: the drawer keeps going on the same picture
+    d.points = 0; // fresh stroke budget for the new round
+    enterDrawStage(r, "draw");
+    return;
+  }
+  if (correct) d.score = D_ROUNDS - d.round; // earlier guess = more hearts
+  d.result = { correct, guess };
+  enterDrawStage(r, "reveal");
+}
+
+function handleDrawGuess(r, idx, text) {
+  const d = r.draw;
+  if (r.mode !== "draw" || r.phase !== "playing" || r.paused || d.stage !== "guess" || idx === d.drawer) return;
+  const guess = String(text || "").trim().slice(0, 40);
+  if (!guess) return;
+  endDrawRound(r, isCorrect(keysFor([d.word]), guess), guess);
+}
+
 // ---------- rooms ----------
 const rooms = new Map();
 
@@ -265,6 +409,7 @@ function getRoom(id) {
       outcome: null,
       wonAmount: 0,
       chat: [],
+      draw: null,
     };
     rooms.set(id, r);
   }
@@ -305,6 +450,26 @@ function publicState(r, idx) {
       score: p.score,
       rematch: p.rematch,
     })),
+    draw: r.mode !== "draw" || !r.draw ? undefined : (() => {
+      const d = r.draw;
+      const isDrawer = idx === d.drawer;
+      const showWord = isDrawer || d.stage === "reveal" || r.phase === "over";
+      return {
+        round: d.round,
+        rounds: D_ROUNDS,
+        stage: d.stage,
+        drawer: d.drawer,
+        score: d.score,
+        drawStart: d.drawStart,
+        stageEnd: d.stageEnd,
+        options: d.stage === "pick" && isDrawer ? d.options : null,
+        word: showWord ? d.word : null,
+        wordLen: d.word ? d.word.length : null,
+        strokes: d.strokes,
+        result: d.result,
+        guesses: d.guesses,
+      };
+    })(),
     millionaire: r.mode !== "millionaire" ? undefined : {
       qIndex: r.qIndex,
       difficulty: r.difficulty,
@@ -374,6 +539,10 @@ function startGame(r) {
     broadcast(r);
     return;
   }
+  if (r.mode === "draw") {
+    startDraw(r);
+    return;
+  }
   r.deck = shuffle(COUNTRIES);
   r.turn = Math.floor(Math.random() * 2);
   r.current = nextCountry(r);
@@ -387,6 +556,8 @@ function pause(r) {
     clearTimer(r, "mReveal");
     r.pending = false;
     r.mReveal = null;
+  } else if (r.mode === "draw") {
+    clearTimer(r, "dstage");
   } else {
     stopClock(r);
     if (r.lockedUntil) {
@@ -402,7 +573,9 @@ function pause(r) {
     if (r.phase !== "playing" || !r.paused) return;
     const gone = r.players.findIndex((p) => !p.ws);
     r.phase = "over";
-    if (r.mode === "millionaire") {
+    if (r.mode === "draw") {
+      r.draw.stage = "left";
+    } else if (r.mode === "millionaire") {
       r.outcome = "left";
       r.wonAmount = r.qIndex > 0 ? LADDER[r.qIndex - 1] : 0;
       r.question = null;
@@ -420,12 +593,13 @@ function resume(r) {
   clearTimer(r, "grace");
   r.paused = false;
   r.pauseDeadline = null;
+  if (r.mode === "draw") return enterDrawStage(r, r.draw.stage);
   if (r.mode !== "millionaire") startClockAt(r, Date.now() + 1500);
   broadcast(r);
 }
 
 function handleGuess(r, idx, text) {
-  if (r.mode === "millionaire" || r.phase !== "playing" || r.paused || idx !== r.turn) return;
+  if (r.mode === "millionaire" || r.mode === "draw" || r.phase !== "playing" || r.paused || idx !== r.turn) return;
   const now = Date.now();
   if (r.runningSince === null || now < r.runningSince || now < r.lockedUntil) return;
   if (!isCorrect(keysOf(r), text)) {
@@ -444,7 +618,7 @@ function handleGuess(r, idx, text) {
 }
 
 function handleSkip(r, idx) {
-  if (r.mode === "millionaire" || r.phase !== "playing" || r.paused || idx !== r.turn) return;
+  if (r.mode === "millionaire" || r.mode === "draw" || r.phase !== "playing" || r.paused || idx !== r.turn) return;
   const now = Date.now();
   if (r.runningSince === null || now < r.runningSince || now < r.lockedUntil) return;
   r.lockedUntil = now + SKIP_MS;
@@ -519,6 +693,10 @@ wss.on("connection", (ws) => {
     else if (m.t === "walk") handleWalk(room, idx);
     else if (m.t === "lifeline") handleLifeline(room, idx, m.which);
     else if (m.t === "chat") handleChat(room, idx, m.text);
+    else if (m.t === "pick") handleDrawPick(room, idx, m.option, m.text);
+    else if (m.t === "stroke") handleStroke(room, idx, m);
+    else if (m.t === "clear") handleClear(room, idx);
+    else if (m.t === "dguess") handleDrawGuess(room, idx, m.text);
     else if (m.t === "difficulty") handleDifficulty(room, idx, m.value);
   });
 

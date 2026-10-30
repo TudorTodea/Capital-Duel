@@ -61,6 +61,37 @@
     </div>
   </main>
 
+  <main id="dStage" hidden>
+    <div id="dTop">
+      <div class="dInfo"><span id="dRound">Runda 1 / 5</span><span id="dScore">💖 0</span></div>
+      <div id="dRole"></div>
+      <div id="dTimerBar"><i></i><span id="dTimer"></span></div>
+    </div>
+    <div id="dBoard">
+      <canvas id="dCanvas" width="800" height="800"></canvas>
+      <div id="dCount" hidden></div>
+      <div id="dPick" hidden>
+        <p>Alege ce desenezi 🎨</p>
+        <div id="dOptions"></div>
+        <form id="dCustomForm" autocomplete="off">
+          <input id="dCustom" maxlength="30" placeholder="…sau scrie-ți propriul cuvânt">
+          <button type="submit" class="primary">Alege</button>
+        </form>
+      </div>
+      <div id="dToast" class="toastbubble"></div>
+    </div>
+    <div id="dTools" hidden>
+      <div id="dColors"></div>
+      <div id="dSizes"><button type="button" data-w="4" class="sz" aria-label="Subțire"><i style="width:6px;height:6px"></i></button><button type="button" data-w="9" class="sz active" aria-label="Mediu"><i style="width:12px;height:12px"></i></button><button type="button" data-w="18" class="sz" aria-label="Gros"><i style="width:20px;height:20px"></i></button></div>
+      <button type="button" id="dClear" class="ghost">🗑️ Șterge</button>
+    </div>
+    <form id="dGuessForm" autocomplete="off" hidden>
+      <input id="dGuess" maxlength="40" placeholder="Ce crezi că e? (o singură încercare)" enterkeyhint="send" autocapitalize="none" spellcheck="false">
+      <button type="submit" class="primary">Ghicește</button>
+    </form>
+    <div id="dStatus"></div>
+  </main>
+
   <div id="mChatScrim" hidden></div>
   <aside id="mChatDrawer" hidden>
     <div id="mChatHead"><span>💬 Chat cu jumătatea ta</span><button type="button" id="mChatClose" aria-label="Închide chatul">✕</button></div>
@@ -80,6 +111,7 @@
           <button type="button" class="mode active" data-mode="capitals">🌍 Capitals</button>
           <button type="button" class="mode" data-mode="flags">🚩 Flags</button>
           <button type="button" class="mode" data-mode="millionaire">💍 Milionari</button>
+          <button type="button" class="mode" data-mode="draw">✏️ Desenează</button>
         </div>
         <div class="diffpick" id="diffpick" hidden>
           <button type="button" class="diff" data-diff="usor">🌸 Ușor</button>
@@ -119,6 +151,14 @@
       </div>
       <button id="mRematch" class="primary">Joacă din nou</button>
       <p class="hint" id="mRematchHint"></p>
+    </div>
+
+    <div class="card" id="dOverCard" hidden>
+      <h2 id="dOverTitle"></h2>
+      <p class="sub" id="dOverSub"></p>
+      <div class="dHistory" id="dHistory"></div>
+      <button id="dRematch" class="primary">Joacă din nou</button>
+      <p class="hint" id="dRematchHint"></p>
     </div>
 
     <div class="card small" id="msgCard" hidden><h2 id="msgTitle"></h2><p class="sub" id="msgSub"></p></div>

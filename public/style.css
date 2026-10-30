@@ -206,3 +206,48 @@ button:disabled{opacity:.4;cursor:not-allowed}
   .opt{padding:10px 12px;min-height:48px}
   #mActions button{font-size:13px;padding:10px 6px}
 }
+/* ---------- Draw mode ---------- */
+#dStage{flex:1;min-height:0;display:flex;flex-direction:column;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));
+  max-width:760px;width:100%;margin:0 auto;font-family:"Quicksand",system-ui,sans-serif}
+#dStage[hidden]{display:none}
+#dTop{display:flex;flex-direction:column;gap:6px}
+.dInfo{display:flex;justify-content:space-between;font-weight:700;color:var(--m-gold)}
+#dRole{text-align:center;font-weight:700;font-size:17px;min-height:24px}
+#dTimerBar{position:relative;height:22px;border-radius:999px;background:var(--m-card);border:2px solid var(--m-card-line);overflow:hidden}
+#dTimerBar[hidden]{display:none}
+#dTimerBar i{position:absolute;left:0;top:0;bottom:0;width:100%;background:linear-gradient(90deg,var(--m-pink),var(--m-gold))}
+#dTimerBar.low i{background:var(--bad)}
+#dTimerBar span{position:absolute;inset:0;text-align:center;font:700 13px/18px "Quicksand",system-ui,sans-serif;text-shadow:0 1px 3px #0008}
+#dBoard{position:relative;flex:1;min-height:0;display:flex;align-items:center;justify-content:center;container-type:size}
+#dCanvas{width:min(100cqw,100cqh);height:min(100cqw,100cqh);border-radius:18px;background:#fffdf7;
+  box-shadow:0 10px 30px rgba(0,0,0,.45),0 0 0 4px var(--m-card-line);touch-action:none;cursor:default}
+#dCanvas.live{cursor:crosshair;box-shadow:0 10px 30px rgba(0,0,0,.45),0 0 0 4px var(--m-pink)}
+#dCount{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:700 120px/1 "Quicksand",sans-serif;
+  color:var(--m-pink);text-shadow:0 4px 0 #fff,0 8px 24px rgba(0,0,0,.35);pointer-events:none;z-index:2}
+#dCount[hidden],#dPick[hidden],#dTools[hidden],#dGuessForm[hidden]{display:none}
+#dPick{position:absolute;width:min(100cqw,100cqh);height:min(100cqw,100cqh);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:16px;
+  background:rgba(26,18,48,.92);border-radius:18px;z-index:4}
+#dPick p{margin:0;font-weight:700;font-size:20px}
+#dOptions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+#dOptions button{font:700 18px "Quicksand",sans-serif;padding:12px 20px;border-radius:14px;border:2px solid var(--m-pink);
+  background:var(--m-card);color:var(--text);cursor:pointer}
+#dOptions button:hover,#dOptions button:active{background:var(--m-pink);color:#fff}
+#dCustomForm{display:flex;gap:8px;width:100%;max-width:420px}
+#dCustomForm input{flex:1;min-width:0}
+#dTools{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px}
+#dColors,#dSizes{display:flex;gap:6px;align-items:center}
+.clr{width:30px;height:30px;border-radius:50%;border:3px solid #fff3;cursor:pointer;padding:0}
+.clr.active{border-color:#fff;transform:scale(1.15)}
+.sz{width:34px;height:34px;border-radius:50%;border:2px solid var(--m-card-line);background:var(--m-card);display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer}
+.sz i{display:block;border-radius:50%;background:var(--text)}
+.sz.active{border-color:var(--m-pink)}
+#dGuessForm{display:flex;gap:8px}
+#dGuessForm input{flex:1;min-width:0}
+#dStatus{text-align:center;color:var(--muted);font-weight:600;min-height:20px}
+#dStage .toastbubble{top:10px}
+.dHistory{display:flex;flex-direction:column;gap:6px;margin:6px 0 12px;max-height:40vh;overflow:auto}
+.dHistory div{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:12px;background:var(--m-card);text-align:left}
+.dHistory b{flex:1}
+.dHistory em{color:var(--muted);font-style:normal;font-size:13px}
+@media (max-height:640px){#dRole{font-size:15px}#dCount{font-size:80px}}
+#dToast{white-space:normal;width:max-content;max-width:92%;border-radius:18px;padding:10px 16px;line-height:1.25;top:8px}
